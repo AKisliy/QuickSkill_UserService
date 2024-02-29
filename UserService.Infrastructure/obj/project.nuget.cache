@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "zWs2gqK/CNY7IwwLmCLKrsP2N9w/LwQVCMmMfgxWQQO6eDnVgPkRRfeMdeTqiJ+AlyMzI3q1KSmfm8iAciElYg==",
+  "dgSpecHash": "dAjauUgtlz03auYgdm4q23GMwzi57g8wJk2smTpUvPlLoAgDA8I6Bfiy7bjJCE5oVDLCyHOMHhBMC0lhEFxSNg==",
   "success": true,
   "projectFilePath": "/Users/alexeykiselev/UserService/UserService.Infrastructure/UserService.Infrastructure.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/alexeykiselev/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
