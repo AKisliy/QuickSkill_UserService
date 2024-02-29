@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "7QkRiq9ed4WC7R/6tvdjo0dwR8gzWwDjJ5CeqBlHPGEuO2vP0U7nRU0cavCThn1t10CEGJhp32dW3ptn8PCxdA==",
+  "dgSpecHash": "QIPjvwWOCiazyNeQOTOy5A3a8IoTxc3qxaxiUBCwpYd6VaLHTJ6Fn1UvYKxWWoarRbWH6yB7mqFrXmKtUtI2+A==",
   "success": true,
   "projectFilePath": "/Users/alexeykiselev/UserService/UserService.Application/UserService.Application.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/alexeykiselev/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/6.0.0/microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.options/6.0.0/microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.primitives/6.0.0/microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

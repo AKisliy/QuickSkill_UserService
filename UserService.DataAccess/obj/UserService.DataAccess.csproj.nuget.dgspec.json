@@ -4,14 +4,14 @@
     "/Users/alexeykiselev/UserService/UserService.DataAccess/UserService.DataAccess.csproj": {}
   },
   "projects": {
-    "/Users/alexeykiselev/UserService/UserService.DataAccess/UserService.DataAccess.csproj": {
+    "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alexeykiselev/UserService/UserService.DataAccess/UserService.DataAccess.csproj",
-        "projectName": "UserService.DataAccess",
-        "projectPath": "/Users/alexeykiselev/UserService/UserService.DataAccess/UserService.DataAccess.csproj",
+        "projectUniqueName": "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj",
+        "projectName": "UserService.Core",
+        "projectPath": "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj",
         "packagesPath": "/Users/alexeykiselev/.nuget/packages/",
-        "outputPath": "/Users/alexeykiselev/UserService/UserService.DataAccess/obj/",
+        "outputPath": "/Users/alexeykiselev/UserService/UserService.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/alexeykiselev/.nuget/NuGet/NuGet.Config"
@@ -37,6 +37,87 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/8.0.1/libexec/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/alexeykiselev/UserService/UserService.DataAccess/UserService.DataAccess.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/alexeykiselev/UserService/UserService.DataAccess/UserService.DataAccess.csproj",
+        "projectName": "UserService.DataAccess",
+        "projectPath": "/Users/alexeykiselev/UserService/UserService.DataAccess/UserService.DataAccess.csproj",
+        "packagesPath": "/Users/alexeykiselev/.nuget/packages/",
+        "outputPath": "/Users/alexeykiselev/UserService/UserService.DataAccess/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/alexeykiselev/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj": {
+                "projectPath": "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
