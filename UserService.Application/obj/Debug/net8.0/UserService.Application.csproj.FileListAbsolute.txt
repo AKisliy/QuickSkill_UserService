@@ -14,3 +14,5 @@
 /Users/alexeykiselev/UserService/UserService.Application/bin/Debug/net8.0/UserService.Core.dll
 /Users/alexeykiselev/UserService/UserService.Application/bin/Debug/net8.0/UserService.Core.pdb
 /Users/alexeykiselev/UserService/UserService.Application/obj/Debug/net8.0/UserService.Application.csproj.CopyComplete
+/Users/alexeykiselev/UserService/UserService.Application/bin/Debug/net8.0/UserService.Infrastructure.dll
+/Users/alexeykiselev/UserService/UserService.Application/bin/Debug/net8.0/UserService.Infrastructure.pdb

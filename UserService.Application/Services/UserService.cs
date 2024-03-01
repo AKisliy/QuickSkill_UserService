@@ -11,8 +11,8 @@ namespace UserService.Application.Services
 {
     public class UsersService(IUserRepository repository, IMapper mapper) : IUsersService
     {
-        private IMapper _mapper = mapper;
-        private IUserRepository _repository = repository;
+        private readonly IMapper _mapper = mapper;
+        private readonly IUserRepository _repository = repository;
 
         public async Task<IEnumerable<User>> GetAllUsers()
         {

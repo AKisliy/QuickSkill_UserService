@@ -47,3 +47,4 @@
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.Core.pdb
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.DataAccess.pdb
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.Infrastructure.pdb
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/BCrypt.Net-Next.dll

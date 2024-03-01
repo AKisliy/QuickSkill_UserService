@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "xsEBI0E9i3NRlMwcjkDP658aEhrp0EN4z0PzUSO6APNvA8p1stsFOR131GOWEd9YvX8sKbSPegl//erRtyiSjQ==",
+  "dgSpecHash": "JVzhROWXVHuCfOapZwU8OOcwiGqDapC2oCAeVDErDl5vH1xCBLOnCbBxr/YiOtuMaRPmsgWmBg5c5ufrUs/Fwg==",
   "success": true,
   "projectFilePath": "/Users/alexeykiselev/UserService/UserService.WebApi/UserService.WebApi.csproj",
   "expectedPackageFiles": [
     "/Users/alexeykiselev/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.aspnetcore.openapi/8.0.1/microsoft.aspnetcore.openapi.8.0.1.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.entityframeworkcore/8.0.2/microsoft.entityframeworkcore.8.0.2.nupkg.sha512",

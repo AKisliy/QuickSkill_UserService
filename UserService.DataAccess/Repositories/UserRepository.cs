@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
 using UserService.Core.Interfaces;
 using UserService.Core.Models;
 using UserService.DataAccess.Entities;
@@ -41,11 +43,14 @@ namespace UserService.DataAccess.Repositories
             return userEntities.Select(u => _mapper.Map<User>(u));
         }
 
-        public async Task<int> Create(User user)
+        public async Task Create(User user)
         {
-            await _context.Users.AddAsync(_mapper.Map<UserEntity>(user));
+            var find = _context.Users.FirstOrDefault(u => u.Email == user.Email);
+            if(find != null)
+                throw new InvalidDataException("User already registered");
+            var userEntity = _mapper.Map<UserEntity>(user);
+            await _context.Users.AddAsync(userEntity);
             await _context.SaveChangesAsync();
-            return user.Id;
         }
 
         public async Task<int> Update(User user)

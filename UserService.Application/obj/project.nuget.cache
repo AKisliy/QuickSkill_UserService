@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "QIPjvwWOCiazyNeQOTOy5A3a8IoTxc3qxaxiUBCwpYd6VaLHTJ6Fn1UvYKxWWoarRbWH6yB7mqFrXmKtUtI2+A==",
+  "dgSpecHash": "rT0XeYeLTuWutwqqbgCBEqNyEb6DPJqgOMwqZLI0H7hM1N0927GNFSLRMnSndunAeLxnc52PQ7Y8uWzLBUux2Q==",
   "success": true,
   "projectFilePath": "/Users/alexeykiselev/UserService/UserService.Application/UserService.Application.csproj",
   "expectedPackageFiles": [
     "/Users/alexeykiselev/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/6.0.0/microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.options/6.0.0/microsoft.extensions.options.6.0.0.nupkg.sha512",

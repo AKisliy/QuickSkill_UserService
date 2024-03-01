@@ -18,7 +18,7 @@ namespace UserService.Core.Interfaces
         public Task<User?> GetUserByUsername(string username);
         public Task<User?> GetUserByEmail(string email);
 
-        public Task<int> Create(User user);
+        public Task Create(User user);
 
         public Task<int> Update(User user);
 

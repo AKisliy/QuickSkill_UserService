@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using UserService.Core.Interfaces;
+using UserService.Core.Interfaces.Services;
 using UserService.WebApi.Dtos;
 
 namespace UserService.WebApi.Controllers
@@ -14,21 +15,21 @@ namespace UserService.WebApi.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private IUsersService _service;
+        private IUsersService _usersService;
         private IMapper _mapper;
-        private ApiResponse _response;
+        private IAuthService _authService;
 
-        public UserController(IUsersService service, IMapper mapper)
+        public UserController(IUsersService usersService, IAuthService authService, IMapper mapper)
         {
-            _service = service;
+            _usersService = usersService;
             _mapper = mapper;
-            _response = new ApiResponse();
+            _authService = authService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _service.GetAllUsers();
+            var users = await _usersService.GetAllUsers();
             var response = new ApiResponse();
             response.Result = users;
             response.IsSucceed = true;
@@ -39,7 +40,7 @@ namespace UserService.WebApi.Controllers
         [HttpGet("{id}", Name = "GetUserById")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            var user = await _service.GetUserById(id);
+            var user = await _usersService.GetUserById(id);
             if(user != null)
             {
                 var response = new ApiResponse()

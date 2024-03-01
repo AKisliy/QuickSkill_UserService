@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace UserService.Infrastructure
 {
-    public class Generator{
+    public class Generator
+    {
         public static string GenerateUsername(string firstName, string lastName, string email)
         {
             StringBuilder sb = new StringBuilder();
