@@ -17,8 +17,9 @@ namespace UserService.WebApi.Extensions
         {
             var jwtOptions = new JwtOptions();
             configuration.GetSection(nameof(JwtOptions)).Bind(jwtOptions);
-            var cookies = new CookiesOptions();
-            configuration.GetSection(nameof(CookiesOptions)).Bind(cookies);
+            var cookies = new MyCookiesOptions();
+            configuration.GetSection(nameof(MyCookiesOptions)).Bind(cookies);
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => 
                 {
@@ -30,7 +31,7 @@ namespace UserService.WebApi.Extensions
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
                     };
-
+                    // get token from cookies
                     options.Events = new JwtBearerEvents
                     {
                         OnMessageReceived = context =>

@@ -20,9 +20,9 @@ namespace UserService.WebApi.Controllers
         private IUsersService _usersService;
         private IMapper _mapper;
         private IAuthService _authService;
-        private IOptions<CookiesOptions> _cookiesOptions;
+        private IOptions<MyCookiesOptions> _cookiesOptions;
 
-        public AuthController(IUsersService usersService, IAuthService authService, IOptions<CookiesOptions> cookiesOptions, IMapper mapper)
+        public AuthController(IUsersService usersService, IAuthService authService, IOptions<MyCookiesOptions> cookiesOptions, IMapper mapper)
         {
             _usersService = usersService;
             _mapper = mapper;

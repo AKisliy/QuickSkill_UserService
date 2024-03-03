@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UserService.Infrastructure
 {
-    public class CookiesOptions
+    public class MyCookiesOptions
     {
         public string TokenFieldName { get; set; } = string.Empty;
     }
