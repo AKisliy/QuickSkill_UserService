@@ -14,12 +14,26 @@ namespace UserService.Application.Services
     public class AuthService : IAuthService
     {
         private IUserRepository _repository;
+        private IJwtProvider _provider;
         private IPasswordHasher _hasher;
-        public AuthService(IUserRepository repository, IPasswordHasher hasher)
+        public AuthService(IUserRepository repository, IPasswordHasher hasher, IJwtProvider provider)
         {
             _hasher = hasher;
-            _repository = repository;   
+            _repository = repository;
+            _provider = provider;
         }
+
+        public async Task<string> Login(string email, string password)
+        {
+            var user = await _repository.GetUserByEmail(email) ?? throw new Exception("Failed to login");
+            var result = _hasher.Verify(password, user.Password);
+            if(!result)
+                throw new Exception("Failed to login");
+            var token = _provider.GenerateToken(user);
+
+            return token;
+        }
+
         public async Task<bool> Register(string firstName, string lastName, string email, string password)
         {
             try{

@@ -48,3 +48,11 @@
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.DataAccess.pdb
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.Infrastructure.pdb
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/BCrypt.Net-Next.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll

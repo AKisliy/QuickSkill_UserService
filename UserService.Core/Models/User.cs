@@ -26,21 +26,21 @@ namespace UserService.Core.Models
 
         public int? Xp { get; set; }
 
-        public int? UserLevel { get;  }
+        public int? UserLevel { get; set; }
 
-        public string? Description { get;  }
+        public string? Description { get; set; }
 
-        public string? Email { get;  }
+        public string? Email { get; set; }
 
-        public string? Password { get;  }
+        public string? Password { get; set; }
 
-        public string? Photo { get; }
+        public string? Photo { get; set; }
 
-        public string? GoalText { get; }
+        public string? GoalText { get; set; }
 
-        public int? GoalDays { get; }
+        public int? GoalDays { get; set; }
 
-        public string? Status { get; }
+        public string? Status { get; set; }
 
         public static User Create(string firstName, string lastName, string username, string email, string password)
         {

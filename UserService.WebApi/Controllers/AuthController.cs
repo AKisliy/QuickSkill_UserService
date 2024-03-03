@@ -5,25 +5,29 @@ using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Services;
 using UserService.WebApi.Dtos;
+using UserService.Infrastructure;
 
 namespace UserService.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     public class AuthController : ControllerBase
     {
         private IUsersService _usersService;
         private IMapper _mapper;
         private IAuthService _authService;
+        private IOptions<CookiesOptions> _cookiesOptions;
 
-        public AuthController(IUsersService usersService, IAuthService authService, IMapper mapper)
+        public AuthController(IUsersService usersService, IAuthService authService, IOptions<CookiesOptions> cookiesOptions, IMapper mapper)
         {
             _usersService = usersService;
             _mapper = mapper;
             _authService = authService;
+            _cookiesOptions = cookiesOptions;
         }
         
         [HttpPost("register")]
@@ -46,6 +50,27 @@ namespace UserService.WebApi.Controllers
                 return Conflict(response);
             }
             return Ok();
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
+        {
+            var response = new ApiResponse();
+            try
+            {
+                var token = await _authService.Login(user.Email, user.Password);
+                HttpContext.Response.Cookies.Append(_cookiesOptions.Value.TokenFieldName, token);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                response.IsSucceed = false;
+                response.ErrorMessages.Add(ex.Message);
+                response.ErrorMessages.Add(ex.Source);
+                response.ErrorMessages.Add(ex.StackTrace);
+                response.StatusCode = HttpStatusCode.NotFound;
+                return NotFound(response);
+            }
         }
     }
 }

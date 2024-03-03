@@ -1,10 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "3hZ1MPfuExWmPtuLwHYNYpD22uexNzYkq/nUVcgdTA3l/wwX4azamhY5FwTybZ9EOkCLQlMSDAX3GFmJ4JGYBA==",
+  "dgSpecHash": "FkGA2h4sEwFED2/T1Sj83bNCPAm635/XwGBI/uCBKcJRe1apI2dKAfkb/pHscONO76SCc9Pu+GNr21uM29IW9w==",
   "success": true,
   "projectFilePath": "/Users/alexeykiselev/UserService/UserService.Infrastructure/UserService.Infrastructure.csproj",
   "expectedPackageFiles": [
-    "/Users/alexeykiselev/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512"
+    "/Users/alexeykiselev/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.2/microsoft.aspnetcore.authentication.jwtbearer.8.0.2.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.identitymodel.abstractions/7.1.2/microsoft.identitymodel.abstractions.7.1.2.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.identitymodel.jsonwebtokens/7.1.2/microsoft.identitymodel.jsonwebtokens.7.1.2.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.identitymodel.logging/7.1.2/microsoft.identitymodel.logging.7.1.2.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.identitymodel.protocols/7.1.2/microsoft.identitymodel.protocols.7.1.2.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/7.1.2/microsoft.identitymodel.protocols.openidconnect.7.1.2.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.identitymodel.tokens/7.1.2/microsoft.identitymodel.tokens.7.1.2.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/system.identitymodel.tokens.jwt/7.1.2/system.identitymodel.tokens.jwt.7.1.2.nupkg.sha512"
   ],
   "logs": []
 }
