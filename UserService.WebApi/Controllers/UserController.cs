@@ -27,15 +27,17 @@ namespace UserService.WebApi.Controllers
             _authService = authService;
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet(Name = "GetAllUsers")]
+        //[Authorize]
         public async Task<IActionResult> GetUsers()
         {
             var users = await _usersService.GetAllUsers();
-            var response = new ApiResponse();
-            response.Result = users;
-            response.IsSucceed = true;
-            response.StatusCode = HttpStatusCode.OK;
+            var response = new ApiResponse
+            {
+                Result = users,
+                IsSucceed = true,
+                StatusCode = HttpStatusCode.OK
+            };
             return Ok(response);
         }
 
@@ -54,6 +56,25 @@ namespace UserService.WebApi.Controllers
                 return Ok(response);
             }
             return NotFound(new ApiResponse(){ IsSucceed = false, StatusCode = HttpStatusCode.NotFound, ErrorMessages = {"No user with such id"}});
+        }
+
+        [HttpDelete("{id}", Name = "DeleteUser")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var response = new ApiResponse();
+            var res = await _usersService.DeleteUser(id);
+
+            if(!res)
+            {
+                response.IsSucceed = false;
+                response.ErrorMessages.Add("User with id: {id} wasn't found");
+                response.StatusCode = HttpStatusCode.NotFound;
+                return NotFound(response);
+            }
+
+            response.IsSucceed = true;
+            response.StatusCode = HttpStatusCode.OK;
+            return Ok(response);
         }
     }
 }

@@ -82,6 +82,9 @@ namespace UserService.DataAccess.Repositories
 
         public async Task<bool> Delete(int id)
         {
+            var badge = await _context.Badges.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
+            if(badge == null)
+                return false;
             int res = await _context.Badges.Where(b => b.Id == id).ExecuteDeleteAsync();
             await _context.SaveChangesAsync();
             return true;

@@ -98,12 +98,12 @@ namespace UserService.DataAccess
 
                 entity.HasOne(d => d.Badge).WithMany(p => p.UserBadges)
                     .HasForeignKey(d => d.BadgeId)
-                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("userbadges_badgeid_fkey");
 
                 entity.HasOne(d => d.User).WithMany(p => p.UserBadges)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("userbadges_userid_fkey");
             });
 
@@ -124,9 +124,10 @@ namespace UserService.DataAccess
 
                 entity.HasOne(d => d.User).WithMany(p => p.UserActivities)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("usersactivity_userid_fkey");
             });
+
 
             OnModelCreatingPartial(modelBuilder);
         }

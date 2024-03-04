@@ -70,10 +70,14 @@ namespace UserService.DataAccess.Repositories
             return user.Id;
         }
 
-        public async Task<int> Delete(User user)
+        public async Task<bool> Delete(int id)
         {
-            await _context.Users.Where(u => u.Id == user.Id).ExecuteDeleteAsync();
-            return user.Id;
+            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+            if(user == null)
+                return false;
+            await _context.Users.Where(u => u.Id == id).ExecuteDeleteAsync();
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<User?> GetUserById(int id)

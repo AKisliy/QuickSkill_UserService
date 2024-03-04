@@ -33,5 +33,10 @@ namespace UserService.Application.Services
         {
             return await _repository.GetUserByEmail(email);
         }
+
+        public async Task<bool> DeleteUser(int id)
+        {
+            return await _repository.Delete(id);
+        }
     }
 }

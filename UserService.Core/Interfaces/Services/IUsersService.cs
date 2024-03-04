@@ -16,6 +16,6 @@ namespace UserService.Core.Interfaces
         public Task<User?> GetUserByUsername(string username);
 
         public Task<User?> GetUserByEmail(string email);
-        
+        public Task<bool> DeleteUser(int id);
     }
 }
