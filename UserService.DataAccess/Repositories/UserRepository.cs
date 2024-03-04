@@ -82,7 +82,7 @@ namespace UserService.DataAccess.Repositories
 
         public async Task<User?> GetUserById(int id)
         {
-            var user =  await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var user =  await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
             if(user == null)
                 return null;
             return _mapper.Map<User>(user);
@@ -90,7 +90,7 @@ namespace UserService.DataAccess.Repositories
 
         public async Task<User?> GetUserByUsername(string username)
         {
-            var user =  await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            var user =  await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username);
             if(user == null)
                 return null;
             return _mapper.Map<User>(user);
@@ -98,10 +98,20 @@ namespace UserService.DataAccess.Repositories
 
         public async Task<User?> GetUserByEmail(string email)
         {
-            var user =  await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var user =  await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
             if(user == null)
                 return null;
             return _mapper.Map<User>(user);
+        }
+
+        public async Task<bool> UpdateUserXp(int id, int xp)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            if(user == null)
+                return false;
+            user.Xp += xp;
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

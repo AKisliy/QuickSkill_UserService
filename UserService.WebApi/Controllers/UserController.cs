@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -56,6 +57,23 @@ namespace UserService.WebApi.Controllers
                 return Ok(response);
             }
             return NotFound(new ApiResponse(){ IsSucceed = false, StatusCode = HttpStatusCode.NotFound, ErrorMessages = {"No user with such id"}});
+        }
+
+        [HttpPost("{id}/xp", Name = "UpdateUserXp")]
+        public async Task<IActionResult> UpdateUserXp(int id, int xp)
+        {
+            var response = new ApiResponse();
+            var res = await _usersService.UpdateUserXp(id, xp);
+            if(!res)
+            {
+                response.IsSucceed = false;
+                response.ErrorMessages.Add("User with id: {id} wasn't found");
+                response.StatusCode = HttpStatusCode.NotFound;
+                return NotFound(response);
+            }
+            response.IsSucceed = true;
+            response.StatusCode = HttpStatusCode.OK;
+            return Ok(response);
         }
 
         [HttpDelete("{id}", Name = "DeleteUser")]

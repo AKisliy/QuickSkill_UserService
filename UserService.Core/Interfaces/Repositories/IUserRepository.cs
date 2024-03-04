@@ -23,5 +23,6 @@ namespace UserService.Core.Interfaces
         public Task<int> Update(User user);
 
         public Task<bool> Delete(int id);
+        public Task<bool> UpdateUserXp(int id, int xp);
     }
 }

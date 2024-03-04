@@ -38,5 +38,10 @@ namespace UserService.Application.Services
         {
             return await _repository.Delete(id);
         }
+
+        public async Task<bool> UpdateUserXp(int id, int xp)
+        {
+            return await  _repository.UpdateUserXp(id, xp);
+        }
     }
 }
