@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UserService.DataAccess.Entities
+namespace UserService.WebApi.Dtos
 {
-    public partial class BadgeEntity
+    public class UserBadgeResponse
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
 
         public string Name { get; set; } = null!;
 
+        public int Progress { get; set; }
+
         public int? Required { get; set; }
+
+        public bool Achieved { get; set; }
 
         public string TaskToAchieve { get; set; } = null!;
 
         public string? Photo { get; set; }
 
         public string? GrayPhoto { get; set; }
-
-        public virtual ICollection<UserBadgeEntity> UserBadges { get; set; } = new List<UserBadgeEntity>();
     }
 }

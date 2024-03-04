@@ -1,10 +1,7 @@
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 using UserService.Application.Services;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Auth;
+using UserService.Core.Interfaces.Repositories;
 using UserService.Core.Interfaces.Services;
 using UserService.DataAccess;
 using UserService.DataAccess.Repositories;
@@ -25,7 +22,11 @@ builder.Services.Configure<MyCookiesOptions>(builder.Configuration.GetSection(na
 builder.Services.AddApiAuthentication(builder.Configuration);
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IBadgeRepository, BadgeRepository>();
+
 builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IBadgeService, BadgeService>();
+
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();

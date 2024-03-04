@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UserService.DataAccess.Entities
 {
-    public class UserActivity
+    public class UserActivityEntity
     {
         public int Id { get; set; }
 

@@ -22,9 +22,9 @@ namespace UserService.DataAccess
 
         public virtual DbSet<UserEntity> Users { get; set; }
 
-        public virtual DbSet<UserBadge> UserBadges { get; set; }
+        public virtual DbSet<UserBadgeEntity> UserBadges { get; set; }
 
-        public virtual DbSet<UserActivity> UsersActivities { get; set; }
+        public virtual DbSet<UserActivityEntity> UsersActivities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=userservice;Username=alexeykiselev;Password=kisliy");
@@ -79,7 +79,7 @@ namespace UserService.DataAccess
                     .HasColumnName("xp");
             });
 
-            modelBuilder.Entity<UserBadge>(entity =>
+            modelBuilder.Entity<UserBadgeEntity>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.BadgeId }).HasName("userbadges_pkey");
 
@@ -98,16 +98,16 @@ namespace UserService.DataAccess
 
                 entity.HasOne(d => d.Badge).WithMany(p => p.UserBadges)
                     .HasForeignKey(d => d.BadgeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("userbadges_badgeid_fkey");
 
                 entity.HasOne(d => d.User).WithMany(p => p.UserBadges)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("userbadges_userid_fkey");
             });
 
-            modelBuilder.Entity<UserActivity>(entity =>
+            modelBuilder.Entity<UserActivityEntity>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("usersactivity_pkey");
 
@@ -124,7 +124,7 @@ namespace UserService.DataAccess
 
                 entity.HasOne(d => d.User).WithMany(p => p.UserActivities)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("usersactivity_userid_fkey");
             });
 

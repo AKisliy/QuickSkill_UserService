@@ -33,8 +33,8 @@ namespace UserService.DataAccess.Entities
 
         public string? Status { get; set; }
 
-        public virtual ICollection<UserBadge> UserBadges { get; set; } = new List<UserBadge>();
+        public virtual ICollection<UserBadgeEntity> UserBadges { get; set; } = new List<UserBadgeEntity>();
 
-        public virtual ICollection<UserActivity> UserActivities { get; set; } = new List<UserActivity>();
+        public virtual ICollection<UserActivityEntity> UserActivities { get; set; } = new List<UserActivityEntity>();
     }   
 }

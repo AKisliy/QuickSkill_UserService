@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UserService.DataAccess.Entities
+namespace UserService.WebApi.Dtos
 {
-    public partial class BadgeEntity
+    public class BadgeResponse
     {
-        public int Id { get; set; }
-
         public string Name { get; set; } = null!;
 
         public int? Required { get; set; }
@@ -19,6 +17,5 @@ namespace UserService.DataAccess.Entities
 
         public string? GrayPhoto { get; set; }
 
-        public virtual ICollection<UserBadgeEntity> UserBadges { get; set; } = new List<UserBadgeEntity>();
     }
 }

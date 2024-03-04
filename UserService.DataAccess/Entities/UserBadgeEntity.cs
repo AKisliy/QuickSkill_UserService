@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UserService.DataAccess.Entities
 {
-    public partial class UserBadge
+    public class UserBadgeEntity
     {   
         public int UserId { get; set; }
 
@@ -19,5 +19,4 @@ namespace UserService.DataAccess.Entities
 
         public virtual UserEntity User { get; set; } = null!;
     }
-
 }
