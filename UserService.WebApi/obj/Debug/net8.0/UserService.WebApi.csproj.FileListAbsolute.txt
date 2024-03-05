@@ -56,3 +56,6 @@
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MailKit.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MimeKit.dll

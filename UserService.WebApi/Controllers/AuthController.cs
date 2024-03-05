@@ -29,7 +29,7 @@ namespace UserService.WebApi.Controllers
             _authService = authService;
             _cookiesOptions = cookiesOptions;
         }
-        
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterRequest user)
         {
@@ -66,10 +66,30 @@ namespace UserService.WebApi.Controllers
             {
                 response.IsSucceed = false;
                 response.ErrorMessages.Add(ex.Message);
-                response.ErrorMessages.Add(ex.Source);
-                response.ErrorMessages.Add(ex.StackTrace);
+                // response.ErrorMessages.Add(ex.Source);
+                // response.ErrorMessages.Add(ex.StackTrace);
                 response.StatusCode = HttpStatusCode.NotFound;
                 return NotFound(response);
+            }
+        }
+
+        [HttpGet("verify")]
+        public async Task<IActionResult> Verify(string token)
+        {
+            var response = new ApiResponse();
+            try
+            {
+                await _authService.Verify(token);
+                response.IsSucceed = true;
+                response.StatusCode = HttpStatusCode.OK;
+                return Ok(response);
+            }
+            catch(Exception ex)
+            {
+                response.IsSucceed = false;
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.ErrorMessages.Add(ex.Message);
+                return BadRequest(response);
             }
         }
     }

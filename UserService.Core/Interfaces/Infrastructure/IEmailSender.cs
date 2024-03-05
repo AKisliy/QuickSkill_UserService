@@ -7,6 +7,6 @@ namespace UserService.Core.Interfaces.Infrastructure
 {
     public interface IEmailSender
     {
-        public Task SendEmailAsync(string email, string subject, string text);
+        public Task SendVerificationEmailAsync(string userEmail, string token);
     }
 }

@@ -78,24 +78,24 @@ namespace UserService.DataAccess
                     .HasDefaultValue(0)
                     .HasColumnName("xp");
                 entity.Property(e => e.CreatedAt)
-                    .HasColumnName("CreatedAt")
+                    .HasColumnName("createdat")
                     .HasDefaultValue(DateTime.UtcNow);
 
                 entity.Property(e => e.VerifiedAt)
-                    .HasColumnName("VerifiedAt");
+                    .HasColumnName("verifiedat");
 
                 entity.Property(e => e.VerificationToken)
-                    .HasColumnName("VerificationToken")
-                    .HasMaxLength(64);
+                    .HasColumnName("verificationtoken")
+                    .HasMaxLength(128);
 
                 entity.Property(e => e.VerificationTokenExpires)
-                    .HasColumnName("VerificationTokenExpires");
+                    .HasColumnName("verificationtokenexpires");
 
                 entity.Property(e => e.ResetToken)
-                    .HasColumnName("ResetToken")
-                    .HasMaxLength(64);
+                    .HasColumnName("resettoken")
+                    .HasMaxLength(128);
                 entity.Property(e => e.ResetTokenExpires)
-                    .HasColumnName("ResetTokenExpires");
+                    .HasColumnName("resettokenexpires");
             });
 
             modelBuilder.Entity<UserBadgeEntity>(entity =>

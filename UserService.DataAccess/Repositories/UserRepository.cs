@@ -43,14 +43,27 @@ namespace UserService.DataAccess.Repositories
             return userEntities.Select(u => _mapper.Map<User>(u));
         }
 
-        public async Task Create(User user)
+        public async Task<int> Create(User user)
         {
             var find = _context.Users.FirstOrDefault(u => u.Email == user.Email);
             if(find != null)
                 throw new InvalidDataException("User already registered");
             var userEntity = _mapper.Map<UserEntity>(user);
+            userEntity.CreatedAt = DateTime.UtcNow;
             await _context.Users.AddAsync(userEntity);
             await _context.SaveChangesAsync();
+            return userEntity.Id;
+        }
+
+        public async Task<bool> SetVerificationToken(int id, string token, DateTime expires)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            if(user == null)
+                return false;
+            user.VerificationToken = token;
+            user.VerificationTokenExpires = expires;
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<int> Update(User user)
@@ -112,6 +125,19 @@ namespace UserService.DataAccess.Repositories
             user.Xp += xp;
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task VerifyUser(string token)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.VerificationToken == token) ?? throw new Exception("No user with this token");
+            if(user.VerifiedAt != null)
+                throw new Exception("User already verified");
+            if (user.VerificationTokenExpires < DateTime.UtcNow)
+                throw new Exception("Token has expired!");
+            user.VerifiedAt = DateTime.UtcNow;
+            user.VerificationToken = null;
+            user.VerificationTokenExpires = null;
+            await _context.SaveChangesAsync();
         }
     }
 }

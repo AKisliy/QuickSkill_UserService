@@ -18,11 +18,16 @@ namespace UserService.Core.Interfaces
         public Task<User?> GetUserByUsername(string username);
         public Task<User?> GetUserByEmail(string email);
 
-        public Task Create(User user);
+        public Task<int> Create(User user);
 
         public Task<int> Update(User user);
 
         public Task<bool> Delete(int id);
+
         public Task<bool> UpdateUserXp(int id, int xp);
+
+        public Task<bool> SetVerificationToken(int id, string token, DateTime expires);
+
+        public Task VerifyUser(string token);
     }
 }

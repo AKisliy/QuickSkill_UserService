@@ -42,8 +42,8 @@ namespace UserService.DataAccess.Entities
         public DateTime? ResetTokenExpires { get; set; }
 
         public DateTime CreatedAt { get; set; }
-        
-        public DateTime VerifiedAt { get; set; }
+
+        public DateTime? VerifiedAt { get; set; }
 
         public virtual ICollection<UserBadgeEntity> UserBadges { get; set; } = new List<UserBadgeEntity>();
 

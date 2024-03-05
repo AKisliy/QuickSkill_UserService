@@ -1,28 +1,36 @@
-using System.Net;
-using System.Net.Mail;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.Extensions.Configuration;
+using MimeKit;
+using MimeKit.Text;
 using UserService.Core.Interfaces.Infrastructure;
 
 namespace UserService.Infrastructure
 {
     public class EmaiSender : IEmailSender
     {
-        public Task SendEmailAsync(string email, string subject, string text)
+        private IConfiguration _config;
+
+        public EmaiSender(IConfiguration config)
         {
-            var mail = "a.kisel20049192@gmail.com";
-            var password = "02092004";
+            _config = config;
+        }
+        public async Task SendVerificationEmailAsync(string userEmail, string token)
+        {
+            var email = new MimeMessage();
+            var options = _config.GetSection("EmailOptions");
+            email.From.Add(MailboxAddress.Parse(options["EmailAddress"]));
+            email.To.Add(MailboxAddress.Parse(userEmail));
+            email.Subject = options["EmailSubject"];
+            var baseUrl = "http://localhost:5179/api/auth/verify";
+            email.Body = new TextPart(TextFormat.Text) { Text = $"{baseUrl}?token={token}"};
 
-            var client = new SmtpClient("gmail.com")
-            {
-                EnableSsl = true,
-                Credentials = new NetworkCredential(mail, password)
-            };
+            using var smtp = new SmtpClient();
+            smtp.Connect(options["EmailHost"], 587, SecureSocketOptions.StartTls);
 
-            return client.SendMailAsync(
-                new MailMessage(from: mail,
-                                to: email, 
-                                subject: subject, 
-                                text)
-            );
+            smtp.Authenticate(options["EmailUsername"], options["EmailPassword"]);
+            await smtp.SendAsync(email);
+            smtp.Disconnect(true);
         }
     }
 }
