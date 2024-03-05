@@ -59,11 +59,11 @@ namespace UserService.WebApi.Controllers
             return NotFound(new ApiResponse(){ IsSucceed = false, StatusCode = HttpStatusCode.NotFound, ErrorMessages = {"No user with such id"}});
         }
 
-        [HttpPost("{id}/xp", Name = "UpdateUserXp")]
-        public async Task<IActionResult> UpdateUserXp(int id, int xp)
+        [HttpPost("{id}/xp/{xpCnt}", Name = "UpdateUserXp")]
+        public async Task<IActionResult> UpdateUserXp(int id, int xpCnt)
         {
             var response = new ApiResponse();
-            var res = await _usersService.UpdateUserXp(id, xp);
+            var res = await _usersService.UpdateUserXp(id, xpCnt);
             if(!res)
             {
                 response.IsSucceed = false;

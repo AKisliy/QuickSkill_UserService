@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Auth;
+using UserService.Core.Interfaces.Infrastructure;
 using UserService.Core.Interfaces.Services;
 using UserService.Core.Models;
 using UserService.Infrastructure;
@@ -15,12 +16,14 @@ namespace UserService.Application.Services
     {
         private IUserRepository _repository;
         private IJwtProvider _provider;
+        private IEmailSender _sender;
         private IPasswordHasher _hasher;
-        public AuthService(IUserRepository repository, IPasswordHasher hasher, IJwtProvider provider)
+        public AuthService(IUserRepository repository, IPasswordHasher hasher, IJwtProvider provider, IEmailSender sender)
         {
             _hasher = hasher;
             _repository = repository;
             _provider = provider;
+            _sender = sender;
         }
 
         public async Task<string> Login(string email, string password)
@@ -38,6 +41,7 @@ namespace UserService.Application.Services
         {
             try{
                 User user = User.Create(firstName, lastName, Generator.GenerateUsername(firstName, lastName, email), email, _hasher.Generate(password));
+                //await _sender.SendEmailAsync(email, "test", "test");
                 await _repository.Create(user);
                 return true;
             }

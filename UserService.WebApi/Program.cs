@@ -1,6 +1,7 @@
 using UserService.Application.Services;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Auth;
+using UserService.Core.Interfaces.Infrastructure;
 using UserService.Core.Interfaces.Repositories;
 using UserService.Core.Interfaces.Services;
 using UserService.DataAccess;
@@ -26,9 +27,10 @@ builder.Services.AddScoped<IBadgeRepository, BadgeRepository>();
 
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IBadgeService, BadgeService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
-builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IEmailSender, EmaiSender>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 
 var app = builder.Build();

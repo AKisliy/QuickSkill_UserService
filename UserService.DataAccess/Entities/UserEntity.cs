@@ -33,6 +33,18 @@ namespace UserService.DataAccess.Entities
 
         public string? Status { get; set; }
 
+        public string? VerificationToken { get; set; }
+
+        public DateTime? VerificationTokenExpires { get; set; }
+
+        public string? ResetToken { get; set; }
+
+        public DateTime? ResetTokenExpires { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+        
+        public DateTime VerifiedAt { get; set; }
+
         public virtual ICollection<UserBadgeEntity> UserBadges { get; set; } = new List<UserBadgeEntity>();
 
         public virtual ICollection<UserActivityEntity> UserActivities { get; set; } = new List<UserActivityEntity>();
