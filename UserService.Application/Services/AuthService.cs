@@ -1,3 +1,4 @@
+using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Auth;
 using UserService.Core.Interfaces.Infrastructure;
@@ -9,10 +10,10 @@ namespace UserService.Application.Services
 {
     public class AuthService : IAuthService
     {
-        private IUserRepository _repository;
-        private IJwtProvider _provider;
-        private IEmailSender _sender;
-        private IPasswordHasher _hasher;
+        private readonly IUserRepository _repository;
+        private readonly IJwtProvider _provider;
+        private readonly IEmailSender _sender;
+        private readonly IPasswordHasher _hasher;
         public AuthService(IUserRepository repository, IPasswordHasher hasher, IJwtProvider provider, IEmailSender sender)
         {
             _hasher = hasher;
@@ -34,22 +35,39 @@ namespace UserService.Application.Services
             return token;
         }
 
-        public async Task<bool> Register(string firstName, string lastName, string email, string password)
+        public async Task Register(string firstName, string lastName, string email, string password)
         {
-            try
-            {
-                User user = User.Create(firstName, lastName, Generator.GenerateUsername(firstName, lastName, email), email, _hasher.Generate(password));
-                
-                var id =  await _repository.Create(user);
-                var token = Generator.GenerateVerificationToken();
-                bool res = await _repository.SetVerificationToken(id, token, DateTime.UtcNow.AddDays(7));
-                await _sender.SendVerificationEmailAsync(email, token);
-                return res;
-            }
-            catch(InvalidDataException)
-            {
-                return false;
-            }
+            User user = User.Create(firstName, lastName, Generator.GenerateUsername(firstName, lastName, email), email, _hasher.Generate(password));
+            var find = await _repository.GetUserByEmail(email);
+            if(find != null)
+                throw new Exception("User with this email already exists");
+
+            var token = Generator.GenerateVerificationToken();
+            while(!await _repository.IsUniqueVerificationToken(token))
+                token = Generator.GenerateVerificationToken();
+
+            await _sender.SendVerificationEmailAsync(email, token);
+
+            var id =  await _repository.Create(user);
+            await _repository.SetVerificationToken(id, token, DateTime.UtcNow.AddDays(7));
+        }
+
+        public async Task ForgotPassword(string email)
+        {
+            var user = await _repository.GetUserByEmail(email) ?? throw new NotFoundException("User with this email not found");
+
+            var token = Generator.GenerateVerificationToken();
+            while(!await _repository.IsUniqueResetToken(token))
+                token = Generator.GenerateVerificationToken();
+
+            await _sender.SendResetEmail(email, token);
+            await _repository.SetResetToken(user.Id, token, DateTime.UtcNow.AddDays(1));
+        }
+
+        public async Task ResetPassword(string password, string token)
+        {
+            var passwordHash = _hasher.Generate(password);
+            await _repository.ResetPassword(passwordHash, token);
         }
 
         public async Task Verify(string token)

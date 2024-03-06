@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
+using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
 using UserService.Core.Models;
 using UserService.DataAccess.Entities;
@@ -16,9 +9,8 @@ namespace UserService.DataAccess.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private IMapper _mapper;
-        private UserServiceContext _context;
-
+        private readonly IMapper _mapper;
+        private readonly UserServiceContext _context;
 
         public UserRepository(UserServiceContext context, IMapper mapper)
         {
@@ -57,11 +49,18 @@ namespace UserService.DataAccess.Repositories
 
         public async Task<bool> SetVerificationToken(int id, string token, DateTime expires)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-            if(user == null)
-                return false;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id) ?? throw new NotFoundException($"User with id: {id} not found");
             user.VerificationToken = token;
             user.VerificationTokenExpires = expires;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> SetResetToken(int id, string token, DateTime expires)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id) ?? throw new NotFoundException($"User with id: {id} not found");
+            user.ResetToken = token;
+            user.ResetTokenExpires = expires;
             await _context.SaveChangesAsync();
             return true;
         }
@@ -129,7 +128,7 @@ namespace UserService.DataAccess.Repositories
 
         public async Task VerifyUser(string token)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.VerificationToken == token) ?? throw new Exception("No user with this token");
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.VerificationToken == token) ?? throw new NotFoundException("No user with this token");
             if(user.VerifiedAt != null)
                 throw new Exception("User already verified");
             if (user.VerificationTokenExpires < DateTime.UtcNow)
@@ -138,6 +137,27 @@ namespace UserService.DataAccess.Repositories
             user.VerificationToken = null;
             user.VerificationTokenExpires = null;
             await _context.SaveChangesAsync();
+        }
+
+        public async Task ResetPassword(string passwordHash, string token)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.ResetToken == token) ?? throw new NotFoundException("No user with this token");
+            if(user.ResetTokenExpires < DateTime.UtcNow)
+                throw new TokenException("Token expired!");
+            user.ResetToken = null;
+            user.ResetTokenExpires = null;
+            user.Password = passwordHash;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsUniqueVerificationToken(string token)
+        {
+            return !await _context.Users.Select(u => u.VerificationToken).AnyAsync(t => t == token);
+        }
+
+        public async Task<bool> IsUniqueResetToken(string token)
+        {
+            return !await _context.Users.Select(u => u.ResetToken).AnyAsync(t => t == token);
         }
     }
 }

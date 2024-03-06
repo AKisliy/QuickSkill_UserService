@@ -7,6 +7,7 @@ using UserService.Core.Interfaces.Services;
 using UserService.DataAccess;
 using UserService.DataAccess.Repositories;
 using UserService.Infrastructure;
+using UserService.Infrastructure.Options;
 using UserService.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ builder.Services.AddControllers();
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
 builder.Services.Configure<MyCookiesOptions>(builder.Configuration.GetSection(nameof(MyCookiesOptions)));
+builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(nameof(EmailOptions)));
 
 builder.Services.AddApiAuthentication(builder.Configuration);
 
@@ -30,7 +32,7 @@ builder.Services.AddScoped<IBadgeService, BadgeService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
-builder.Services.AddScoped<IEmailSender, EmaiSender>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 
 var app = builder.Build();

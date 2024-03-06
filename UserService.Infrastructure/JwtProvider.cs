@@ -27,10 +27,9 @@ namespace UserService.Infrastructure
             );
 
             var token = new JwtSecurityToken(
-                signingCredentials: signingCredentials,
+                claims: claims,
                 expires: DateTime.UtcNow.AddHours(_options.ExpiresHours),
-                claims: claims
-            );
+                signingCredentials: signingCredentials);
 
             var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
             return tokenValue;

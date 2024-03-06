@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -10,6 +6,8 @@ using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Services;
 using UserService.WebApi.Dtos;
 using UserService.Infrastructure;
+using System.ComponentModel.DataAnnotations;
+using UserService.Core.Exceptions;
 
 namespace UserService.WebApi.Controllers
 {
@@ -17,10 +15,10 @@ namespace UserService.WebApi.Controllers
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private IUsersService _usersService;
-        private IMapper _mapper;
-        private IAuthService _authService;
-        private IOptions<MyCookiesOptions> _cookiesOptions;
+        private readonly IUsersService _usersService;
+        private readonly IMapper _mapper;
+        private readonly IAuthService _authService;
+        private readonly IOptions<MyCookiesOptions> _cookiesOptions;
 
         public AuthController(IUsersService usersService, IAuthService authService, IOptions<MyCookiesOptions> cookiesOptions, IMapper mapper)
         {
@@ -41,15 +39,19 @@ namespace UserService.WebApi.Controllers
                 response.IsSucceed = false;
                 return BadRequest(response);
             }
-            bool res = await _authService.Register(user.Firstname, user.Lastname, user.Email, user.Password);
-            if(!res)
+            try{
+                await _authService.Register(user.Firstname, user.Lastname, user.Email, user.Password);
+                response.StatusCode = HttpStatusCode.OK;
+                response.IsSucceed = true;
+                return Ok(response);
+            }
+            catch(Exception ex)
             {
-                response.Result = HttpStatusCode.Conflict;
-                response.ErrorMessages.Add("User with this email already exists");
+                response.StatusCode = HttpStatusCode.Conflict;
                 response.IsSucceed = false;
+                response.ErrorMessages.Add(ex.Message);
                 return Conflict(response);
             }
-            return Ok();
         }
 
         [HttpPost("login")]
@@ -90,6 +92,49 @@ namespace UserService.WebApi.Controllers
                 response.StatusCode = HttpStatusCode.BadRequest;
                 response.ErrorMessages.Add(ex.Message);
                 return BadRequest(response);
+            }
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([EmailAddress] string email)
+        {
+            if(string.IsNullOrEmpty(email))
+                return BadRequest();
+            var response = new ApiResponse();
+            try
+            {
+                await _authService.ForgotPassword(email);
+                response.IsSucceed = true;
+                response.StatusCode = HttpStatusCode.Accepted;
+                return Accepted(response);
+            }
+            catch(Exception ex)
+            {
+                response.IsSucceed = false;
+                response.StatusCode = HttpStatusCode.NotFound;
+                response.ErrorMessages.Add(ex.Message);
+                return NotFound(response);
+            }
+        }
+
+        [HttpGet("reset-password")]
+        public async Task<IActionResult> ResetPassword(string token, string password)
+        {
+            if(string.IsNullOrEmpty(token))
+                return BadRequest();
+            var response = new ApiResponse();
+            try
+            {
+                await _authService.ResetPassword(password, token);
+                return Accepted();
+            }
+            catch(TokenException ex)
+            {
+                return StatusCode(403, ex.Message);
+            }
+            catch(NotFoundException ex)
+            {
+                return StatusCode(404, ex.Message);
             }
         }
     }
