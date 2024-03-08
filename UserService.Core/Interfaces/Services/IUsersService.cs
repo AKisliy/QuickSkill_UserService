@@ -18,5 +18,6 @@ namespace UserService.Core.Interfaces
         public Task<User?> GetUserByEmail(string email);
         public Task<bool> DeleteUser(int id);
         public Task<bool> UpdateUserXp(int id, int xp);
+        public Task SetUserActivity(int id);
     }
 }

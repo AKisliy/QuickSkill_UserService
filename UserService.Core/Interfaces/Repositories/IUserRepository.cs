@@ -35,5 +35,6 @@ namespace UserService.Core.Interfaces
 
         public Task<bool> IsUniqueVerificationToken(string token);
         public Task ResetPassword(string passwordHash, string token);
+        public Task SetUserActivity(int id);
     }
 }

@@ -43,5 +43,10 @@ namespace UserService.Application.Services
         {
             return await  _repository.UpdateUserXp(id, xp);
         }
+
+        public async Task SetUserActivity(int id)
+        {
+            await _repository.SetUserActivity(id);
+        }
     }
 }

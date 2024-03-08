@@ -128,11 +128,7 @@ namespace UserService.DataAccess
 
             modelBuilder.Entity<UserActivityEntity>(entity =>
             {
-                entity.HasKey(e => e.Id).HasName("usersactivity_pkey");
-
                 entity.ToTable("usersactivity");
-
-                entity.Property(e => e.Id).HasColumnName("id");
                 entity.Property(e => e.ActivityDate).HasColumnName("activitydate");
                 entity.Property(e => e.ActivityType)
                     .HasMaxLength(10)

@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Services;
 using UserService.WebApi.Dtos;
@@ -14,7 +9,7 @@ using UserService.WebApi.Dtos;
 namespace UserService.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/user")]
     public class UserController : ControllerBase
     {
         private IUsersService _usersService;
@@ -93,6 +88,31 @@ namespace UserService.WebApi.Controllers
             response.IsSucceed = true;
             response.StatusCode = HttpStatusCode.OK;
             return Ok(response);
+        }
+
+        [HttpPut("{id}/activity", Name = "SetUserActivity")]
+        public async Task<IActionResult> SetUserActivity(int id)
+        {
+            var apiResponse = new ApiResponse();
+            try{
+                await  _usersService.SetUserActivity(id);
+                apiResponse.IsSucceed = true;
+                apiResponse.StatusCode = HttpStatusCode.OK;
+                return Ok(apiResponse);
+            } 
+            catch(NotFoundException ex){
+                apiResponse.IsSucceed = false;
+                apiResponse.StatusCode = HttpStatusCode.NotFound;
+                apiResponse.ErrorMessages.Add(ex.Message);
+                return NotFound(apiResponse);
+            }
+            catch(Exception ex)
+            {
+                apiResponse.IsSucceed = false;
+                apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                apiResponse.ErrorMessages.Add(ex.Message);
+                return BadRequest(apiResponse);
+            }
         }
     }
 }

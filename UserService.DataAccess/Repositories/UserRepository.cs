@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using UserService.Core.Enums;
 using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
 using UserService.Core.Models;
@@ -158,6 +159,29 @@ namespace UserService.DataAccess.Repositories
         public async Task<bool> IsUniqueResetToken(string token)
         {
             return !await _context.Users.Select(u => u.ResetToken).AnyAsync(t => t == token);
+        }
+
+        public async Task SetUserActivity(int id)
+        {
+            var hasUser = await _context.Users.AnyAsync(u => u.Id == id);
+            if(!hasUser)
+                throw new NotFoundException("No user with this id");
+            var userActivity = new UserActivityEntity
+            {
+                UserId = id,
+                ActivityDate = DateOnly.FromDateTime(DateTime.UtcNow),
+                ActivityType = "Active"
+            };
+            await _context.UsersActivities.AddAsync(userActivity);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<UserActivity>> GetAllUserActivity(int id)
+        {
+            var hasUser = await _context.Users.AnyAsync(u => u.Id == id);
+            if(!hasUser)
+                throw new NotFoundException("No user with this id");
+            return _context.UsersActivities.AsNoTracking().Where(ua => ua.UserId == id).Select(a => _mapper.Map<UserActivity>(a));
         }
     }
 }
