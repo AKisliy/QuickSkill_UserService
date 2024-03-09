@@ -96,6 +96,10 @@ namespace UserService.DataAccess
                     .HasMaxLength(128);
                 entity.Property(e => e.ResetTokenExpires)
                     .HasColumnName("resettokenexpires");
+
+                entity.Property(e => e.Freezer)
+                    .HasColumnName("freezer")
+                    .HasDefaultValue(0);
             });
 
             modelBuilder.Entity<UserBadgeEntity>(entity =>
@@ -128,6 +132,7 @@ namespace UserService.DataAccess
 
             modelBuilder.Entity<UserActivityEntity>(entity =>
             {
+                entity.HasKey(e => new { e.UserId, e.ActivityDate }).HasName("pk_user_activity");
                 entity.ToTable("usersactivity");
                 entity.Property(e => e.ActivityDate).HasColumnName("activitydate");
                 entity.Property(e => e.ActivityType)

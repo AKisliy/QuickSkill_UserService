@@ -45,6 +45,8 @@ namespace UserService.DataAccess.Entities
 
         public DateTime? VerifiedAt { get; set; }
 
+        public int Freezer { get; set; }
+
         public virtual ICollection<UserBadgeEntity> UserBadges { get; set; } = new List<UserBadgeEntity>();
 
         public virtual ICollection<UserActivityEntity> UserActivities { get; set; } = new List<UserActivityEntity>();

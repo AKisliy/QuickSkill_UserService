@@ -19,5 +19,6 @@ namespace UserService.Core.Interfaces
         public Task<bool> DeleteUser(int id);
         public Task<bool> UpdateUserXp(int id, int xp);
         public Task SetUserActivity(int id);
+        public Task<List<UserActivity>> GetUserActivityForWeek(int id);
     }
 }

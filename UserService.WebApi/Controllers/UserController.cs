@@ -114,5 +114,30 @@ namespace UserService.WebApi.Controllers
                 return BadRequest(apiResponse);
             }
         }
+
+        [HttpGet("{id}/activity/week", Name = "GetUserWeekActivity")]
+        public async Task<IActionResult> GetUserWeekActivity(int id)
+        {
+            var apiResponse = new ApiResponse();
+            try
+            {
+                var res = await _usersService.GetUserActivityForWeek(id);
+                apiResponse.IsSucceed = true;
+                apiResponse.Result = res;
+                return Ok(apiResponse);
+            }
+            catch(NotFoundException ex)
+            {
+                apiResponse.IsSucceed = false;
+                apiResponse.ErrorMessages.Add(ex.Message);
+                return NotFound(apiResponse);
+            }
+            catch(Exception ex)
+            {
+                apiResponse.IsSucceed = false;
+                apiResponse.ErrorMessages.Add(ex.Message);
+                return StatusCode(500, apiResponse);
+            }
+        }
     }
 }

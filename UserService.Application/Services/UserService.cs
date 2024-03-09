@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 using AutoMapper;
 using UserService.Core.Interfaces;
 using UserService.Core.Models;
@@ -47,6 +42,34 @@ namespace UserService.Application.Services
         public async Task SetUserActivity(int id)
         {
             await _repository.SetUserActivity(id);
+        }
+
+        public async Task<List<UserActivity>> GetUserActivityForWeek(int id)
+        {
+            var activities = await _repository.GetActivityForWeek(id);
+            if(activities.Count == 7)
+                return activities;
+            
+            var monday = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-(int)DateTime.UtcNow.DayOfWeek + 1));
+            if(activities.Count == 0 && monday < DateOnly.FromDateTime(DateTime.UtcNow))
+            {
+                activities.Add(
+                    new UserActivity 
+                    { 
+                        UserId = id, 
+                        ActivityType = "Past", 
+                        ActivityDate = monday
+                    }
+                );
+            }
+
+            var lastDay = activities.Last().ActivityDate;
+            while(activities.Count < 7)
+            {
+                lastDay = lastDay.AddDays(1);
+                activities.Add(new UserActivity{ UserId = id, ActivityDate = lastDay, ActivityType = "Future" });
+            }
+            return activities;
         }
     }
 }

@@ -163,8 +163,7 @@ namespace UserService.DataAccess.Repositories
 
         public async Task SetUserActivity(int id)
         {
-            var hasUser = await _context.Users.AnyAsync(u => u.Id == id);
-            if(!hasUser)
+            if(!await HasUserWithId(id))
                 throw new NotFoundException("No user with this id");
             var userActivity = new UserActivityEntity
             {
@@ -178,10 +177,57 @@ namespace UserService.DataAccess.Repositories
 
         public async Task<IEnumerable<UserActivity>> GetAllUserActivity(int id)
         {
-            var hasUser = await _context.Users.AnyAsync(u => u.Id == id);
-            if(!hasUser)
+            if(!await HasUserWithId(id))
                 throw new NotFoundException("No user with this id");
             return _context.UsersActivities.AsNoTracking().Where(ua => ua.UserId == id).Select(a => _mapper.Map<UserActivity>(a));
+        }
+
+        public async Task<IEnumerable<UserActivity>> GetActivityByPage(int id, int page, int pageSize)
+        {
+            if(!await HasUserWithId(id))
+                throw new NotFoundException("No user with this id");
+            return  await _context.UsersActivities
+                .AsNoTracking()
+                .Where(ua => ua.UserId == id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(a => _mapper.Map<UserActivity>(a))
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<UserActivity>> GetActivityForMonth(int id, int month, int year)
+        {
+            if(!await HasUserWithId(id))
+                throw new NotFoundException("No user with this id");
+            return _context.UsersActivities
+                .AsNoTracking()
+                .Where(ua => ua.UserId == id && ua.ActivityDate.Month == month && ua.ActivityDate.Year == year)
+                .Select(ua => _mapper.Map<UserActivity>(ua));
+        }
+
+        public async Task<List<UserActivity>> GetActivityForWeek(int id)
+        {
+            if(!await HasUserWithId(id))
+                throw new NotFoundException("No user with this id");
+            var currentDay = DateTime.UtcNow;
+            var firstDayOfWeek = DateOnly.FromDateTime(currentDay.AddDays(-(int)currentDay.DayOfWeek + 1));
+            var lastDayOfWeek = firstDayOfWeek.AddDays(6);
+
+            return await _context.UsersActivities
+                .AsNoTracking()
+                .Where(
+                    ua => ua.UserId == id && 
+                    ua.ActivityDate <=  firstDayOfWeek && 
+                    ua.ActivityDate >= lastDayOfWeek
+                )
+                .OrderBy(ua => ua.ActivityDate)
+                .Select(ua => _mapper.Map<UserActivity>(ua))
+                .ToListAsync();
+        }
+
+        public async Task<bool> HasUserWithId(int id)
+        {
+            return await _context.Users.AnyAsync(u => u.Id == id);
         }
     }
 }
