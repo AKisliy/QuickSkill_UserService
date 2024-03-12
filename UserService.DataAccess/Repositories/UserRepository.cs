@@ -165,6 +165,9 @@ namespace UserService.DataAccess.Repositories
         {
             if(!await HasUserWithId(id))
                 throw new NotFoundException("No user with this id");
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            if(await _context.UsersActivities.AnyAsync(ua => ua.ActivityDate == today && ua.UserId == id))
+                return;
             var userActivity = new UserActivityEntity
             {
                 UserId = id,
@@ -217,8 +220,8 @@ namespace UserService.DataAccess.Repositories
                 .AsNoTracking()
                 .Where(
                     ua => ua.UserId == id && 
-                    ua.ActivityDate <=  firstDayOfWeek && 
-                    ua.ActivityDate >= lastDayOfWeek
+                    ua.ActivityDate >=  firstDayOfWeek && 
+                    ua.ActivityDate <= lastDayOfWeek
                 )
                 .OrderBy(ua => ua.ActivityDate)
                 .Select(ua => _mapper.Map<UserActivity>(ua))

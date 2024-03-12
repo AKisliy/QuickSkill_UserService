@@ -49,25 +49,45 @@ namespace UserService.Application.Services
             var activities = await _repository.GetActivityForWeek(id);
             if(activities.Count == 7)
                 return activities;
-            
             var monday = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-(int)DateTime.UtcNow.DayOfWeek + 1));
-            if(activities.Count == 0 && monday < DateOnly.FromDateTime(DateTime.UtcNow))
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            // handle case when user just registered
+            if(activities.Count == 0 && monday <= DateOnly.FromDateTime(DateTime.UtcNow))
             {
+                string type = "Past";
+                if(monday == today)
+                    type = "Today";
+ 
                 activities.Add(
                     new UserActivity 
                     { 
                         UserId = id, 
-                        ActivityType = "Past", 
+                        ActivityType = type, 
                         ActivityDate = monday
                     }
                 );
             }
-
+            // handle situation when there's no recorded activities for the whole week
+            if(activities[0].ActivityDate != monday)
+            {
+                var firstDay = activities[0].ActivityDate;
+                while(firstDay != monday)
+                {
+                    firstDay = firstDay.AddDays(-1);
+                    activities.Insert(0, new UserActivity{ UserId = id, ActivityType = "Past", ActivityDate = firstDay});
+                }
+            }
+            // complete activities to 7 days
             var lastDay = activities.Last().ActivityDate;
             while(activities.Count < 7)
             {
                 lastDay = lastDay.AddDays(1);
-                activities.Add(new UserActivity{ UserId = id, ActivityDate = lastDay, ActivityType = "Future" });
+                string status = "Today";
+                if(lastDay > today)
+                    status = "Future";
+                else if(lastDay < today)
+                    status = "Past";
+                activities.Add(new UserActivity{UserId = id, ActivityDate = lastDay, ActivityType = status});
             }
             return activities;
         }
