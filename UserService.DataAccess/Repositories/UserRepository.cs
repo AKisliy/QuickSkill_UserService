@@ -198,14 +198,15 @@ namespace UserService.DataAccess.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<UserActivity>> GetActivityForMonth(int id, int month, int year)
+        public async Task<List<UserActivity>> GetActivityForMonth(int id, int month, int year)
         {
             if(!await HasUserWithId(id))
                 throw new NotFoundException("No user with this id");
-            return _context.UsersActivities
+            return await _context.UsersActivities
                 .AsNoTracking()
                 .Where(ua => ua.UserId == id && ua.ActivityDate.Month == month && ua.ActivityDate.Year == year)
-                .Select(ua => _mapper.Map<UserActivity>(ua));
+                .Select(ua => _mapper.Map<UserActivity>(ua))
+                .ToListAsync();
         }
 
         public async Task<List<UserActivity>> GetActivityForWeek(int id)

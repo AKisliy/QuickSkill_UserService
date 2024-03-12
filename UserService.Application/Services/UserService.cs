@@ -1,4 +1,5 @@
 using AutoMapper;
+using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
 using UserService.Core.Models;
 
@@ -88,6 +89,74 @@ namespace UserService.Application.Services
                 else if(lastDay < today)
                     status = "Past";
                 activities.Add(new UserActivity{UserId = id, ActivityDate = lastDay, ActivityType = status});
+            }
+            return activities;
+        }
+        // only works if we have auto-update in DB
+        public async Task<List<UserActivity>> GetUserActivityForMonth(int id, int month, int year)
+        {
+            if(month < 1 || month > 12)
+                throw new BadRequestException("Wrong month!");
+            var activities = await _repository.GetActivityForMonth(id, month, year);
+
+            var curMonthStart = new DateOnly(year, month, 1);
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            var curMonthDays = DateTime.DaysInMonth(year, month);
+            // if request for future dates
+            if(curMonthStart.Year > today.Year || (curMonthStart.Year == today.Year && curMonthStart.Month > today.Month))
+            {
+                var cnt = curMonthDays;
+                while(cnt > 0)
+                {
+                    activities.Add(new UserActivity { UserId = id, ActivityDate = curMonthStart, ActivityType = "Future"} );
+                    curMonthStart = curMonthStart.AddDays(1);
+                    --cnt;
+                }
+                return activities;
+            }
+            // if request for past dates and no recordings
+            if(activities.Count == 0 && (curMonthStart.Year < today.Year || (curMonthStart.Year == today.Year && curMonthStart.Month < today.Month)))
+            {
+                var cnt = curMonthDays;
+                while(cnt > 0)
+                {
+                    activities.Add(new UserActivity { UserId = id, ActivityDate = curMonthStart, ActivityType = "Past"});
+                    curMonthStart = curMonthStart.AddDays(1);
+                    --cnt;
+                }
+                return activities;
+            }
+            // some records are inside and it's current month
+            if(activities.Count != 0 && curMonthStart.Month == today.Month)
+            {
+                var firstRecord = activities[0];
+                var firstRecordDay = firstRecord.ActivityDate;
+                // fill records before 
+                if(firstRecord.ActivityDate != curMonthStart)
+                {
+                    while(curMonthStart != firstRecordDay)
+                    {
+                        firstRecordDay = firstRecordDay.AddDays(-1);
+                        activities.Insert(0, new UserActivity{ UserId = id, ActivityDate = firstRecordDay, ActivityType = "Past"});
+                    }
+                }
+                // check today
+                var lastRecordDay = activities.Last().ActivityDate;
+                if(lastRecordDay != today)
+                    activities.Add(new UserActivity{ UserId = id, ActivityDate = today, ActivityType = "Today"} );
+                while(activities.Count != curMonthDays)
+                {
+                    lastRecordDay = lastRecordDay.AddDays(1);
+                    activities.Add(new UserActivity{ UserId = id, ActivityDate = lastRecordDay, ActivityType = "Future"} );
+                }
+                return activities;
+            }
+            // some records inside, but it was previous month
+            var firstRecordDate = activities[0].ActivityDate;
+            while(activities.Count != curMonthDays)
+            {
+                firstRecordDate = firstRecordDate.AddDays(-1);
+                activities.Add(new UserActivity{ UserId = id, ActivityDate = firstRecordDate, ActivityType = "Past"} );
             }
             return activities;
         }

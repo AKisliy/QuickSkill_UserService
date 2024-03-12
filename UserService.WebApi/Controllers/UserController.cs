@@ -139,5 +139,30 @@ namespace UserService.WebApi.Controllers
                 return StatusCode(500, apiResponse);
             }
         }
+
+        [HttpGet("{id}/activity/month", Name = "GetUserMonthActivity")]
+        public async Task<IActionResult> GetUserMonthActivity(int id, int month, int year)
+        {
+            var apiResponse = new ApiResponse();
+            try
+            {
+                var res = await _usersService.GetUserActivityForMonth(id, month, year);
+                apiResponse.IsSucceed = true;
+                apiResponse.Result = res;
+                return Ok(res);
+            }
+            catch(NotFoundException ex)
+            {
+                apiResponse.IsSucceed = false;
+                apiResponse.ErrorMessages.Add(ex.Message);
+                return NotFound(apiResponse);
+            }
+            catch(BadRequestException ex)
+            {
+                apiResponse.IsSucceed = false;
+                apiResponse.ErrorMessages.Add(ex.Message);
+                return BadRequest(apiResponse);
+            }
+        }
     }
 }

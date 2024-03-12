@@ -20,5 +20,6 @@ namespace UserService.Core.Interfaces
         public Task<bool> UpdateUserXp(int id, int xp);
         public Task SetUserActivity(int id);
         public Task<List<UserActivity>> GetUserActivityForWeek(int id);
+        public Task<List<UserActivity>> GetUserActivityForMonth(int id, int month, int year);
     }
 }

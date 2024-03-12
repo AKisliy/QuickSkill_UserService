@@ -38,7 +38,7 @@ namespace UserService.Core.Interfaces
         public Task SetUserActivity(int id);
         public Task<IEnumerable<UserActivity>> GetAllUserActivity(int id);
         public Task<IEnumerable<UserActivity>> GetActivityByPage(int id, int page, int pageSize);
-        public Task<IEnumerable<UserActivity>> GetActivityForMonth(int id, int month, int year);
+        public Task<List<UserActivity>> GetActivityForMonth(int id, int month, int year);
         public Task<List<UserActivity>> GetActivityForWeek(int id);
     }
 }
