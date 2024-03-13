@@ -8,6 +8,7 @@ using UserService.WebApi.Dtos;
 using UserService.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 using UserService.Core.Exceptions;
+using Microsoft.AspNetCore.Authentication;
 
 namespace UserService.WebApi.Controllers
 {
@@ -73,6 +74,18 @@ namespace UserService.WebApi.Controllers
                 response.StatusCode = HttpStatusCode.NotFound;
                 return NotFound(response);
             }
+        }
+
+        [HttpGet("login/github")]
+        public IResult GitHubLogin()
+        {
+            return Results.Challenge(
+                new AuthenticationProperties()
+                {
+                    RedirectUri = "https://localhost:7182/swagger/index.html"
+                },
+                new List<string>() { "github" }
+            );
         }
 
         [HttpGet("verify")]
