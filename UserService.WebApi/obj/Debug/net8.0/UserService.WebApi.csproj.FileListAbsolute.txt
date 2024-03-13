@@ -62,3 +62,5 @@
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/AspNet.Security.OAuth.GitHub.dll
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Newtonsoft.Json.dll
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/System.Security.Permissions.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.WebApi.xml
+/Users/alexeykiselev/UserService/UserService.WebApi/obj/Debug/net8.0/UserService.WebApi.xml

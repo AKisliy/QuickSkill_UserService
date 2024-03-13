@@ -1,3 +1,4 @@
+using System.Reflection;
 using UserService.Application.Services;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Auth;
@@ -13,7 +14,13 @@ using UserService.WebApi.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<UserServiceContext>();
 builder.Services.AddControllers();

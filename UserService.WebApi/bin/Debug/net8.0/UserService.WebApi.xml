@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UserService.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:UserService.WebApi.Controllers.AuthController.Register(UserService.WebApi.Dtos.UserRegisterRequest)">
+            <summary>
+            Register new user
+            </summary>
+            <param name="user">Request body</param>
+            <response code="200">Successfully registered</response>
+            <response code="400">Bad request body</response>
+            <response code="409">Conflict while creating</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.AuthController.Login(UserService.WebApi.Dtos.UserLoginRequest)">
+            <summary>
+            Login user
+            </summary>
+            <param name="user">Request body</param>
+            <response code="200">Successfully login</response>
+            <response code="404">User not found/invalid credentials</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.AuthController.Verify(System.String)">
+            <summary>
+            Verify user(called automatically)
+            </summary>
+            <param name="token">Verification token</param>
+            <response code="200">Successfully verified</response>
+            <response code="400">Can't verify</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.AuthController.ForgotPassword(System.String)">
+            <summary>
+            Forgot password
+            </summary>
+            <param name="email">Email of user</param>
+            <response code="400">Empty of incorrect email</response>
+            <response code="202">Email sent to mailbox</response>
+            <response code="404">No user with this email</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.AuthController.ResetPassword(System.String,System.String)">
+            <summary>
+            Reset password
+            </summary>
+            <param name="token">Reset token(get it from URL body)</param>
+            <param name="password">New password</param>
+            <response code="403">Empty of incorrect token</response>
+            <response code="200">Success</response>
+            <response code="404">No user found with this token</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.BadgeController.GetAllBadgesForUser(System.Int32)">
+            <summary>
+            Get all badges for user
+            </summary>
+            <param name="id">User's ID</param>
+            <returns>List of UserBadgeResponse</returns>
+            <response code="200">Success</response>
+            <response code="404">User with this id wasn't found</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.BadgeController.GetBadgeById(System.Int32)">
+            <summary>
+            Get badge by its id
+            </summary>
+            <param name="id">Badge ID</param>
+            <returns>BadgeResponse</returns>
+            <response code="200">Success</response>
+            <response code="404">Badge with this id wasn't found</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.BadgeController.CreateNewBadge(UserService.WebApi.Dtos.BadgeRequest)">
+            <summary>
+            Create new badge
+            </summary>
+            <param name="badge">New badge body</param>
+            <returns>ID of badge + uri</returns>
+            <response code="201">Successfully created</response>
+            <response code="409">Can't create this badge</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.BadgeController.UpdateBadgeForUser(UserService.WebApi.Dtos.UserBadgeRequest)">
+            <summary>
+            Update user's badges progress
+            </summary>
+            <param name="request">User badge body</param>
+            <response code="200">Success</response>
+            <response code="400">Can't update</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.BadgeController.UpdateBadge(System.Int32,UserService.WebApi.Dtos.BadgeRequest)">
+            <summary>
+            Update badge information
+            </summary>
+            <param name="id">ID of badge to update</param>
+            <param name="request">Badge body</param>
+            <response code="200">Success</response>
+            <response code="404">No badge with this id</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.BadgeController.DeleteBadge(System.Int32)">
+            <summary>
+            Delete badge
+            </summary>
+            <param name="id">ID of badge to delete</param>
+            <response code="200">Success</response>
+            <response code="404">No badge with this id</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.UserController.GetUsers">
+            <summary>
+            Get all users
+            </summary>
+            <returns>List of UserResponse</returns>
+            <response code="200">Success</response>
+            <response code="400">Bad request</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.UserController.GetUserById(System.Int32)">
+            <summary>
+            Get user By ID
+            </summary>
+            <returns>UserResponse</returns>
+            <response code="200">Success</response>
+            <response code="404">User with this id wasn't found</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.UserController.UpdateUserXp(System.Int32,System.Int32)">
+            <summary>
+            Add XP to user with ID
+            </summary>
+            <param name="id">Id of user</param>
+            <param name="xpCnt">Count of XP to add</param>
+            <returns>bool</returns>
+            <response code="200">Success</response>
+            <response code="404">User with this id wasn't found</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.UserController.DeleteUser(System.Int32)">
+            <summary>
+            Delete user with id
+            </summary>
+            <param name="id">Id of user</param>
+            <response code="200">Success</response>
+            <response code="404">User with this id wasn't found</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.UserController.SetUserActivity(System.Int32)">
+            <summary>
+            Set user today's activity to "Active"
+            </summary>
+            <param name="id">Id of user</param>
+            <response code="200">Success</response>
+            <response code="404">User with this id wasn't found</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.UserController.GetUserWeekActivity(System.Int32)">
+            <summary>
+            Get user activity for current week
+            </summary>
+            <param name="id">Id of user</param>
+            <response code="200">Success</response>
+            <response code="404">User with this id wasn't found</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.UserController.GetUserMonthActivity(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Get user activity for month in year
+            </summary>
+            <param name="id">Id of user</param>
+            <param name="month">Number of month</param>
+            <param name="year">Number of year</param>
+            <response code="200">Success</response>
+            <response code="404">User with this id wasn't found</response>
+        </member>
+    </members>
+</doc>

@@ -29,36 +29,48 @@ namespace UserService.WebApi.Controllers
             _cookiesOptions = cookiesOptions;
         }
 
+        /// <summary>
+        /// Register new user
+        /// </summary>
+        /// <param name="user">Request body</param>
+        /// <response code="200">Successfully registered</response>
+        /// <response code="400">Bad request body</response>
+        /// <response code="409">Conflict while creating</response>
         [HttpPost("register")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.Conflict)]
         public async Task<IActionResult> Register([FromBody] UserRegisterRequest user)
         {
-            var response = new ApiResponse();
+            var response = new ErrorResponse();
             if(user == null)
             {
-                response.Result = HttpStatusCode.BadRequest;
                 response.ErrorMessages.Add("Empty request body");
-                response.IsSucceed = false;
                 return BadRequest(response);
             }
             try{
                 await _authService.Register(user.Firstname, user.Lastname, user.Email, user.Password);
-                response.StatusCode = HttpStatusCode.OK;
-                response.IsSucceed = true;
-                return Ok(response);
+                return Ok();
             }
             catch(Exception ex)
             {
-                response.StatusCode = HttpStatusCode.Conflict;
-                response.IsSucceed = false;
                 response.ErrorMessages.Add(ex.Message);
                 return Conflict(response);
             }
         }
 
+        /// <summary>
+        /// Login user
+        /// </summary>
+        /// <param name="user">Request body</param>
+        /// <response code="200">Successfully login</response>
+        /// <response code="404">User not found/invalid credentials</response>
         [HttpPost("login")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
         {
-            var response = new ApiResponse();
+            var response = new ErrorResponse();
             try
             {
                 var token = await _authService.Login(user.Email, user.Password);
@@ -67,11 +79,7 @@ namespace UserService.WebApi.Controllers
             }
             catch(Exception ex)
             {
-                response.IsSucceed = false;
                 response.ErrorMessages.Add(ex.Message);
-                // response.ErrorMessages.Add(ex.Source);
-                // response.ErrorMessages.Add(ex.StackTrace);
-                response.StatusCode = HttpStatusCode.NotFound;
                 return NotFound(response);
             }
         }
@@ -88,58 +96,78 @@ namespace UserService.WebApi.Controllers
             );
         }
 
+        /// <summary>
+        /// Verify user(called automatically)
+        /// </summary>
+        /// <param name="token">Verification token</param>
+        /// <response code="200">Successfully verified</response>
+        /// <response code="400">Can't verify</response>
         [HttpGet("verify")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> Verify(string token)
         {
-            var response = new ApiResponse();
+            var response = new ErrorResponse();
             try
             {
                 await _authService.Verify(token);
-                response.IsSucceed = true;
-                response.StatusCode = HttpStatusCode.OK;
-                return Ok(response);
+                return Ok();
             }
             catch(Exception ex)
             {
-                response.IsSucceed = false;
-                response.StatusCode = HttpStatusCode.BadRequest;
                 response.ErrorMessages.Add(ex.Message);
                 return BadRequest(response);
             }
         }
 
+        /// <summary>
+        /// Forgot password
+        /// </summary>
+        /// <param name="email">Email of user</param>
+        /// <response code="400">Empty of incorrect email</response>
+        /// <response code="202">Email sent to mailbox</response>
+        /// <response code="404">No user with this email</response>
         [HttpPost("forgot-password")]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> ForgotPassword([EmailAddress] string email)
         {
             if(string.IsNullOrEmpty(email))
                 return BadRequest();
-            var response = new ApiResponse();
+            var response = new ErrorResponse();
             try
             {
                 await _authService.ForgotPassword(email);
-                response.IsSucceed = true;
-                response.StatusCode = HttpStatusCode.Accepted;
-                return Accepted(response);
+                return Accepted();
             }
             catch(Exception ex)
             {
-                response.IsSucceed = false;
-                response.StatusCode = HttpStatusCode.NotFound;
                 response.ErrorMessages.Add(ex.Message);
                 return NotFound(response);
             }
         }
 
+        /// <summary>
+        /// Reset password
+        /// </summary>
+        /// <param name="token">Reset token(get it from URL body)</param>
+        /// <param name="password">New password</param>
+        /// <response code="403">Empty of incorrect token</response>
+        /// <response code="200">Success</response>
+        /// <response code="404">No user found with this token</response>
         [HttpGet("reset-password")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> ResetPassword(string token, string password)
         {
             if(string.IsNullOrEmpty(token))
                 return BadRequest();
-            var response = new ApiResponse();
             try
             {
                 await _authService.ResetPassword(password, token);
-                return Accepted();
+                return Ok();
             }
             catch(TokenException ex)
             {
