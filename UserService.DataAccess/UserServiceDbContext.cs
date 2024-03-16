@@ -26,8 +26,8 @@ namespace UserService.DataAccess
 
         public virtual DbSet<UserActivityEntity> UsersActivities { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=userservice;Username=alexeykiselev;Password=kisliy");
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //     => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=userservice;Username=alexeykiselev;Password=kisliy");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

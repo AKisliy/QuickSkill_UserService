@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using UserService.Application.Services;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Auth;
@@ -13,6 +14,7 @@ using UserService.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -22,7 +24,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddDbContext<UserServiceContext>();
+builder.Services.AddDbContext<UserServiceContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
@@ -44,7 +46,7 @@ builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("InDocker"))
 {
     app.UseSwagger();
     app.UseSwaggerUI();

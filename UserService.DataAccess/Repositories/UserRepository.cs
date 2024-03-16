@@ -75,6 +75,8 @@ namespace UserService.DataAccess.Repositories
                 .SetProperty(u => u.GoalDays, _ => user.GoalDays)
                 .SetProperty(u => u.GoalText, _ => user.GoalText)
                 .SetProperty(u => u.LastName, _ => user.LastName)
+                .SetProperty(u => u.Username, _ => user.Username)
+                .SetProperty(u => u.Password, _ => user.Password)
                 .SetProperty(u => u.Photo, _ => user.Photo)
                 .SetProperty(u => u.UserLevel, _ => user.UserLevel)
                 .SetProperty(u => u.Xp, _ => user.Xp)

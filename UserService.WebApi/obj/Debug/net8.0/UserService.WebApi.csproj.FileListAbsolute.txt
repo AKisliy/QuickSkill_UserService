@@ -64,3 +64,4 @@
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/System.Security.Permissions.dll
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.WebApi.xml
 /Users/alexeykiselev/UserService/UserService.WebApi/obj/Debug/net8.0/UserService.WebApi.xml
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/appsettings.InDocker.json

@@ -32,7 +32,7 @@ namespace UserService.Infrastructure
             email.Body = new TextPart(TextFormat.Text) { Text = verificationBody + $"{baseUrl}?token={token}"};
 
             using var smtp = new SmtpClient();
-            smtp.Connect(_options.EmailHost, _options.Port, SecureSocketOptions.StartTls);
+            smtp.Connect(_options.EmailHost, _options.Port, SecureSocketOptions.SslOnConnect);
 
             smtp.Authenticate(_options.Username, _options.Password);
             await smtp.SendAsync(email);

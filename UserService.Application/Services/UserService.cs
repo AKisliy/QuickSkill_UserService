@@ -160,5 +160,40 @@ namespace UserService.Application.Services
             }
             return activities;
         }
+
+        public async Task SetUserFirstName(int id, string newName)
+        {
+            var user = await _repository.GetUserById(id) ?? throw new NotFoundException($"No user with id: {id}");
+            user.FirstName = newName;
+            await _repository.Update(user);
+        }
+
+        public async Task SetUserLastName(int id, string newLastName)
+        {
+            var user = await _repository.GetUserById(id) ?? throw new NotFoundException($"No user with id: {id}");
+            user.LastName = newLastName;
+            await _repository.Update(user);
+        }
+
+        public async Task SetUserUsername(int id, string newUserName)
+        {
+            var user = await _repository.GetUserById(id) ?? throw new NotFoundException($"No user with id: {id}");
+            user.Username = newUserName;
+            await _repository.Update(user);
+        }
+
+        public async Task SetUserDescription(int id, string descritption)
+        {
+            var user = await _repository.GetUserById(id) ?? throw new NotFoundException($"No user with id: {id}");
+            user.Description = descritption;
+            await _repository.Update(user);
+        }
+
+        public async Task SetUserPhoto(int id, string photoUrl)
+        {
+            var user = await _repository.GetUserById(id) ?? throw new NotFoundException($"No user with id: {id}");
+            user.Photo = photoUrl;
+            await _repository.Update(user);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -199,6 +200,259 @@ namespace UserService.WebApi.Controllers
             {
                 apiResponse.ErrorMessages.Add(ex.Message);
                 return BadRequest(apiResponse);
+            }
+        }
+
+        /// <summary>
+        /// Set new Firstname to the user
+        /// </summary>
+        /// <param name="id">Id of user</param>
+        /// <param name="newName">New firstname</param>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        /// <response code="500">Something bad happened</response>
+        [HttpPatch("{id}/firstname")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public async Task<IActionResult> SetUserFirstName(int id, [Required]string newName)
+        {
+            try
+            {
+                await _usersService.SetUserFirstName(id, newName);
+                return Ok();
+            }
+            catch(NotFoundException ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return NotFound(response);
+            }
+            catch(Exception ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+            }
+        }
+
+        /// <summary>
+        /// Set new lastname to the user
+        /// </summary>
+        /// <param name="id">Id of user</param>
+        /// <param name="newLastName">New lastname</param>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        /// <response code="500">Something bad happened :(</response>
+        [HttpPatch("{id}/lastname")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public async Task<IActionResult> SetUserLastName(int id, [Required]string newLastName)
+        {
+            try
+            {
+                await _usersService.SetUserLastName(id, newLastName);
+                return Ok();
+            }
+            catch(NotFoundException ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return NotFound(response);
+            }
+            catch(Exception ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+            }
+        }
+
+        /// <summary>
+        /// Set new username to the user
+        /// </summary>
+        /// <param name="id">Id of user</param>
+        /// <param name="newUsername">New username</param>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        /// <response code="500">Something bad happened :(</response>
+        [HttpPatch("{id}/username")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public async Task<IActionResult> SetUserUsername(int id, [Required]string newUsername)
+        {
+            try
+            {
+                await _usersService.SetUserUsername(id, newUsername);
+                return Ok();
+            }
+            catch(NotFoundException ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return NotFound(response);
+            }
+            catch(Exception ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+            }
+        }
+
+        /// <summary>
+        /// Set new description to the user
+        /// </summary>
+        /// <param name="id">Id of user</param>
+        /// <param name="newDescription">New description</param>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        /// <response code="500">Something bad happened :(</response>
+        [HttpPatch("{id}/description")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public async Task<IActionResult> SetUserDescription(int id, [Required]string newDescription)
+        {
+            try
+            {
+                await _usersService.SetUserDescription(id, newDescription);
+                return Ok();
+            }
+            catch(NotFoundException ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return NotFound(response);
+            }
+            catch(Exception ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+            }
+        }
+
+        /// <summary>
+        /// Set new photo to the user
+        /// </summary>
+        /// <param name="id">Id of user</param>
+        /// <param name="photoUrl">New photo url</param>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        /// <response code="500">Something bad happened :(</response>
+        [HttpPatch("{id}/photo")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public async Task<IActionResult> SetUserPhoto(int id, [Required]string photoUrl)
+        {
+            try
+            {
+                await _usersService.SetUserPhoto(id, photoUrl);
+                return Ok();
+            }
+            catch(NotFoundException ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return NotFound(response);
+            }
+            catch(Exception ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+            }
+        }
+
+        /// <summary>
+        /// Check user's password
+        /// </summary>
+        /// <param name="id">Id of user</param>
+        /// <param name="password">Password to check</param>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        /// <response code="403">Incorrect password</response>
+        /// <response code="500">Something bad happened :(</response>
+        [HttpGet("{id}/password/check")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.Forbidden)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public async Task<IActionResult> CheckUserPassword(int id, string password)
+        {
+            try
+            {
+                await _authService.CheckPassword(id, password);
+                return Ok();
+            }
+            catch(NotFoundException ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return NotFound(response);
+            }
+            catch(CredentialsException ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return StatusCode(403, response);
+            }
+            catch(Exception ex)
+            {
+                var response = new ErrorResponse();
+                response.ErrorMessages.Add(ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+            }
+        }
+
+        /// <summary>
+        /// Change user's password
+        /// </summary>
+        /// <param name="id">Id of user</param>
+        /// <param name="request">Contains old and new password</param>
+        /// <response code="200">Success</response>
+        /// <response code="400">BadRequest. Check your request body</response>
+        /// <response code="404">User with this id wasn't found</response>
+        /// <response code="403">Incorrect password</response>
+        /// <response code="500">Something bad happened :(</response>
+        [HttpPatch("{id}/password/change")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.Forbidden)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> ChangeUserPassword(int id, [FromBody] ChangePasswordRequest request)
+        {
+            if(request == null)
+            {
+                var errorResponse = new ErrorResponse();
+                errorResponse.ErrorMessages.Add("Bad request body");
+                return BadRequest(errorResponse);
+            }
+            try
+            {
+                await _authService.ChangePassword(id, request.OldPassword, request.NewPassword);
+                return Ok();
+            }
+            catch(NotFoundException ex)
+            {
+                var errorReponse = new ErrorResponse();
+                errorReponse.ErrorMessages.Add(ex.Message);
+                return NotFound(errorReponse);
+            }
+            catch(CredentialsException ex)
+            {
+                var errorReponse = new ErrorResponse();
+                errorReponse.ErrorMessages.Add(ex.Message);
+                return StatusCode((int)HttpStatusCode.Forbidden, errorReponse);
+            }
+            catch(Exception)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError);
             }
         }
     }

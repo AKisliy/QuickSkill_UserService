@@ -104,7 +104,6 @@ namespace UserService.WebApi.Controllers
             return Created($"api/badges/badge/{id}", id);
         }
 
-
         /// <summary>
         /// Update user's badges progress
         /// </summary>

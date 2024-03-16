@@ -30,9 +30,7 @@ namespace UserService.Application.Services
             var result = _hasher.Verify(password, user.Password);
             if(!result)
                 throw new Exception("Password is incorrect");
-            var token = _provider.GenerateToken(user);
-
-            return token;
+            return _provider.GenerateToken(user);
         }
 
         public async Task Register(string firstName, string lastName, string email, string password)
@@ -73,6 +71,23 @@ namespace UserService.Application.Services
         public async Task Verify(string token)
         {
             await _repository.VerifyUser(token);
+        }
+
+        public async Task CheckPassword(int id, string password)
+        {
+            var user = await _repository.GetUserById(id) ?? throw new NotFoundException($"No user with id: {id}");
+            if(!_hasher.Verify(password, user.Password))
+                throw new CredentialsException("Password is incorrect!");
+        }
+
+        public async Task ChangePassword(int id, string oldPassword, string newPassword)
+        {
+            var user = await _repository.GetUserById(id) ?? throw new NotFoundException($"No user with id: {id}");
+            if(!_hasher.Verify(oldPassword, user.Password))
+                throw new CredentialsException("Password is incorrect!");
+            var newPasswordHash = _hasher.Generate(newPassword);
+            user.Password = newPasswordHash;
+            await _repository.Update(user);
         }
     }
 }
