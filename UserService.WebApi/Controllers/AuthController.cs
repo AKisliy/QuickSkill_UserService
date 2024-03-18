@@ -7,7 +7,6 @@ using UserService.Core.Interfaces.Services;
 using UserService.WebApi.Dtos;
 using UserService.Infrastructure;
 using System.ComponentModel.DataAnnotations;
-using UserService.Core.Exceptions;
 using Microsoft.AspNetCore.Authentication;
 
 namespace UserService.WebApi.Controllers
@@ -42,21 +41,8 @@ namespace UserService.WebApi.Controllers
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.Conflict)]
         public async Task<IActionResult> Register([FromBody] UserRegisterRequest user)
         {
-            var response = new ErrorResponse();
-            if(user == null)
-            {
-                response.ErrorMessages.Add("Empty request body");
-                return BadRequest(response);
-            }
-            try{
-                await _authService.Register(user.Firstname, user.Lastname, user.Email, user.Password);
-                return Ok();
-            }
-            catch(Exception ex)
-            {
-                response.ErrorMessages.Add(ex.Message);
-                return Conflict(response);
-            }
+            await _authService.Register(user.Firstname, user.Lastname, user.Email, user.Password);
+            return Ok();
         }
 
         /// <summary>
@@ -70,18 +56,9 @@ namespace UserService.WebApi.Controllers
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
         {
-            var response = new ErrorResponse();
-            try
-            {
-                var token = await _authService.Login(user.Email, user.Password);
-                HttpContext.Response.Cookies.Append(_cookiesOptions.Value.TokenFieldName, token);
-                return Ok();
-            }
-            catch(Exception ex)
-            {
-                response.ErrorMessages.Add(ex.Message);
-                return NotFound(response);
-            }
+            var token = await _authService.Login(user.Email, user.Password);
+            HttpContext.Response.Cookies.Append(_cookiesOptions.Value.TokenFieldName, token);
+            return Ok();
         }
 
         [HttpGet("login/github")]
@@ -107,17 +84,8 @@ namespace UserService.WebApi.Controllers
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> Verify(string token)
         {
-            var response = new ErrorResponse();
-            try
-            {
-                await _authService.Verify(token);
-                return Ok();
-            }
-            catch(Exception ex)
-            {
-                response.ErrorMessages.Add(ex.Message);
-                return BadRequest(response);
-            }
+            await _authService.Verify(token);
+            return Ok();
         }
 
         /// <summary>
@@ -133,19 +101,8 @@ namespace UserService.WebApi.Controllers
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> ForgotPassword([EmailAddress] string email)
         {
-            if(string.IsNullOrEmpty(email))
-                return BadRequest();
-            var response = new ErrorResponse();
-            try
-            {
-                await _authService.ForgotPassword(email);
-                return Accepted();
-            }
-            catch(Exception ex)
-            {
-                response.ErrorMessages.Add(ex.Message);
-                return NotFound(response);
-            }
+            await _authService.ForgotPassword(email);
+            return Accepted();
         }
 
         /// <summary>
@@ -162,21 +119,8 @@ namespace UserService.WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> ResetPassword(string token, string password)
         {
-            if(string.IsNullOrEmpty(token))
-                return BadRequest();
-            try
-            {
-                await _authService.ResetPassword(password, token);
-                return Ok();
-            }
-            catch(TokenException ex)
-            {
-                return StatusCode(403, ex.Message);
-            }
-            catch(NotFoundException ex)
-            {
-                return StatusCode(404, ex.Message);
-            }
+            await _authService.ResetPassword(password, token);
+            return Ok();
         }
     }
 }

@@ -24,12 +24,12 @@ namespace UserService.Application.Services
 
         public async Task<string> Login(string email, string password)
         {
-            var user = await _repository.GetUserByEmail(email) ?? throw new Exception("No user with this email");
+            var user = await _repository.GetUserByEmail(email) ?? throw new NotFoundException("No user with this email");
             if(user.VerifiedAt == null)
-                throw new Exception("User not verified!");
+                throw new CredentialsException("User not verified!");
             var result = _hasher.Verify(password, user.Password);
             if(!result)
-                throw new Exception("Password is incorrect");
+                throw new CredentialsException("Password is incorrect");
             return _provider.GenerateToken(user);
         }
 
@@ -38,7 +38,7 @@ namespace UserService.Application.Services
             User user = User.Create(firstName, lastName, Generator.GenerateUsername(firstName, lastName, email), email, _hasher.Generate(password));
             var find = await _repository.GetUserByEmail(email);
             if(find != null)
-                throw new Exception("User with this email already exists");
+                throw new ConflictException("User with this email already exists");
 
             var token = Generator.GenerateVerificationToken();
             while(!await _repository.IsUniqueVerificationToken(token))
@@ -85,8 +85,7 @@ namespace UserService.Application.Services
             var user = await _repository.GetUserById(id) ?? throw new NotFoundException($"No user with id: {id}");
             if(!_hasher.Verify(oldPassword, user.Password))
                 throw new CredentialsException("Password is incorrect!");
-            var newPasswordHash = _hasher.Generate(newPassword);
-            user.Password = newPasswordHash;
+            user.Password = _hasher.Generate(newPassword);
             await _repository.Update(user);
         }
     }

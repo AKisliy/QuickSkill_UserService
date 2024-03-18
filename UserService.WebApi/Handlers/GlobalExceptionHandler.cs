@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using UserService.Core.Exceptions;
 using UserService.WebApi.Dtos;
 
@@ -31,6 +26,9 @@ namespace UserService.WebApi.Handlers
                     errorResponse.StatusCode = (int)HttpStatusCode.Forbidden;
                     break;
                 case TokenException:
+                    errorResponse.StatusCode = (int)HttpStatusCode.Forbidden;
+                    break;
+                case ConflictException:
                     errorResponse.StatusCode = (int)HttpStatusCode.Conflict;
                     break;
                 default:
