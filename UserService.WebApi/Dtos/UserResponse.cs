@@ -19,15 +19,17 @@ namespace UserService.WebApi.Dtos
 
         public int? Userlevel { get; set; }
 
+        public int Streak { get; set; }
+
         public string? Description { get; set; }
 
         public string? Email { get; set; }
 
         public string? Photo { get; set; }
 
-        public string? Goaltext { get; set; }
+        public string? GoalText { get; set; }
 
-        public int? Goaldays { get; set; }
+        public int? GoalDays { get; set; }
 
         public string? Status { get; set; }
     }

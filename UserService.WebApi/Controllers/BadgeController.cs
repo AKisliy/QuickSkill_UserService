@@ -41,19 +41,8 @@ namespace UserService.WebApi.Controllers
             }
 
             var result = userBadges.Select(ub => 
-            {
-                return new UserBadgeResponse()
-                {
-                    UserId = ub.UserId,
-                    Name = ub.Badge.Name,
-                    TaskToAchieve = ub.Badge.TaskToAchieve,
-                    Required = ub.Badge.Required,
-                    Progress = ub.Progress,
-                    Achieved = ub.Achieved,
-                    Photo = ub.Badge.Photo,
-                    GrayPhoto = ub.Badge.GrayPhoto
-                };
-            });
+                _mapper.Map<UserBadgeResponse>(ub)
+            );
             return Ok(result);
         }
 

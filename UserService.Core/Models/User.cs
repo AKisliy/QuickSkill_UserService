@@ -42,6 +42,8 @@ namespace UserService.Core.Models
 
         public string Status { get; set; }
 
+        public int Streak { get; set; }
+
         public DateTime? VerifiedAt { get; set; }
 
         public static User Create(string firstName, string lastName, string username, string email, string password)

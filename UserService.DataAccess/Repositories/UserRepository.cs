@@ -1,6 +1,5 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using UserService.Core.Enums;
 using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
 using UserService.Core.Models;
@@ -40,7 +39,7 @@ namespace UserService.DataAccess.Repositories
         {
             var find = _context.Users.FirstOrDefault(u => u.Email == user.Email);
             if(find != null)
-                throw new InvalidDataException("User already registered");
+                throw new ConflictException("User already registered");
             var userEntity = _mapper.Map<UserEntity>(user);
             userEntity.CreatedAt = DateTime.UtcNow;
             await _context.Users.AddAsync(userEntity);
@@ -87,43 +86,33 @@ namespace UserService.DataAccess.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
-            if(user == null)
-                return false;
+            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id) ?? throw new NotFoundException("User is not found");
             await _context.Users.Where(u => u.Id == id).ExecuteDeleteAsync();
             await _context.SaveChangesAsync();
             return true;
         }
 
-        public async Task<User?> GetUserById(int id)
+        public async Task<User> GetUserById(int id)
         {
-            var user =  await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
-            if(user == null)
-                return null;
+            var user =  await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id) ?? throw new NotFoundException("User is not found");
             return _mapper.Map<User>(user);
         }
 
-        public async Task<User?> GetUserByUsername(string username)
+        public async Task<User> GetUserByUsername(string username)
         {
-            var user =  await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username);
-            if(user == null)
-                return null;
+            var user =  await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username) ?? throw new NotFoundException("User is not found");
             return _mapper.Map<User>(user);
         }
 
-        public async Task<User?> GetUserByEmail(string email)
+        public async Task<User> GetUserByEmail(string email)
         {
-            var user =  await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
-            if(user == null)
-                return null;
+            var user =  await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email) ?? throw new NotFoundException("User is not found");
             return _mapper.Map<User>(user);
         }
 
         public async Task<bool> UpdateUserXp(int id, int xp)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-            if(user == null)
-                return false;
+            var user = await GetUserById(id);
             user.Xp += xp;
             await _context.SaveChangesAsync();
             return true;
@@ -133,9 +122,9 @@ namespace UserService.DataAccess.Repositories
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.VerificationToken == token) ?? throw new NotFoundException("No user with this token");
             if(user.VerifiedAt != null)
-                throw new Exception("User already verified");
+                throw new ConflictException("User already verified");
             if (user.VerificationTokenExpires < DateTime.UtcNow)
-                throw new Exception("Token has expired!");
+                throw new ConflictException("Token has expired!");
             user.VerifiedAt = DateTime.UtcNow;
             user.VerificationToken = null;
             user.VerificationTokenExpires = null;
@@ -177,6 +166,8 @@ namespace UserService.DataAccess.Repositories
                 ActivityType = "Active"
             };
             await _context.UsersActivities.AddAsync(userActivity);
+            await _context.Users.Where(u => u.Id == id).ExecuteUpdateAsync(s =>
+                s.SetProperty(s => s.Streak, s => s.Streak + 1));
             await _context.SaveChangesAsync();
         }
 

@@ -108,7 +108,7 @@
             <response code="200">Success</response>
             <response code="400">Bad request</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.GetUserById(System.Int32)">
+        <member name="M:UserService.WebApi.Controllers.UserController.GetUserById">
             <summary>
             Get user By ID
             </summary>
@@ -116,116 +116,104 @@
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.UpdateUserXp(System.Int32,System.Int32)">
+        <member name="M:UserService.WebApi.Controllers.UserController.UpdateUserXp(System.Int32)">
             <summary>
             Add XP to user with ID
             </summary>
-            <param name="id">Id of user</param>
             <param name="xpCnt">Count of XP to add</param>
             <returns>bool</returns>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.DeleteUser(System.Int32)">
+        <member name="M:UserService.WebApi.Controllers.UserController.DeleteUser">
             <summary>
             Delete user with id
             </summary>
-            <param name="id">Id of user</param>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.SetUserActivity(System.Int32)">
+        <member name="M:UserService.WebApi.Controllers.UserController.SetUserActivity">
             <summary>
             Set user today's activity to "Active"
             </summary>
-            <param name="id">Id of user</param>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.GetUserWeekActivity(System.Int32)">
+        <member name="M:UserService.WebApi.Controllers.UserController.GetUserWeekActivity">
             <summary>
             Get user activity for current week
             </summary>
-            <param name="id">Id of user</param>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.GetUserMonthActivity(System.Int32,System.Int32,System.Int32)">
+        <member name="M:UserService.WebApi.Controllers.UserController.GetUserMonthActivity(System.Int32,System.Int32)">
             <summary>
             Get user activity for month in year
             </summary>
-            <param name="id">Id of user</param>
             <param name="month">Number of month</param>
             <param name="year">Number of year</param>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.SetUserFirstName(System.Int32,System.String)">
+        <member name="M:UserService.WebApi.Controllers.UserController.SetUserFirstName(System.String)">
             <summary>
             Set new Firstname to the user
             </summary>
-            <param name="id">Id of user</param>
             <param name="newName">New firstname</param>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
             <response code="500">Something bad happened</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.SetUserLastName(System.Int32,System.String)">
+        <member name="M:UserService.WebApi.Controllers.UserController.SetUserLastName(System.String)">
             <summary>
             Set new lastname to the user
             </summary>
-            <param name="id">Id of user</param>
             <param name="newLastName">New lastname</param>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
             <response code="500">Something bad happened :(</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.SetUserUsername(System.Int32,System.String)">
+        <member name="M:UserService.WebApi.Controllers.UserController.SetUserUsername(System.String)">
             <summary>
             Set new username to the user
             </summary>
-            <param name="id">Id of user</param>
             <param name="newUsername">New username</param>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
             <response code="500">Something bad happened :(</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.SetUserDescription(System.Int32,System.String)">
+        <member name="M:UserService.WebApi.Controllers.UserController.SetUserDescription(System.String)">
             <summary>
             Set new description to the user
             </summary>
-            <param name="id">Id of user</param>
             <param name="newDescription">New description</param>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
             <response code="500">Something bad happened :(</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.SetUserPhoto(System.Int32,System.String)">
+        <member name="M:UserService.WebApi.Controllers.UserController.SetUserPhoto(System.String)">
             <summary>
             Set new photo to the user
             </summary>
-            <param name="id">Id of user</param>
             <param name="photoUrl">New photo url</param>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
             <response code="500">Something bad happened :(</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.CheckUserPassword(System.Int32,System.String)">
+        <member name="M:UserService.WebApi.Controllers.UserController.CheckUserPassword(System.String)">
             <summary>
             Check user's password
             </summary>
-            <param name="id">Id of user</param>
             <param name="password">Password to check</param>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
             <response code="403">Incorrect password</response>
             <response code="500">Something bad happened :(</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.ChangeUserPassword(System.Int32,UserService.WebApi.Dtos.ChangePasswordRequest)">
+        <member name="M:UserService.WebApi.Controllers.UserController.ChangeUserPassword(UserService.WebApi.Dtos.ChangePasswordRequest)">
             <summary>
             Change user's password
             </summary>
-            <param name="id">Id of user</param>
             <param name="request">Contains old and new password</param>
             <response code="200">Success</response>
             <response code="400">BadRequest. Check your request body</response>

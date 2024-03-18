@@ -100,6 +100,10 @@ namespace UserService.DataAccess
                 entity.Property(e => e.Freezer)
                     .HasColumnName("freezer")
                     .HasDefaultValue(0);
+
+                entity.Property(e => e.Streak)
+                    .HasColumnName("streak")
+                    .HasDefaultValue(0);
             });
 
             modelBuilder.Entity<UserBadgeEntity>(entity =>

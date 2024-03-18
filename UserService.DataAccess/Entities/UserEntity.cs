@@ -47,6 +47,8 @@ namespace UserService.DataAccess.Entities
 
         public int Freezer { get; set; }
 
+        public int Streak { get; set; }
+
         public virtual ICollection<UserBadgeEntity> UserBadges { get; set; } = new List<UserBadgeEntity>();
 
         public virtual ICollection<UserActivityEntity> UserActivities { get; set; } = new List<UserActivityEntity>();

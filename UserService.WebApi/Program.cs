@@ -11,9 +11,9 @@ using UserService.DataAccess.Repositories;
 using UserService.Infrastructure;
 using UserService.Infrastructure.Options;
 using UserService.WebApi.Extensions;
+using UserService.WebApi.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -44,6 +44,9 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("InDocker"))
@@ -51,6 +54,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("InDocker")
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseExceptionHandler();
 app.UseRouting();
 app.UseHttpsRedirection();
 

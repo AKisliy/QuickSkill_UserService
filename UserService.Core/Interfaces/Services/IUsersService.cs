@@ -11,11 +11,11 @@ namespace UserService.Core.Interfaces
 
         public Task<IEnumerable<User>> GetAllUsers();
 
-        public Task<User?> GetUserById(int id);
+        public Task<User> GetUserById(int id);
 
-        public Task<User?> GetUserByUsername(string username);
+        public Task<User> GetUserByUsername(string username);
 
-        public Task<User?> GetUserByEmail(string email);
+        public Task<User> GetUserByEmail(string email);
 
         public Task<bool> DeleteUser(int id);
 
