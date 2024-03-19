@@ -36,5 +36,6 @@ namespace UserService.Core.Interfaces
         public Task<IEnumerable<UserActivity>> GetActivityByPage(int id, int page, int pageSize);
         public Task<List<UserActivity>> GetActivityForMonth(int id, int month, int year);
         public Task<List<UserActivity>> GetActivityForWeek(int id);
+        public Task<bool> HasUserWithEmail(string email);
     }
 }

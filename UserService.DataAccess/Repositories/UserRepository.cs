@@ -226,5 +226,10 @@ namespace UserService.DataAccess.Repositories
         {
             return await _context.Users.AnyAsync(u => u.Id == id);
         }
+
+        public async Task<bool> HasUserWithEmail(string email)
+        {
+            return await _context.Users.AnyAsync(u => u.Email == email);
+        }
     }
 }

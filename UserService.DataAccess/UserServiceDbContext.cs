@@ -148,7 +148,7 @@ namespace UserService.DataAccess
 
                 entity.HasOne(d => d.User).WithMany(p => p.UserActivities)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("usersactivity_userid_fkey");
             });
 

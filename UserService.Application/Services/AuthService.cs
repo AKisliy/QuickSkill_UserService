@@ -36,8 +36,8 @@ namespace UserService.Application.Services
         public async Task Register(string firstName, string lastName, string email, string password)
         {
             User user = User.Create(firstName, lastName, Generator.GenerateUsername(firstName, lastName, email), email, _hasher.Generate(password));
-            var find = await _repository.GetUserByEmail(email);
-            if(find != null)
+            var find = await _repository.HasUserWithEmail(email);
+            if(find)
                 throw new ConflictException("User with this email already exists");
 
             var token = Generator.GenerateVerificationToken();
