@@ -7,12 +7,12 @@ namespace UserService.Core.Interfaces.Repositories
 
         public Task<int?> Create(Badge badge);
 
-        public Task<IEnumerable<UserBadge>?> GetAllUserBadgesById(int id);
+        public Task<IEnumerable<UserBadge>> GetAllUserBadgesById(int id);
 
-        public Task<bool> UpdateBadgeForUser(UserBadge badge);
+        public Task UpdateBadgeForUser(UserBadge badge);
 
-        public Task<Badge?> GetBadgeById(int id);
-        public Task<bool> Delete(int id);
-        public Task<bool> UpdateBadge(Badge badge);
+        public Task<Badge> GetBadgeById(int id);
+        public Task Delete(int id);
+        public Task UpdateBadge(Badge badge);
     }
 }

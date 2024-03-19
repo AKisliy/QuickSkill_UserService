@@ -9,15 +9,15 @@ namespace UserService.Core.Interfaces.Services
     public interface IBadgeService
     {
 
-        public Task<IEnumerable<UserBadge>?> GetAllBadgesForUser(int id);
+        public Task<IEnumerable<UserBadge>> GetAllBadgesForUser(int id);
 
         public Task<int?> CreateBadge(string name, string photo, string grayPhoto, int required, string task);
 
-        public Task<bool> UpdateBadgeInfoForUser(int userId, int badgeId, int progress);
+        public Task UpdateBadgeInfoForUser(int userId, int badgeId, int progress);
 
-        public Task<Badge?> GetBadgeById(int id);
-        public Task<bool> DeleteBadge(int id);
+        public Task<Badge> GetBadgeById(int id);
+        public Task DeleteBadge(int id);
 
-        public Task<bool> UpdateBadge(Badge badge);
+        public Task UpdateBadge(Badge badge);
     }
 }

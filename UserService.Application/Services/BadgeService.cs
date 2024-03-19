@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Tasks;
+using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Repositories;
 using UserService.Core.Interfaces.Services;
@@ -20,7 +16,7 @@ namespace UserService.Application.Services
             _badgeRepo = badgeRepo;
             _userRepo = userRepo;
         }
-        public async Task<IEnumerable<UserBadge>?> GetAllBadgesForUser(int id)
+        public async Task<IEnumerable<UserBadge>> GetAllBadgesForUser(int id)
         {
             return await _badgeRepo.GetAllUserBadgesById(id);
         }
@@ -38,13 +34,13 @@ namespace UserService.Application.Services
             return await _badgeRepo.Create(badge);
         }
 
-        public async Task<bool> UpdateBadgeInfoForUser(int userId, int badgeId, int progress)
+        public async Task UpdateBadgeInfoForUser(int userId, int badgeId, int progress)
         {
             var user = await _userRepo.GetUserById(userId);
             var badge = await _badgeRepo.GetBadgeById(badgeId);
 
             if(user == null || badge == null)
-                return false;
+                throw new NotFoundException("Badge or user not found");
             UserBadge ub = new()
             {
                 UserId = userId,
@@ -53,22 +49,22 @@ namespace UserService.Application.Services
                 User = user,
                 Badge = badge
             };
-            return await _badgeRepo.UpdateBadgeForUser(ub);
+            await _badgeRepo.UpdateBadgeForUser(ub);
         }
 
-        public async Task<Badge?> GetBadgeById(int id)
+        public async Task<Badge> GetBadgeById(int id)
         {
             return await _badgeRepo.GetBadgeById(id);
         }
 
-        public async Task<bool> DeleteBadge(int id)
+        public async Task DeleteBadge(int id)
         {
-            return await _badgeRepo.Delete(id);
+            await _badgeRepo.Delete(id);
         }
 
-        public async Task<bool> UpdateBadge(Badge badge)
+        public async Task UpdateBadge(Badge badge)
         {
-            return await _badgeRepo.UpdateBadge(badge);
+            await _badgeRepo.UpdateBadge(badge);
         }
     }
 }

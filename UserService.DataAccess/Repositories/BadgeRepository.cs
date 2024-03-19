@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using UserService.Core.Exceptions;
 using UserService.Core.Interfaces.Repositories;
 using UserService.Core.Models;
 using UserService.DataAccess.Entities;
@@ -34,11 +35,9 @@ namespace UserService.DataAccess.Repositories
             return badgeId;
         }
 
-        public async Task<IEnumerable<UserBadge>?> GetAllUserBadgesById(int id)
+        public async Task<IEnumerable<UserBadge>> GetAllUserBadgesById(int id)
         {
-            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
-            if(user == null)
-                return null;
+            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id) ?? throw new NotFoundException($"User with id {id} not found.");
             return _context.UserBadges
                 .AsNoTracking()
                 .Where(ub => ub.UserId == id)
@@ -54,12 +53,10 @@ namespace UserService.DataAccess.Repositories
                 });
         }
 
-        public async Task<bool> UpdateBadgeForUser(UserBadge badge)
+        public async Task UpdateBadgeForUser(UserBadge badge)
         {
-            var userBadge = await _context.UserBadges.FirstOrDefaultAsync(ub => ub.UserId == badge.UserId && ub.BadgeId == badge.BadgeId);
-
-            if(userBadge == null)
-                return false;
+            var userBadge = await _context.UserBadges.FirstOrDefaultAsync(ub => ub.UserId == badge.UserId && ub.BadgeId == badge.BadgeId) ?? 
+                throw new NotFoundException($"User with id {badge.UserId} not found");
 
             userBadge.Progress = badge.Progress;
             if(userBadge.Progress >= badge.Badge.Required)
@@ -67,35 +64,24 @@ namespace UserService.DataAccess.Repositories
                 userBadge.Achieved = true;
             }
             await _context.SaveChangesAsync();
-            return true;
         }
 
-        public async Task<Badge?> GetBadgeById(int id)
+        public async Task<Badge> GetBadgeById(int id)
         {
-            var badge = await _context.Badges.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
-
-            if(badge == null)
-                return null;
-
+            var badge = await _context.Badges.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id) ?? throw new NotFoundException($"Badge with id {id} not found");
             return _mapper.Map<Badge>(badge);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task Delete(int id)
         {
-            var badge = await _context.Badges.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
-            if(badge == null)
-                return false;
+            var badge = await _context.Badges.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id) ?? throw new NotFoundException($"Badge with id {id} not found");
             int res = await _context.Badges.Where(b => b.Id == id).ExecuteDeleteAsync();
             await _context.SaveChangesAsync();
-            return true;
         }
 
-        public async Task<bool> UpdateBadge(Badge badge)
+        public async Task UpdateBadge(Badge badge)
         {
-            var badgeEntity = await _context.Badges.FirstOrDefaultAsync(b => b.Id == badge.Id);
-
-            if(badgeEntity == null)
-                return false;
+            var badgeEntity = await _context.Badges.FirstOrDefaultAsync(b => b.Id == badge.Id) ?? throw new NotFoundException($"Badge with id {badge.Id} not found");
             badgeEntity.Name = badge.Name;
             badgeEntity.Photo = badge.Photo;
             badgeEntity.GrayPhoto = badge.GrayPhoto;
@@ -103,7 +89,6 @@ namespace UserService.DataAccess.Repositories
             badgeEntity.Required = badge.Required;
 
             await _context.SaveChangesAsync();
-            return true;
         }
     }
 }
