@@ -114,6 +114,7 @@ namespace UserService.DataAccess.Repositories
         {
             var user = await GetUserById(id);
             user.Xp += xp;
+            await Update(user);
             await _context.SaveChangesAsync();
             return true;
         }

@@ -90,5 +90,19 @@ namespace UserService.DataAccess.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task OnUserCreate(int id)
+        {
+            var badges = _context.Badges.AsNoTracking().Select(b => b.Id);
+            foreach(int badgeId in badges)
+            {
+                await _context.UserBadges.AddAsync(new UserBadgeEntity
+                {
+                    UserId = id,
+                    BadgeId = badgeId
+                });
+            }
+            await _context.SaveChangesAsync();
+        }
     }
 }
