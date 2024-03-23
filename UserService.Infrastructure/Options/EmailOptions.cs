@@ -16,5 +16,7 @@ namespace UserService.Infrastructure.Options
         public string Address { get; set; } = string.Empty;
 
         public string EmailHost { get; set; } = string.Empty;
+
+        public string BaseUrl { get; set; } = string.Empty;
     } 
 }

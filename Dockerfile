@@ -10,6 +10,8 @@ COPY UserService.Application/*.csproj ./UserService.Application/
 COPY UserService.DataAccess/*.csproj ./UserService.DataAccess/
 RUN dotnet restore
 
+
+
 # Копируйте остальной проект и собирайте
 COPY . ./
 RUN dotnet publish UserService.WebApi/*.csproj -c Release -o out
@@ -18,5 +20,7 @@ RUN dotnet publish UserService.WebApi/*.csproj -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build-env /app/out .
+# Копирование сертификатов в образ
+COPY ["/certs/UserService.WebApi.pfx", "/https/"]
 ENV ASPNETCORE_ENVIRONMENT=InDocker
 ENTRYPOINT ["dotnet", "UserService.WebApi.dll"]

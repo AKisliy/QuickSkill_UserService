@@ -54,6 +54,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("InDocker")
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseExceptionHandler();
 app.UseRouting();
 app.UseHttpsRedirection();

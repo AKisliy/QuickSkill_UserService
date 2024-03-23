@@ -28,7 +28,7 @@ namespace UserService.Infrastructure
             email.From.Add(MailboxAddress.Parse(_options.Address));
             email.To.Add(MailboxAddress.Parse(userEmail));
             email.Subject = verificationSubject;
-            var baseUrl = "http://localhost:5179/api/auth/verify";
+            var baseUrl = _options.BaseUrl;
             email.Body = new TextPart(TextFormat.Text) { Text = verificationBody + $"{baseUrl}?token={token}"};
 
             using var smtp = new SmtpClient();
@@ -45,7 +45,7 @@ namespace UserService.Infrastructure
             email.From.Add(MailboxAddress.Parse(_options.Address));
             email.To.Add(MailboxAddress.Parse(userEmail));
             email.Subject = resetSubject;
-            var baseUrl = "http://localhost:5179/api/auth/reset-password";
+            var baseUrl = _options.BaseUrl;
             email.Body = new TextPart(TextFormat.Text) { Text = resetBody + $"{baseUrl}?token={token}&password=kisliy12"};
 
             using var smtp = new SmtpClient();
