@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using UserService.Core.Models;
 using UserService.DataAccess.Entities;
 using UserService.Infrastructure;
@@ -23,6 +18,7 @@ namespace UserService.WebApi.Profiles
             CreateMap<User, UserEntity>()
                 .ForMember(x => x.UserBadges, o => o.Ignore())
                 .ForMember(x => x.UserActivities, o => o.Ignore());
+            CreateMap<User, OtherUserResponse>();
         }
     }
 }

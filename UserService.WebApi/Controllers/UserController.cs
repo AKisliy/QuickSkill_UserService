@@ -18,10 +18,10 @@ namespace UserService.WebApi.Controllers
     [Route("api/user")]
     public class UserController : ControllerBase
     {
-        private IUsersService _usersService;
-        private IMapper _mapper;
-        private IAuthService _authService;
-        private MyCookiesOptions _cookiesOptions;
+        private readonly IUsersService _usersService;
+        private readonly IMapper _mapper;
+        private readonly IAuthService _authService;
+        private readonly MyCookiesOptions _cookiesOptions;
 
         public UserController(IUsersService usersService, IAuthService authService, IMapper mapper, IOptions<MyCookiesOptions> cookiesOptions)
         {
@@ -48,20 +48,36 @@ namespace UserService.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get user By ID
+        /// Get current user(by token)
         /// </summary>
         /// <returns>UserResponse</returns>
         /// <response code="200">Success</response>
         /// <response code="404">User with this id wasn't found</response>
-        [HttpGet("id", Name = "GetUserById")]
+        [HttpGet("current", Name = "GetCurrentUser")]
         [Authorize]
         [ProducesResponseType(typeof(UserResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetUserById()
+        public async Task<IActionResult> GetUser()
         {
             int id = HttpContext.GetUserId();
             var user = await _usersService.GetUserById(id);
             return Ok(_mapper.Map<UserResponse>(user));
+        }
+
+        /// <summary>
+        /// Get user by Id
+        /// </summary>
+        /// <returns>UserResponse</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        [HttpGet("{id}", Name = "Get User by Id")]
+        [Authorize]
+        [ProducesResponseType(typeof(OtherUserResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            var user = await _usersService.GetUserById(id);
+            return Ok(_mapper.Map<OtherUserResponse>(user));
         }
 
         /// <summary>

@@ -48,6 +48,14 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.1, )"
+            },
+            "EventBus.RabbitMQ.Standard": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "MassTransit": {
+              "target": "Package",
+              "version": "[8.2.0, )"
             }
           },
           "imports": [
@@ -164,6 +172,10 @@
             "BCrypt.Net-Next": {
               "target": "Package",
               "version": "[4.0.3, )"
+            },
+            "EventBus.RabbitMQ.Standard": {
+              "target": "Package",
+              "version": "[3.1.0, )"
             },
             "MailKit": {
               "target": "Package",

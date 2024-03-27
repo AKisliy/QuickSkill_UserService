@@ -23,8 +23,6 @@ namespace UserService.WebApi.Handlers
                     errorResponse.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
                 case CredentialsException:
-                    errorResponse.StatusCode = (int)HttpStatusCode.Forbidden;
-                    break;
                 case TokenException:
                     errorResponse.StatusCode = (int)HttpStatusCode.Forbidden;
                     break;

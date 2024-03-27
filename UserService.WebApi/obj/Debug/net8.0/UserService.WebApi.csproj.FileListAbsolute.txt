@@ -65,3 +65,12 @@
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.WebApi.xml
 /Users/alexeykiselev/UserService/UserService.WebApi/obj/Debug/net8.0/UserService.WebApi.xml
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/appsettings.InDocker.json
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/EventBus.Base.Standard.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/EventBus.RabbitMQ.Standard.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Polly.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/RabbitMQ.Client.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MassTransit.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MassTransit.Abstractions.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MassTransit.RabbitMqTransport.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MassTransit.AspNetCoreIntegration.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MassTransit.ExtensionsDependencyInjectionIntegration.dll

@@ -9,6 +9,7 @@
       "UserService.Infrastructure/1.0.0": {
         "dependencies": {
           "BCrypt.Net-Next": "4.0.3",
+          "EventBus.RabbitMQ.Standard": "3.1.0",
           "MailKit": "4.4.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.2",
           "UserService.Core": "1.0.0"
@@ -30,6 +31,35 @@
           "lib/net6.0/BouncyCastle.Cryptography.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.3.0.53016"
+          }
+        }
+      },
+      "EventBus.Base.Standard/1.0.2": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "3.1.0",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.1/EventBus.Base.Standard.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "EventBus.RabbitMQ.Standard/3.1.0": {
+        "dependencies": {
+          "EventBus.Base.Standard": "1.0.2",
+          "Microsoft.CSharp": "4.7.0",
+          "Microsoft.Extensions.DependencyInjection": "3.1.0",
+          "Newtonsoft.Json": "13.0.1",
+          "Polly": "7.2.1",
+          "RabbitMQ.Client": "6.2.1",
+          "System.ValueTuple": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/EventBus.RabbitMQ.Standard.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -55,6 +85,13 @@
           }
         }
       },
+      "Microsoft.CSharp/4.7.0": {},
+      "Microsoft.Extensions.DependencyInjection/3.1.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0"
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/3.1.0": {},
       "Microsoft.IdentityModel.Abstractions/7.1.2": {
         "runtime": {
           "lib/net8.0/Microsoft.IdentityModel.Abstractions.dll": {
@@ -134,6 +171,34 @@
           }
         }
       },
+      "Newtonsoft.Json/13.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.1.25517"
+          }
+        }
+      },
+      "Polly/7.2.1": {
+        "runtime": {
+          "lib/netstandard2.0/Polly.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.2.1.0"
+          }
+        }
+      },
+      "RabbitMQ.Client/6.2.1": {
+        "dependencies": {
+          "System.Memory": "4.5.4",
+          "System.Threading.Channels": "4.7.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/RabbitMQ.Client.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.2.1.0"
+          }
+        }
+      },
       "System.Formats.Asn1/8.0.0": {},
       "System.IdentityModel.Tokens.Jwt/7.1.2": {
         "dependencies": {
@@ -147,6 +212,7 @@
           }
         }
       },
+      "System.Memory/4.5.4": {},
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
       "System.Security.Cryptography.Pkcs/8.0.0": {
         "dependencies": {
@@ -154,6 +220,8 @@
         }
       },
       "System.Text.Encoding.CodePages/8.0.0": {},
+      "System.Threading.Channels/4.7.1": {},
+      "System.ValueTuple/4.5.0": {},
       "UserService.Core/1.0.0": {
         "runtime": {
           "UserService.Core.dll": {}
@@ -181,6 +249,20 @@
       "path": "bouncycastle.cryptography/2.3.0",
       "hashPath": "bouncycastle.cryptography.2.3.0.nupkg.sha512"
     },
+    "EventBus.Base.Standard/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EiBg0y2mSzXNnXmCiOQvDsD9ZA8NXSWqHik3y6LYnRcUjETIiLzhu7jHEe9P948Hf0HwBpdOasko69JL+ZR2dQ==",
+      "path": "eventbus.base.standard/1.0.2",
+      "hashPath": "eventbus.base.standard.1.0.2.nupkg.sha512"
+    },
+    "EventBus.RabbitMQ.Standard/3.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9ugg/XBibfXLCSWX/bjuf4UCOjLy9ptCtok8SjDM0FtrNSvqdQ1NRWTN6weLlWHXZE2Vnae3NXyYY4nxU+JTiA==",
+      "path": "eventbus.rabbitmq.standard/3.1.0",
+      "hashPath": "eventbus.rabbitmq.standard.3.1.0.nupkg.sha512"
+    },
     "MailKit/4.4.0": {
       "type": "package",
       "serviceable": true,
@@ -194,6 +276,27 @@
       "sha512": "sha512-7qJkk5k5jabATZZrMIQgpUB9yjDNAAApSqw+8d0FEyK1AJ4j+wv1qOMl2byUr837xbK+MjehtPnQ32yZ5Gtzlw==",
       "path": "microsoft.aspnetcore.authentication.jwtbearer/8.0.2",
       "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.8.0.2.nupkg.sha512"
+    },
+    "Microsoft.CSharp/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection/3.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KVkv3aF2MQpmGFRh4xRx2CNbc2sjDFk+lH4ySrjWSOS+XoY1Xc+sJphw3N0iYOpoeCCq8976ceVYDH8sdx2qIQ==",
+      "path": "microsoft.extensions.dependencyinjection/3.1.0",
+      "hashPath": "microsoft.extensions.dependencyinjection.3.1.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/3.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-44rDtOf1JXXAFpNT2EXMExaDm/4OJ2RXOL9i9lE4bK427nzC7Exphv+beB6IgluyE2GIoo8zezTStMXI7MQ8WA==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/3.1.0",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.3.1.0.nupkg.sha512"
     },
     "Microsoft.IdentityModel.Abstractions/7.1.2": {
       "type": "package",
@@ -244,6 +347,27 @@
       "path": "mimekit/4.4.0",
       "hashPath": "mimekit.4.4.0.nupkg.sha512"
     },
+    "Newtonsoft.Json/13.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "path": "newtonsoft.json/13.0.1",
+      "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
+    },
+    "Polly/7.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Od8SnPlpQr+PuAS0YzY3jgtzaDNknlIuAaldN2VEIyTvm/wCg22C5nUkUV1BEG8rIsub5RFMoV/NEQ0tM/+7Uw==",
+      "path": "polly/7.2.1",
+      "hashPath": "polly.7.2.1.nupkg.sha512"
+    },
+    "RabbitMQ.Client/6.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kdcin0uz1b9xQPvlLOoa8Y2zQsfu7nRuTrcX02dCLVzwGVlsPp9AFgu1L3kRh4wSFEOGE03OVqpWKxaDlhuowQ==",
+      "path": "rabbitmq.client/6.2.1",
+      "hashPath": "rabbitmq.client.6.2.1.nupkg.sha512"
+    },
     "System.Formats.Asn1/8.0.0": {
       "type": "package",
       "serviceable": true,
@@ -257,6 +381,13 @@
       "sha512": "sha512-Thhbe1peAmtSBFaV/ohtykXiZSOkx59Da44hvtWfIMFofDA3M3LaVyjstACf2rKGn4dEDR2cUpRAZ0Xs/zB+7Q==",
       "path": "system.identitymodel.tokens.jwt/7.1.2",
       "hashPath": "system.identitymodel.tokens.jwt.7.1.2.nupkg.sha512"
+    },
+    "System.Memory/4.5.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "path": "system.memory/4.5.4",
+      "hashPath": "system.memory.4.5.4.nupkg.sha512"
     },
     "System.Runtime.CompilerServices.Unsafe/6.0.0": {
       "type": "package",
@@ -278,6 +409,20 @@
       "sha512": "sha512-OZIsVplFGaVY90G2SbpgU7EnCoOO5pw1t4ic21dBF3/1omrJFpAGoNAVpPyMVOC90/hvgkGG3VFqR13YgZMQfg==",
       "path": "system.text.encoding.codepages/8.0.0",
       "hashPath": "system.text.encoding.codepages.8.0.0.nupkg.sha512"
+    },
+    "System.Threading.Channels/4.7.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6akRtHK/wab3246t4p5v3HQrtQk8LboOt5T4dtpNgsp3zvDeM4/Gx8V12t0h+c/W9/enUrilk8n6EQqdQorZAA==",
+      "path": "system.threading.channels/4.7.1",
+      "hashPath": "system.threading.channels.4.7.1.nupkg.sha512"
+    },
+    "System.ValueTuple/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ==",
+      "path": "system.valuetuple/4.5.0",
+      "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
     },
     "UserService.Core/1.0.0": {
       "type": "project",

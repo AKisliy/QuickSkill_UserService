@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using UserService.Core.Models;
 using UserService.DataAccess.Entities;
@@ -18,6 +14,7 @@ namespace UserService.WebApi.Profiles
             CreateMap<BadgeEntity, Badge>();
             CreateMap<BadgeRequest, Badge>()
                 .ForMember(b => b.TaskToAchieve, opt => opt.MapFrom(src => src.Task));
+            CreateMap<UserBadge, UserBadgeResponse>();
         }
     }
 }

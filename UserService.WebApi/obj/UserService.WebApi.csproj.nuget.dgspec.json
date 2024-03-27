@@ -48,6 +48,14 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.1, )"
+            },
+            "EventBus.RabbitMQ.Standard": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "MassTransit": {
+              "target": "Package",
+              "version": "[8.2.0, )"
             }
           },
           "imports": [
@@ -246,6 +254,10 @@
               "target": "Package",
               "version": "[4.0.3, )"
             },
+            "EventBus.RabbitMQ.Standard": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.4.0, )"
@@ -325,6 +337,22 @@
             "AspNet.Security.OAuth.GitHub": {
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "EventBus.RabbitMQ.Standard": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "MassTransit": {
+              "target": "Package",
+              "version": "[8.2.0, )"
+            },
+            "MassTransit.AspNetCore": {
+              "target": "Package",
+              "version": "[7.3.1, )"
+            },
+            "Masstransit.RabbitMq": {
+              "target": "Package",
+              "version": "[8.2.0, )"
             },
             "Microsoft.AspNetCore.Authentication.OAuth": {
               "target": "Package",

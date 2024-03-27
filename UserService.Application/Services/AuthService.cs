@@ -1,3 +1,4 @@
+using MassTransit;
 using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Auth;
@@ -6,6 +7,7 @@ using UserService.Core.Interfaces.Repositories;
 using UserService.Core.Interfaces.Services;
 using UserService.Core.Models;
 using UserService.Infrastructure;
+using UserService.Infrastructure.Events;
 
 namespace UserService.Application.Services
 {
@@ -15,6 +17,7 @@ namespace UserService.Application.Services
         private readonly IJwtProvider _provider;
         private readonly IEmailSender _sender;
         private readonly IBadgeRepository _badgeRepository;
+        //private readonly IPublishEndpoint _publishEndpoint;
         private readonly IPasswordHasher _hasher;
         public AuthService(IUserRepository userRepository, IBadgeRepository badgeRepository, IPasswordHasher hasher, IJwtProvider provider, IEmailSender sender)
         {
@@ -23,6 +26,7 @@ namespace UserService.Application.Services
             _provider = provider;
             _sender = sender;
             _badgeRepository = badgeRepository;
+            //_publishEndpoint = publishEndpoint;
         }
 
         public async Task<string> Login(string email, string password)
@@ -38,7 +42,8 @@ namespace UserService.Application.Services
 
         public async Task Register(string firstName, string lastName, string email, string password)
         {
-            User user = User.Create(firstName, lastName, Generator.GenerateUsername(firstName, lastName, email), email, _hasher.Generate(password));
+            var username = Generator.GenerateUsername(firstName, lastName, email);
+            User user = User.Create(firstName, lastName, username, email, _hasher.Generate(password));
             var find = await _userRepository.HasUserWithEmail(email);
             if(find)
                 throw new ConflictException("User with this email already exists");
@@ -52,6 +57,13 @@ namespace UserService.Application.Services
             var id =  await _userRepository.Create(user);
             await _userRepository.SetVerificationToken(id, token, DateTime.UtcNow.AddDays(7));
             await _badgeRepository.OnUserCreate(id);
+            // await _publishEndpoint.Publish(new UserCreatedEvent
+            // {
+            //     UserId = id,
+            //     FirstName = firstName,
+            //     LastName = lastName,
+            //     Username = username
+            // });
         }
 
         public async Task ForgotPassword(string email)

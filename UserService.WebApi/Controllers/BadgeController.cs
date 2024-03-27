@@ -23,13 +23,13 @@ namespace UserService.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get all badges for user
+        /// Get all badges for current user(by token)
         /// </summary>
         /// <returns>List of UserBadgeResponse</returns>
         /// <response code="200">Success</response>
         /// <response code="404">User with this id wasn't found</response>
         [Authorize]
-        [HttpGet("user", Name = "GetAllUserBadges")]
+        [HttpGet("user", Name = "GetAllCurrentUserBadges")]
         [ProducesResponseType(typeof(List<UserBadgeResponse>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetAllBadgesForUser()
@@ -38,6 +38,26 @@ namespace UserService.WebApi.Controllers
             var userBadges =  await _service.GetAllBadgesForUser(id);
 
             var result = userBadges.Select(ub => 
+                _mapper.Map<UserBadgeResponse>(ub)
+            );
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Get all badges for user(by id)
+        /// </summary>
+        /// <returns>List of UserBadgeResponse</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        [Authorize]
+        [HttpGet("user/{id}", Name = "GetAllUserBadges")]
+        [ProducesResponseType(typeof(List<UserBadgeResponse>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetAllBadgesForUserById(int id)
+        {
+            var userBadges =  await _service.GetAllBadgesForUser(id);
+
+            var result = userBadges.Select(ub =>
                 _mapper.Map<UserBadgeResponse>(ub)
             );
             return Ok(result);

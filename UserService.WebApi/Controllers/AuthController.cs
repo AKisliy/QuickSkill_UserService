@@ -8,6 +8,7 @@ using UserService.WebApi.Dtos;
 using UserService.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication;
+using EventBus.Base.Standard;
 
 namespace UserService.WebApi.Controllers
 {

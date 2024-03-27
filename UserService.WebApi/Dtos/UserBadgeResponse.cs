@@ -7,8 +7,6 @@ namespace UserService.WebApi.Dtos
 {
     public class UserBadgeResponse
     {
-        public int UserId { get; set; }
-
         public string Name { get; set; } = null!;
 
         public int Progress { get; set; }

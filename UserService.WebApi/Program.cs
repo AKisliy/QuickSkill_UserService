@@ -1,4 +1,6 @@
 using System.Reflection;
+using EventBus.RabbitMQ.Standard.Configuration;
+using EventBus.RabbitMQ.Standard.Options;
 using Microsoft.EntityFrameworkCore;
 using UserService.Application.Services;
 using UserService.Core.Interfaces;
@@ -46,6 +48,12 @@ builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+
+// var rabbitMqOptins = builder.Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>();
+
+// builder.Services.AddRabbitMqConnection(rabbitMqOptins);
+// builder.Services.AddRabbitMqRegistration(rabbitMqOptins);
+//builder.Services.AddMassTransitWithRabbitMQ();
 
 var app = builder.Build();
 

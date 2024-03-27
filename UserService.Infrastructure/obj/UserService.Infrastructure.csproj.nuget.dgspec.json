@@ -99,6 +99,10 @@
               "target": "Package",
               "version": "[4.0.3, )"
             },
+            "EventBus.RabbitMQ.Standard": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.4.0, )"
