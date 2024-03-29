@@ -313,10 +313,16 @@ namespace UserService.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TestRabbit(string name)
+        public async Task<IActionResult> TestRabbit(UserRegisterRequest request)
         {
-            await _endpoint.Publish(new UserCreatedEvent{Username = name});
+            await _endpoint.Publish(new UserCreatedEvent{
+                UserId = 50,
+                Username = "Kisliy",
+                FirstName = request.Firstname,
+                LastName = request.Lastname,
+                Status = "Default",
+                Photo = "photo"});
             return Ok();
-        }  
+        }
     }
 }

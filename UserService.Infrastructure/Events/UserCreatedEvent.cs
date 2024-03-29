@@ -1,9 +1,11 @@
+using MediatR;
+
 namespace Shared
 {
-    public class UserCreatedEvent
+    public class UserCreatedEvent : INotification
     {
         public int UserId { get; set; }
-        
+
         public string FirstName { get; set; } = null!;
 
         public string LastName { get; set; } = null!;
@@ -11,5 +13,7 @@ namespace Shared
         public string Status { get; set; } = null!;
 
         public string Username { get; set; } = null!;
+
+        public string Photo { get; set; } = null!;
     }
 }

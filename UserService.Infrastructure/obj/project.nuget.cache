@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "KFHVqAut1cC0YEQT3E7FEHUw1l1hWJ6o0Rp7APHDQHHLMz8ynIOTqN9BEoHHMDQXZNiPbyKLdZEkx6sG5LDy5w==",
+  "dgSpecHash": "7Wpu1pReccKiW8dqFG4dmKwawlPuohDVezscNme6sV6e2seUlgYhzSE8Bo9NdWSU7GsdRpzH0Gsnl+DdUbCXvA==",
   "success": true,
   "projectFilePath": "/Users/alexeykiselev/UserService/UserService.Infrastructure/UserService.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -9,10 +9,12 @@
     "/Users/alexeykiselev/.nuget/packages/eventbus.base.standard/1.0.2/eventbus.base.standard.1.0.2.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/eventbus.rabbitmq.standard/3.1.0/eventbus.rabbitmq.standard.3.1.0.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/mailkit/4.4.0/mailkit.4.4.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/mediatr/12.2.0/mediatr.12.2.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.2/microsoft.aspnetcore.authentication.jwtbearer.8.0.2.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.dependencyinjection/3.1.0/microsoft.extensions.dependencyinjection.3.1.0.nupkg.sha512",
-    "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/3.1.0/microsoft.extensions.dependencyinjection.abstractions.3.1.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.identitymodel.abstractions/7.1.2/microsoft.identitymodel.abstractions.7.1.2.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.identitymodel.jsonwebtokens/7.1.2/microsoft.identitymodel.jsonwebtokens.7.1.2.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.identitymodel.logging/7.1.2/microsoft.identitymodel.logging.7.1.2.nupkg.sha512",
