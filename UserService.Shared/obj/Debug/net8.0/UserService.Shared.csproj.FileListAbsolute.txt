@@ -1,0 +1,12 @@
+/Users/alexeykiselev/UserService/UserService.Shared/bin/Debug/net8.0/UserService.Shared.deps.json
+/Users/alexeykiselev/UserService/UserService.Shared/bin/Debug/net8.0/UserService.Shared.dll
+/Users/alexeykiselev/UserService/UserService.Shared/bin/Debug/net8.0/UserService.Shared.pdb
+/Users/alexeykiselev/UserService/UserService.Shared/obj/Debug/net8.0/UserService.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alexeykiselev/UserService/UserService.Shared/obj/Debug/net8.0/UserService.Shared.AssemblyInfoInputs.cache
+/Users/alexeykiselev/UserService/UserService.Shared/obj/Debug/net8.0/UserService.Shared.AssemblyInfo.cs
+/Users/alexeykiselev/UserService/UserService.Shared/obj/Debug/net8.0/UserService.Shared.csproj.CoreCompileInputs.cache
+/Users/alexeykiselev/UserService/UserService.Shared/obj/Debug/net8.0/UserService.Shared.sourcelink.json
+/Users/alexeykiselev/UserService/UserService.Shared/obj/Debug/net8.0/UserService.Shared.dll
+/Users/alexeykiselev/UserService/UserService.Shared/obj/Debug/net8.0/refint/UserService.Shared.dll
+/Users/alexeykiselev/UserService/UserService.Shared/obj/Debug/net8.0/UserService.Shared.pdb
+/Users/alexeykiselev/UserService/UserService.Shared/obj/Debug/net8.0/ref/UserService.Shared.dll

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CSr7u0VjwLlKFWM3uXdQHLQzhcM3p/nnW1aIQtiw7Ah91YNaj4CzC2322nGKREb+51cDlO9CyLZWzO7wUeYIow==",
+  "dgSpecHash": "Ku2uZphIUAY6Uo6YXVZjJqhQljGKOKAxNPe5ln0F3SsTx/Pr8XZoZ6Ru1OMm8cK4iC4wJ6zkNOBhuXcky+Ax7A==",
   "success": true,
   "projectFilePath": "/Users/alexeykiselev/UserService/UserService.WebApi/UserService.WebApi.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,8 @@
     "/Users/alexeykiselev/.nuget/packages/masstransit.aspnetcore/7.3.1/masstransit.aspnetcore.7.3.1.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/masstransit.extensions.dependencyinjection/7.3.1/masstransit.extensions.dependencyinjection.7.3.1.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/masstransit.rabbitmq/8.2.0/masstransit.rabbitmq.8.2.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/mediatr/12.2.0/mediatr.12.2.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.aspnetcore.authentication/2.2.0/microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.aspnetcore.authentication.abstractions/2.2.0/microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "/Users/alexeykiselev/.nuget/packages/microsoft.aspnetcore.authentication.core/2.2.0/microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",

@@ -1,8 +1,6 @@
-using MediatR;
-
 namespace Shared
 {
-    public class UserCreatedEvent : INotification
+    public class UserCreatedEvent
     {
         public int UserId { get; set; }
 

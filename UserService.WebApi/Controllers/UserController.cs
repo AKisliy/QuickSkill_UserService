@@ -1,16 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using AutoMapper;
-using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Shared;
 using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Services;
 using UserService.Core.Models;
-using UserService.Infrastructure;
 using UserService.WebApi.Dtos;
 using UserService.WebApi.Extensions;
 
@@ -23,16 +19,12 @@ namespace UserService.WebApi.Controllers
         private readonly IUsersService _usersService;
         private readonly IMapper _mapper;
         private readonly IAuthService _authService;
-        private readonly MyCookiesOptions _cookiesOptions;
-        private readonly IPublishEndpoint _endpoint;
 
-        public UserController(IUsersService usersService, IAuthService authService, IMapper mapper, IOptions<MyCookiesOptions> cookiesOptions, IPublishEndpoint endpoint)
+        public UserController(IUsersService usersService, IAuthService authService, IMapper mapper)
         {
             _usersService = usersService;
             _mapper = mapper;
             _authService = authService;
-            _cookiesOptions = cookiesOptions.Value;
-            _endpoint = endpoint;
         }
 
         /// <summary>
@@ -315,13 +307,6 @@ namespace UserService.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> TestRabbit(UserRegisterRequest request)
         {
-            await _endpoint.Publish(new UserCreatedEvent{
-                UserId = 50,
-                Username = "Kisliy",
-                FirstName = request.Firstname,
-                LastName = request.Lastname,
-                Status = "Default",
-                Photo = "photo"});
             return Ok();
         }
     }

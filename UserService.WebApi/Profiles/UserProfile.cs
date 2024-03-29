@@ -1,4 +1,5 @@
 using AutoMapper;
+using Shared;
 using UserService.Core.Models;
 using UserService.DataAccess.Entities;
 using UserService.Infrastructure;
@@ -19,6 +20,8 @@ namespace UserService.WebApi.Profiles
                 .ForMember(x => x.UserBadges, o => o.Ignore())
                 .ForMember(x => x.UserActivities, o => o.Ignore());
             CreateMap<User, OtherUserResponse>();
+            CreateMap<User, UserCreatedEvent>()
+                .ForMember(x => x.UserId, o => o.MapFrom(src => src.Id));
         }
     }
 }

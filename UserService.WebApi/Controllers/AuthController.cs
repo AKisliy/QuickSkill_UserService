@@ -1,14 +1,11 @@
 using System.Net;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Services;
 using UserService.WebApi.Dtos;
 using UserService.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication;
-using EventBus.Base.Standard;
 
 namespace UserService.WebApi.Controllers
 {
@@ -16,15 +13,11 @@ namespace UserService.WebApi.Controllers
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private readonly IUsersService _usersService;
-        private readonly IMapper _mapper;
         private readonly IAuthService _authService;
         private readonly IOptions<MyCookiesOptions> _cookiesOptions;
 
-        public AuthController(IUsersService usersService, IAuthService authService, IOptions<MyCookiesOptions> cookiesOptions, IMapper mapper)
+        public AuthController(IAuthService authService, IOptions<MyCookiesOptions> cookiesOptions)
         {
-            _usersService = usersService;
-            _mapper = mapper;
             _authService = authService;
             _cookiesOptions = cookiesOptions;
         }

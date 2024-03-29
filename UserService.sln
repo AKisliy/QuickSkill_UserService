@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Infrastructure", "UserService.Infrastructure\UserService.Infrastructure.csproj", "{B9B36AB3-8308-4930-8753-AF9007445EEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Shared", "UserService.Shared\UserService.Shared.csproj", "{CABB8919-64DE-4F92-B8BE-E642DC3460BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{B9B36AB3-8308-4930-8753-AF9007445EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9B36AB3-8308-4930-8753-AF9007445EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9B36AB3-8308-4930-8753-AF9007445EEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CABB8919-64DE-4F92-B8BE-E642DC3460BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CABB8919-64DE-4F92-B8BE-E642DC3460BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CABB8919-64DE-4F92-B8BE-E642DC3460BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CABB8919-64DE-4F92-B8BE-E642DC3460BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

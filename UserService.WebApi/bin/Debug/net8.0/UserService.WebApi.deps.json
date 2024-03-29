@@ -13,13 +13,15 @@
           "MassTransit": "8.2.0",
           "MassTransit.AspNetCore": "7.3.1",
           "MassTransit.RabbitMQ": "8.2.0",
+          "MediatR": "12.2.0",
           "Microsoft.AspNetCore.Authentication.OAuth": "2.2.0",
           "Microsoft.AspNetCore.OpenApi": "8.0.1",
           "Swashbuckle.AspNetCore": "6.4.0",
           "UserService.Application": "1.0.0",
           "UserService.Core": "1.0.0",
           "UserService.DataAccess": "1.0.0",
-          "UserService.Infrastructure": "1.0.0"
+          "UserService.Infrastructure": "1.0.0",
+          "UserService.Shared": "1.0.0"
         },
         "runtime": {
           "UserService.WebApi.dll": {}
@@ -174,6 +176,26 @@
           "lib/net8.0/MassTransit.RabbitMqTransport.dll": {
             "assemblyVersion": "8.2.0.0",
             "fileVersion": "8.2.0.0"
+          }
+        }
+      },
+      "MediatR/12.2.0": {
+        "dependencies": {
+          "MediatR.Contracts": "2.0.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/MediatR.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.2.0.0"
+          }
+        }
+      },
+      "MediatR.Contracts/2.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/MediatR.Contracts.dll": {
+            "assemblyVersion": "2.0.1.0",
+            "fileVersion": "2.0.1.0"
           }
         }
       },
@@ -669,17 +691,23 @@
       "System.ValueTuple/4.5.0": {},
       "UserService.Application/1.0.0": {
         "dependencies": {
+          "AutoMapper": "12.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
           "EventBus.RabbitMQ.Standard": "3.1.0",
           "MassTransit": "8.2.0",
+          "MediatR": "12.2.0",
           "UserService.Core": "1.0.0",
-          "UserService.Infrastructure": "1.0.0"
+          "UserService.Infrastructure": "1.0.0",
+          "UserService.Shared": "1.0.0"
         },
         "runtime": {
           "UserService.Application.dll": {}
         }
       },
       "UserService.Core/1.0.0": {
+        "dependencies": {
+          "MediatR": "12.2.0"
+        },
         "runtime": {
           "UserService.Core.dll": {}
         }
@@ -698,14 +726,22 @@
       },
       "UserService.Infrastructure/1.0.0": {
         "dependencies": {
+          "AutoMapper": "12.0.1",
           "BCrypt.Net-Next": "4.0.3",
           "EventBus.RabbitMQ.Standard": "3.1.0",
           "MailKit": "4.4.0",
+          "MassTransit": "8.2.0",
+          "MediatR": "12.2.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.2",
           "UserService.Core": "1.0.0"
         },
         "runtime": {
           "UserService.Infrastructure.dll": {}
+        }
+      },
+      "UserService.Shared/1.0.0": {
+        "runtime": {
+          "UserService.Shared.dll": {}
         }
       }
     }
@@ -806,6 +842,20 @@
       "sha512": "sha512-gl+EEvB5pVaJ5Yb4f2Z7mbmTY2t/fdghG9GFKDf0zXVR+qd1R1GBD/Z5FZ/Q7RrEZZbzaDb4zbOtj6er6ykPEA==",
       "path": "masstransit.rabbitmq/8.2.0",
       "hashPath": "masstransit.rabbitmq.8.2.0.nupkg.sha512"
+    },
+    "MediatR/12.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8TUFrHapKi6D74PhnSNEguRsH91HNGyP3R4ZQdgDorJgl9Wac5Prh0vA33QfrniAaS6L2xNNhc6vxzg+5AIbwA==",
+      "path": "mediatr/12.2.0",
+      "hashPath": "mediatr.12.2.0.nupkg.sha512"
+    },
+    "MediatR.Contracts/2.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ==",
+      "path": "mediatr.contracts/2.0.1",
+      "hashPath": "mediatr.contracts.2.0.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication/2.2.0": {
       "type": "package",
@@ -1348,6 +1398,11 @@
       "sha512": ""
     },
     "UserService.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UserService.Shared/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

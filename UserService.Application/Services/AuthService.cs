@@ -1,4 +1,4 @@
-using MassTransit;
+using MediatR;
 using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Auth;
@@ -6,6 +6,7 @@ using UserService.Core.Interfaces.Infrastructure;
 using UserService.Core.Interfaces.Repositories;
 using UserService.Core.Interfaces.Services;
 using UserService.Core.Models;
+using UserService.Core.Notifications;
 using UserService.Infrastructure;
 
 namespace UserService.Application.Services
@@ -16,16 +17,16 @@ namespace UserService.Application.Services
         private readonly IJwtProvider _provider;
         private readonly IEmailSender _sender;
         private readonly IBadgeRepository _badgeRepository;
-        //private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IMediator _meadiator;
         private readonly IPasswordHasher _hasher;
-        public AuthService(IUserRepository userRepository, IBadgeRepository badgeRepository, IPasswordHasher hasher, IJwtProvider provider, IEmailSender sender)
+        public AuthService(IUserRepository userRepository, IBadgeRepository badgeRepository, IPasswordHasher hasher, IJwtProvider provider, IEmailSender sender, IMediator mediator)
         {
             _hasher = hasher;
             _userRepository = userRepository;
             _provider = provider;
             _sender = sender;
             _badgeRepository = badgeRepository;
-            //_publishEndpoint = publishEndpoint;
+            _meadiator = mediator;
         }
 
         public async Task<string> Login(string email, string password)
@@ -56,13 +57,9 @@ namespace UserService.Application.Services
             var id =  await _userRepository.Create(user);
             await _userRepository.SetVerificationToken(id, token, DateTime.UtcNow.AddDays(7));
             await _badgeRepository.OnUserCreate(id);
-            // await _publishEndpoint.Publish(new UserCreatedEvent
-            // {
-            //     UserId = id,
-            //     FirstName = firstName,
-            //     LastName = lastName,
-            //     Username = username
-            // });
+
+            user.Id = id;
+            await _meadiator.Publish(new UserCreatedNotification(user));
         }
 
         public async Task ForgotPassword(string email)

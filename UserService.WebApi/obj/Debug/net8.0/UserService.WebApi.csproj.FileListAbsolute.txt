@@ -74,3 +74,7 @@
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MassTransit.RabbitMqTransport.dll
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MassTransit.AspNetCoreIntegration.dll
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MassTransit.ExtensionsDependencyInjectionIntegration.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MediatR.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MediatR.Contracts.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.Shared.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.Shared.pdb

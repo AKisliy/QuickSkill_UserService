@@ -10,3 +10,4 @@
 /Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/refint/UserService.Core.dll
 /Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/UserService.Core.pdb
 /Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/ref/UserService.Core.dll
+/Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/UserService.Core.csproj.AssemblyReference.cache
