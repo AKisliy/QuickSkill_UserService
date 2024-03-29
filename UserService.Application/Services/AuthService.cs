@@ -7,7 +7,6 @@ using UserService.Core.Interfaces.Repositories;
 using UserService.Core.Interfaces.Services;
 using UserService.Core.Models;
 using UserService.Infrastructure;
-using UserService.Infrastructure.Events;
 
 namespace UserService.Application.Services
 {

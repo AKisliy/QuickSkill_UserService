@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using AutoMapper;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Shared;
 using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
 using UserService.Core.Interfaces.Services;
@@ -22,13 +24,15 @@ namespace UserService.WebApi.Controllers
         private readonly IMapper _mapper;
         private readonly IAuthService _authService;
         private readonly MyCookiesOptions _cookiesOptions;
+        private readonly IPublishEndpoint _endpoint;
 
-        public UserController(IUsersService usersService, IAuthService authService, IMapper mapper, IOptions<MyCookiesOptions> cookiesOptions)
+        public UserController(IUsersService usersService, IAuthService authService, IMapper mapper, IOptions<MyCookiesOptions> cookiesOptions, IPublishEndpoint endpoint)
         {
             _usersService = usersService;
             _mapper = mapper;
             _authService = authService;
             _cookiesOptions = cookiesOptions.Value;
+            _endpoint = endpoint;
         }
 
         /// <summary>
@@ -307,5 +311,12 @@ namespace UserService.WebApi.Controllers
             await _authService.ChangePassword(id, request.OldPassword, request.NewPassword);
             return Ok();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> TestRabbit(string name)
+        {
+            await _endpoint.Publish(new UserCreatedEvent{Username = name});
+            return Ok();
+        }  
     }
 }

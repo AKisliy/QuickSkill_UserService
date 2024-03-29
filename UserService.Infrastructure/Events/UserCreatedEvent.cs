@@ -1,6 +1,4 @@
-using EventBus.Base.Standard;
-
-namespace UserService.Infrastructure.Events
+namespace Shared
 {
     public class UserCreatedEvent
     {

@@ -53,7 +53,7 @@ builder.Services.AddProblemDetails();
 
 // builder.Services.AddRabbitMqConnection(rabbitMqOptins);
 // builder.Services.AddRabbitMqRegistration(rabbitMqOptins);
-//builder.Services.AddMassTransitWithRabbitMQ();
+builder.Services.AddMassTransitWithRabbitMQ();
 
 var app = builder.Build();
 
