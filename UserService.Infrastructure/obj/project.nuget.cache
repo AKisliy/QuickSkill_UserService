@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/cHI7fB9Oyaj+1wDsUtYuDK6XbU0TcHnWhWo/O9XIsRz1lFVlsoT3cBowO2wRGzHl9056FQ3jmlNvwz4NukltA==",
+  "dgSpecHash": "VCHeaeHzfg3QuGWkgQ53kHWgzE2wBrFKos/CaEy0ZMYhE/ngZveYoTFOu4/2keI8WWh+SqZqS5n8tNFcmW0cLw==",
   "success": true,
   "projectFilePath": "/Users/alexeykiselev/UserService/UserService.Infrastructure/UserService.Infrastructure.csproj",
   "expectedPackageFiles": [

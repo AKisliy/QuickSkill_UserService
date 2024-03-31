@@ -12,6 +12,9 @@ namespace UserService.DataAccess.Repositories
         private readonly IMapper _mapper;
         private readonly UserServiceContext _context;
 
+        private const string botsEmail = "bot@bot.com";
+        private const string botsPassword = "iambot";
+
         public UserRepository(UserServiceContext context, IMapper mapper)
         {
             _mapper = mapper;
@@ -45,6 +48,32 @@ namespace UserService.DataAccess.Repositories
             await _context.Users.AddAsync(userEntity);
             await _context.SaveChangesAsync();
             return userEntity.Id;
+        }
+
+        public async Task AddBot(User bot)
+        {
+            var botEntity = _mapper.Map<UserEntity>(bot);
+            botEntity.CreatedAt = DateTime.UtcNow;
+            botEntity.IsBot = true;
+            botEntity.Email = botsEmail;
+            botEntity.Password = botsPassword;
+            await _context.Users.AddAsync(botEntity);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddBots(List<User> bots)
+        {
+            var botEntities = bots.Select(b => 
+            {
+                var entity = _mapper.Map<UserEntity>(b);
+                entity.CreatedAt = DateTime.UtcNow;
+                entity.IsBot = true;
+                entity.Email = botsEmail;
+                entity.Password = botsPassword;
+                return entity;
+            });
+            await _context.Users.AddRangeAsync(botEntities);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> SetVerificationToken(int id, string token, DateTime expires)

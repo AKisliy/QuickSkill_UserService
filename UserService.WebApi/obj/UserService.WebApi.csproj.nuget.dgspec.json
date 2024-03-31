@@ -253,6 +253,9 @@
             "projectReferences": {
               "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj": {
                 "projectPath": "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj"
+              },
+              "/Users/alexeykiselev/UserService/UserService.Shared/UserService.Shared.csproj": {
+                "projectPath": "/Users/alexeykiselev/UserService/UserService.Shared/UserService.Shared.csproj"
               }
             }
           }

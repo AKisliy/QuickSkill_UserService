@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UserService.Core\UserService.Core.csproj" />
+    <ProjectReference Include="..\UserService.Shared\UserService.Shared.csproj" />
   </ItemGroup>
 
 </Project>

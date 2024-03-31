@@ -10,6 +10,8 @@ namespace UserService.Core.Models
             Username = username;
             Password = password;
         }
+
+        public User(){}
         public int Id { get; set; }
 
         public string FirstName { get; set; } = null!;
@@ -28,7 +30,7 @@ namespace UserService.Core.Models
 
         public string Password { get; set; }
 
-        public string Photo { get; set; }
+        public string? Photo { get; set; }
 
         public string? GoalText { get; set; }
 

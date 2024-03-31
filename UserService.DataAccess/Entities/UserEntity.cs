@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace UserService.DataAccess.Entities
 {
     public partial class UserEntity
@@ -48,6 +43,8 @@ namespace UserService.DataAccess.Entities
         public int Freezer { get; set; }
 
         public int Streak { get; set; }
+
+        public bool IsBot { get; set; }
 
         public virtual ICollection<UserBadgeEntity> UserBadges { get; set; } = new List<UserBadgeEntity>();
 

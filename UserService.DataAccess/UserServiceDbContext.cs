@@ -70,6 +70,9 @@ namespace UserService.DataAccess
                     .HasDefaultValue("Default")
                     .HasMaxLength(10)
                     .HasColumnName("status");
+                entity.Property(e => e.IsBot)
+                    .HasDefaultValue(false)
+                    .HasColumnName("isbot");
                 entity.Property(e => e.UserLevel)
                     .HasDefaultValue(1)
                     .HasColumnName("userlevel");

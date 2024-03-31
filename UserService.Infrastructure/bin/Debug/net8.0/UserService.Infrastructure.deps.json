@@ -15,7 +15,8 @@
           "MassTransit": "8.2.0",
           "MediatR": "12.2.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.2",
-          "UserService.Core": "1.0.0"
+          "UserService.Core": "1.0.0",
+          "UserService.Shared": "1.0.0"
         },
         "runtime": {
           "UserService.Infrastructure.dll": {}
@@ -344,6 +345,11 @@
         "runtime": {
           "UserService.Core.dll": {}
         }
+      },
+      "UserService.Shared/1.0.0": {
+        "runtime": {
+          "UserService.Shared.dll": {}
+        }
       }
     }
   },
@@ -662,6 +668,11 @@
       "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
     },
     "UserService.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UserService.Shared/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

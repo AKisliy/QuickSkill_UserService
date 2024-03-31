@@ -22,6 +22,7 @@ namespace UserService.WebApi.Profiles
             CreateMap<User, OtherUserResponse>();
             CreateMap<User, UserCreatedEvent>()
                 .ForMember(x => x.UserId, o => o.MapFrom(src => src.Id));
+            CreateMap<Bot, User>();
         }
     }
 }

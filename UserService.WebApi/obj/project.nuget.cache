@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Ku2uZphIUAY6Uo6YXVZjJqhQljGKOKAxNPe5ln0F3SsTx/Pr8XZoZ6Ru1OMm8cK4iC4wJ6zkNOBhuXcky+Ax7A==",
+  "dgSpecHash": "e/EevcgBEoZD7JZc1tGR4hv9fDwtIoRxADmpDAct0s0i56PQssQre29PTOt/yGFPfsITyXnuIT+IndSJBZ4/xQ==",
   "success": true,
   "projectFilePath": "/Users/alexeykiselev/UserService/UserService.WebApi/UserService.WebApi.csproj",
   "expectedPackageFiles": [
