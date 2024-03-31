@@ -17,16 +17,22 @@ namespace UserService.Application.Services
         private readonly IJwtProvider _provider;
         private readonly IEmailSender _sender;
         private readonly IBadgeRepository _badgeRepository;
-        private readonly IMediator _meadiator;
+        private readonly IMediator _mediator;
         private readonly IPasswordHasher _hasher;
-        public AuthService(IUserRepository userRepository, IBadgeRepository badgeRepository, IPasswordHasher hasher, IJwtProvider provider, IEmailSender sender, IMediator mediator)
+        public AuthService(
+            IUserRepository userRepository, 
+            IBadgeRepository badgeRepository, 
+            IPasswordHasher hasher, 
+            IJwtProvider provider, 
+            IEmailSender sender, 
+            IMediator mediator)
         {
             _hasher = hasher;
             _userRepository = userRepository;
             _provider = provider;
             _sender = sender;
             _badgeRepository = badgeRepository;
-            _meadiator = mediator;
+            _mediator = mediator;
         }
 
         public async Task<string> Login(string email, string password)
@@ -37,6 +43,7 @@ namespace UserService.Application.Services
             var result = _hasher.Verify(password, user.Password);
             if(!result)
                 throw new CredentialsException("Password is incorrect");
+            await _mediator.Publish(new UserCreatedNotification(user));
             return _provider.GenerateToken(user);
         }
 
@@ -59,7 +66,7 @@ namespace UserService.Application.Services
             await _badgeRepository.OnUserCreate(id);
 
             user.Id = id;
-            await _meadiator.Publish(new UserCreatedNotification(user));
+            await _mediator.Publish(new UserCreatedNotification(user));
         }
 
         public async Task ForgotPassword(string email)
