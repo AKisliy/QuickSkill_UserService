@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using Org.BouncyCastle.Crypto.Engines;
 using UserService.Core.Exceptions;
-using UserService.Infrastructure;
 
 namespace UserService.WebApi.Extensions
 {

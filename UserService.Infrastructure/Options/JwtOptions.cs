@@ -1,13 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
 
 namespace UserService.Infrastructure
 {
     public class JwtOptions
     {
         public string SecretKey { get; set; } = string.Empty;
-        public int ExpiresHours { get; set; }
+        public int ExpiresMinutes { get; set; }
+
+        public bool ValidateAudience { get; set; }
+
+        public bool ValidateIssuer { get; set; }
+
+        public bool ValidateIssuerSigningKey { get; set; }
+
+        public bool ValidateLifetime { get; set; }
     }
 }

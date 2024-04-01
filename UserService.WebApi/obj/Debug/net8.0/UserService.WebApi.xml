@@ -48,6 +48,23 @@
             <response code="200">Success</response>
             <response code="404">No user found with this token</response>
         </member>
+        <member name="M:UserService.WebApi.Controllers.AuthController.Refresh(UserService.WebApi.Dtos.RefreshRequest)">
+            <summary>
+            Refresh JWT token
+            </summary>
+            <param name="request">Body has two fields: accessToken - expired JWT token, refreshToken - refresh token</param>
+            <response code="401">Something went wrong while validating JWT or refresh token</response>
+            <response code="200">Success</response>
+            <response code="500">Server problems :(</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.AuthController.Revoke">
+            <summary>
+            Revoke refresh token(by JWT). Use it when you need to delete refresh token from DB.
+            </summary>
+            <response code="200">Success</response>
+            <response code="400">Bad JWT</response>
+            <response code="500">Server problems :(</response>
+        </member>
         <member name="M:UserService.WebApi.Controllers.BadgeController.GetAllBadgesForUser">
             <summary>
             Get all badges for current user(by token)

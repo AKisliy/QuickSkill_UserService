@@ -19,6 +19,7 @@ namespace UserService.Application.Services
         private readonly IBadgeRepository _badgeRepository;
         private readonly IMediator _mediator;
         private readonly IPasswordHasher _hasher;
+
         public AuthService(
             IUserRepository userRepository, 
             IBadgeRepository badgeRepository, 
@@ -35,7 +36,7 @@ namespace UserService.Application.Services
             _mediator = mediator;
         }
 
-        public async Task<string> Login(string email, string password)
+        public async Task<TokensLogin> Login(string email, string password)
         {
             var user = await _userRepository.GetUserByEmail(email) ?? throw new NotFoundException("No user with this email");
             if(user.VerifiedAt == null)
@@ -44,7 +45,9 @@ namespace UserService.Application.Services
             if(!result)
                 throw new CredentialsException("Password is incorrect");
             await _mediator.Publish(new UserCreatedNotification(user));
-            return _provider.GenerateToken(user);
+            var refreshToken = _provider.GenerateRefreshToken();
+            await _userRepository.SetRefreshToken(user.Id, refreshToken, DateTime.UtcNow.AddDays(7));
+            return new TokensLogin{ JwtToken = _provider.GenerateToken(user), RefreshToken = refreshToken };
         }
 
         public async Task Register(string firstName, string lastName, string email, string password)
@@ -106,6 +109,26 @@ namespace UserService.Application.Services
                 throw new CredentialsException("Password is incorrect!");
             user.Password = _hasher.Generate(newPassword);
             await _userRepository.Update(user);
+        }
+
+        public async Task<string> GetNewToken(string? accessToken, string refreshToken)
+        {
+            var principal = _provider.GetPrincipalFromExpiredToken(accessToken);
+
+            var userIdClaim = (principal?.Claims?.FirstOrDefault(c => c?.Type == "userId", null))
+                ?? throw new UnathorizedException("Something wrong with access token..");
+
+            var user = await _userRepository.GetUserById(Convert.ToInt32(userIdClaim.Value));
+
+            if(user.RefreshToken != refreshToken || user.RefreshTokenExpires < DateTime.UtcNow)
+                throw new UnathorizedException("Incorrect/expired refresh token!");
+
+            return _provider.GenerateToken(user);
+        }
+
+        public async Task RevokeRefreshToken(int id)
+        {
+            await _userRepository.SetRefreshToken(id, null, DateTime.UtcNow);
         }
     }
 }

@@ -6,6 +6,8 @@ using UserService.WebApi.Dtos;
 using UserService.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using UserService.WebApi.Extensions;
 
 namespace UserService.WebApi.Controllers
 {
@@ -50,9 +52,9 @@ namespace UserService.WebApi.Controllers
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
         {
-            var token = await _authService.Login(user.Email, user.Password);
-            HttpContext.Response.Cookies.Append(_cookiesOptions.Value.TokenFieldName, token);
-            return Ok();
+            var tokens = await _authService.Login(user.Email, user.Password);
+            HttpContext.Response.Cookies.Append(_cookiesOptions.Value.TokenFieldName, tokens.JwtToken);
+            return Ok(new LoginResponse{ RefreshToken = tokens.RefreshToken });
         }
 
         [HttpGet("login/github")]
@@ -114,6 +116,42 @@ namespace UserService.WebApi.Controllers
         public async Task<IActionResult> ResetPassword(string token, string password)
         {
             await _authService.ResetPassword(password, token);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Refresh JWT token
+        /// </summary>
+        /// <param name="request">Body has two fields: accessToken - expired JWT token, refreshToken - refresh token</param>
+        /// <response code="401">Something went wrong while validating JWT or refresh token</response>
+        /// <response code="200">Success</response>
+        /// <response code="500">Server problems :(</response>
+        [HttpPost("refresh")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
+        {
+            var newToken = await _authService.GetNewToken(request.AccessToken, request.RefreshToken);
+            HttpContext.Response.Cookies.Append(_cookiesOptions.Value.TokenFieldName, newToken);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Revoke refresh token(by JWT). Use it when you need to delete refresh token from DB.
+        /// </summary>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad JWT</response>
+        /// <response code="500">Server problems :(</response>
+        [Authorize]
+        [HttpDelete("refresh/revoke")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Revoke()
+        {
+            var userId = HttpContext.GetUserId();
+            await _authService.RevokeRefreshToken(userId);
             return Ok();
         }
     }

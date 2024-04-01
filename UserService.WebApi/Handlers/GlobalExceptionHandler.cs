@@ -29,6 +29,9 @@ namespace UserService.WebApi.Handlers
                 case ConflictException:
                     errorResponse.StatusCode = (int)HttpStatusCode.Conflict;
                     break;
+                case UnathorizedException:
+                    errorResponse.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    break;
                 default:
                     errorResponse.StatusCode = (int)HttpStatusCode.InternalServerError;
                     errorResponse.Title = "Internal Server Error";

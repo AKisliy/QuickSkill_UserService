@@ -42,6 +42,10 @@ namespace UserService.Core.Models
 
         public DateTime? VerifiedAt { get; set; }
 
+        public string? RefreshToken { get; set; }
+
+        public DateTime? RefreshTokenExpires { get; set; }
+
         public static User Create(string firstName, string lastName, string username, string email, string password)
         {
             return new User(firstName, lastName, username, email, password);

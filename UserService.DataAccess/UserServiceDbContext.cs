@@ -100,6 +100,13 @@ namespace UserService.DataAccess
                 entity.Property(e => e.ResetTokenExpires)
                     .HasColumnName("resettokenexpires");
 
+                entity.Property(e => e.RefreshToken)
+                    .HasColumnName("refreshtoken")
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.RefreshTokenExpires)
+                    .HasColumnName("refreshtokenexpires");
+
                 entity.Property(e => e.Freezer)
                     .HasColumnName("freezer")
                     .HasDefaultValue(0);

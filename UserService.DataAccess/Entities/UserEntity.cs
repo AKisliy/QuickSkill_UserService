@@ -46,6 +46,10 @@ namespace UserService.DataAccess.Entities
 
         public bool IsBot { get; set; }
 
+        public string? RefreshToken { get; set; }
+
+        public DateTime? RefreshTokenExpires { get; set; }
+
         public virtual ICollection<UserBadgeEntity> UserBadges { get; set; } = new List<UserBadgeEntity>();
 
         public virtual ICollection<UserActivityEntity> UserActivities { get; set; } = new List<UserActivityEntity>();

@@ -94,21 +94,20 @@ namespace UserService.DataAccess.Repositories
             return true;
         }
 
+        public async Task<bool> SetRefreshToken(int id, string? token, DateTime expires)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id) ?? throw new NotFoundException($"User with id: {id} not found");
+            user.RefreshToken = token;
+            user.RefreshTokenExpires = expires;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<int> Update(User user)
         {
-            await _context.Users.Where(u => u.Id == user.Id).ExecuteUpdateAsync(s => s
-                .SetProperty(u => u.Description, _ => user.Description)
-                .SetProperty(u => u.Email, _ => user.Email)
-                .SetProperty(u => u.FirstName, _ => user.FirstName)
-                .SetProperty(u => u.GoalDays, _ => user.GoalDays)
-                .SetProperty(u => u.GoalText, _ => user.GoalText)
-                .SetProperty(u => u.LastName, _ => user.LastName)
-                .SetProperty(u => u.Username, _ => user.Username)
-                .SetProperty(u => u.Password, _ => user.Password)
-                .SetProperty(u => u.Photo, _ => user.Photo)
-                .SetProperty(u => u.UserLevel, _ => user.UserLevel)
-                .SetProperty(u => u.Xp, _ => user.Xp)
-                .SetProperty(u => u.Status, _ => user.Status));
+            var entity = _mapper.Map<UserEntity>(user);
+            entity.RefreshTokenExpires = user.RefreshTokenExpires;
+            _context.Users.Update(entity);
             await _context.SaveChangesAsync();
             return user.Id;
         }

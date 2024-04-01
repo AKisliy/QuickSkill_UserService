@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -10,7 +11,7 @@ namespace UserService.Infrastructure
 {
     public class JwtProvider : IJwtProvider
     {
-        private JwtOptions _options;
+        private readonly JwtOptions _options;
 
         public JwtProvider(IOptions<JwtOptions> options)
         {
@@ -27,11 +28,33 @@ namespace UserService.Infrastructure
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(_options.ExpiresHours),
+                expires: DateTime.UtcNow.AddMinutes(_options.ExpiresMinutes), // for testing can use .AddSeconds(30)
                 signingCredentials: signingCredentials);
 
             var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
             return tokenValue;
+        }
+
+        public string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[64];
+            using var generator = RandomNumberGenerator.Create();
+            generator.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
+        }
+
+        public ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
+        {
+            var validation = new TokenValidationParameters()
+            {
+                ValidateIssuer = _options.ValidateIssuer,
+                ValidateAudience = _options.ValidateAudience,
+                ValidateLifetime = false,
+                ValidateIssuerSigningKey = _options.ValidateIssuerSigningKey,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey))
+            };
+
+            return new JwtSecurityTokenHandler().ValidateToken(token, validation, out _);
         }
     }
 }

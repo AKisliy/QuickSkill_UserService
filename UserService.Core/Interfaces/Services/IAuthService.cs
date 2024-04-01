@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using UserService.Core.Models;
 
 namespace UserService.Core.Interfaces.Services
 {
@@ -9,7 +6,7 @@ namespace UserService.Core.Interfaces.Services
     {
         public Task Register(string firstName, string lastName, string email, string password);
         
-        public Task<string> Login(string email, string password);
+        public Task<TokensLogin> Login(string email, string password);
 
         public Task Verify(string token);
 
@@ -20,5 +17,9 @@ namespace UserService.Core.Interfaces.Services
         public Task CheckPassword(int id, string password);
 
         public Task ChangePassword(int id, string oldPassword, string newPassword);
+
+        public Task<string> GetNewToken(string? accessToken, string refreshToken);
+
+        public  Task RevokeRefreshToken(int id);
     }
 }

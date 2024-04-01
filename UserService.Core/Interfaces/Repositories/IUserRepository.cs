@@ -28,6 +28,8 @@ namespace UserService.Core.Interfaces
 
         public Task<bool> SetResetToken(int id, string token, DateTime expires);
 
+        public Task<bool> SetRefreshToken(int id, string? token, DateTime expires);
+
         public Task VerifyUser(string token);
 
         public Task<bool> IsUniqueResetToken(string token);

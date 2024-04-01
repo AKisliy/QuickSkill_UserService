@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using UserService.Infrastructure;
 using UserService.Infrastructure.Options;
@@ -29,11 +23,12 @@ namespace UserService.WebApi.Extensions
                 {
                     options.TokenValidationParameters = new() 
                     {
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
+                        ValidateIssuer = jwtOptions.ValidateIssuer,
+                        ValidateAudience = jwtOptions.ValidateAudience,
+                        ValidateLifetime = jwtOptions.ValidateLifetime,
+                        ValidateIssuerSigningKey = jwtOptions.ValidateIssuerSigningKey,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey)),
+                        //ClockSkew = new TimeSpan(0,0,5) uncomment for testing purposes
                     };
                     // get token from cookies
                     options.Events = new JwtBearerEvents
