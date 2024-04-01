@@ -1,5 +1,5 @@
 /certs
 /Dockerfile
-/UserService.WebApi/*.json
-/UserService.WebApi/*.http
-/.vscode
+/UserService.WebApi/appsettings.json
+/UserService.WebApi/appsettings.Development.json
+/UserService.WebApi/appsettings.InDocker.json
