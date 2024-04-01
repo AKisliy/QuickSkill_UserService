@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UserService.Core.Models;
 using Microsoft.AspNetCore.Http;
 
@@ -9,7 +5,6 @@ namespace UserService.Core.Interfaces
 {
     public interface IUsersService
     {
-
         public Task<IEnumerable<User>> GetAllUsers();
 
         public Task<User> GetUserById(int id);
@@ -37,5 +32,13 @@ namespace UserService.Core.Interfaces
         public Task SetUserDescription(int id, string descritption);
 
         public Task SetUserPhoto(int id, IFormFile file);
+
+        public Task DeleteUserPhoto(int id);
+
+        public Task SetGoalText(int id, string text);
+
+        public Task SetGoalDays(int id, int daysCnt);
+
+        public Task DeleteGoalTextAndDays(int id);
     }
 }

@@ -1,6 +1,5 @@
 using MailKit.Net.Smtp;
 using MailKit.Security;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using MimeKit.Text;
@@ -28,7 +27,7 @@ namespace UserService.Infrastructure
             email.From.Add(MailboxAddress.Parse(_options.Address));
             email.To.Add(MailboxAddress.Parse(userEmail));
             email.Subject = verificationSubject;
-            var baseUrl = _options.BaseUrl;
+            var baseUrl = _options.BaseVerifyUrl;
             email.Body = new TextPart(TextFormat.Text) { Text = verificationBody + $"{baseUrl}?token={token}"};
 
             using var smtp = new SmtpClient();
@@ -45,11 +44,11 @@ namespace UserService.Infrastructure
             email.From.Add(MailboxAddress.Parse(_options.Address));
             email.To.Add(MailboxAddress.Parse(userEmail));
             email.Subject = resetSubject;
-            var baseUrl = _options.BaseUrl;
-            email.Body = new TextPart(TextFormat.Text) { Text = resetBody + $"{baseUrl}?token={token}&password=kisliy12"};
+            var baseUrl = _options.BaseResetUrl;
+            email.Body = new TextPart(TextFormat.Text) { Text = resetBody + $"{baseUrl}?token={token}"};
 
             using var smtp = new SmtpClient();
-            smtp.Connect(_options.EmailHost, _options.Port, SecureSocketOptions.StartTls);
+            smtp.Connect(_options.EmailHost, _options.Port, SecureSocketOptions.SslOnConnect);
 
             smtp.Authenticate(_options.Username, _options.Password);
             await smtp.SendAsync(email);

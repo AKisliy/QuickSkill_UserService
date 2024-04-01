@@ -33,6 +33,7 @@ builder.Services.Configure<MyCookiesOptions>(builder.Configuration.GetSection(na
 builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(nameof(EmailOptions)));
 builder.Services.Configure<YandexDiskOptions>(builder.Configuration.GetSection(nameof(YandexDiskOptions)));
 builder.Services.Configure<RabbitMQOptions>(builder.Configuration.GetSection(nameof(RabbitMQOptions)));
+builder.Services.Configure<FrontendOptions>(builder.Configuration.GetSection(nameof(FrontendOptions)));
 
 builder.Services.AddApiAuthentication(builder.Configuration);
 
@@ -45,24 +46,22 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
-builder.Services.AddScoped<IImageProvider, ImageProvider>();
+builder.Services.AddSingleton<IImageProvider, ImageProvider>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
-// var rabbitMqOptins = builder.Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>();
-
-// builder.Services.AddRabbitMqConnection(rabbitMqOptins);
-// builder.Services.AddRabbitMqRegistration(rabbitMqOptins);
 builder.Services.AddCors(options =>
     {
         options.AddPolicy("AllowSpecificOrigin",
             builder =>
             {
-                builder.WithOrigins("http://localhost:3000") // Specify the origin of your client application
+                builder.WithOrigins("http://localhost:3000")
                        .AllowAnyHeader()
-                       .AllowAnyMethod();
+                       .AllowAnyMethod()
+                       .AllowCredentials();
+
             });
     }
 );
@@ -70,6 +69,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddMassTransitWithRabbitMQ(builder.Configuration);
 
 var app = builder.Build();
+var imagesCache = app.Services.GetRequiredService<IImageProvider>();
+imagesCache.LoadSamplesAvatarsAsync().Wait();
 
 if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("InDocker"))
 {

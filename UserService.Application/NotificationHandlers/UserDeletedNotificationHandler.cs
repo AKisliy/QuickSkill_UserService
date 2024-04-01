@@ -15,7 +15,7 @@ namespace UserService.Application.NotificationHandlers
         }
         public async Task Handle(UserDeletedNotification notification, CancellationToken cancellationToken)
         {
-            await _publisher.Publish(new UserDeletedEvent() { Id = notification.id });
+            await _publisher.Publish(new UserDeletedEvent() { Id = notification.id }, cancellationToken);
             await Task.CompletedTask;
         }
     }

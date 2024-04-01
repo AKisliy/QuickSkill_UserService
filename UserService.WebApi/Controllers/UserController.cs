@@ -13,7 +13,7 @@ using UserService.WebApi.Extensions;
 namespace UserService.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("api/userservice/user")]
     public class UserController : ControllerBase
     {
         private readonly IUsersService _usersService;
@@ -28,7 +28,7 @@ namespace UserService.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get all users
+        /// Get all users (just for testing purposes)
         /// </summary>
         /// <returns>List of UserResponse</returns>
         /// <response code="200">Success</response>
@@ -36,7 +36,6 @@ namespace UserService.WebApi.Controllers
         [HttpGet(Name = "GetAllUsers")]
         [ProducesResponseType(typeof(List<UserResponse>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.BadRequest)]
-        //[Authorize]
         public async Task<IActionResult> GetUsers()
         {
             var users = await _usersService.GetAllUsers();
@@ -61,7 +60,7 @@ namespace UserService.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get user by Id
+        /// Get user by Id (u may use it, when u need to get information about different user, not current)
         /// </summary>
         /// <returns>UserResponse</returns>
         /// <response code="200">Success</response>
@@ -259,6 +258,81 @@ namespace UserService.WebApi.Controllers
         }
 
         /// <summary>
+        /// Delete user photo. New sample photo will be placed automatically.
+        /// </summary>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        /// <response code="500">Something bad happened :(</response>
+        [Authorize]
+        [HttpDelete("photo")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public async Task<IActionResult> DeleteUserPhoto()
+        {
+            int id = HttpContext.GetUserId();
+            await _usersService.DeleteUserPhoto(id);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Set new goal text to the user
+        /// </summary>
+        /// <param name="newGoal">Text of new goal</param>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        /// <response code="500">Something bad happened :(</response>
+        [Authorize]
+        [HttpPatch("goaltext")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public async Task<IActionResult> SetUserGoalText([Required]string newGoal)
+        {
+            int id = HttpContext.GetUserId();
+            await _usersService.SetGoalText(id, newGoal);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Set new goal's days amount to the user
+        /// </summary>
+        /// <param name="daysCount">Count of days per week (should be in [1,7]) </param>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        /// <response code="500">Something bad happened :(</response>
+        [Authorize]
+        [HttpPatch("goaldays")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public async Task<IActionResult> SetUserGoalDays([Required]int daysCount)
+        {
+            int id = HttpContext.GetUserId();
+            await _usersService.SetGoalDays(id, daysCount);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Remove user's goal text and days (pay attention, that if we remove either only text or only days - both fields will be removed, 
+        /// because days without text make no sense as well as text without days)
+        /// </summary>
+        /// <response code="200">Success</response>
+        /// <response code="404">User with this id wasn't found</response>
+        /// <response code="500">Something bad happened :(</response>
+        [Authorize]
+        [HttpDelete("goal")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public async Task<IActionResult> DeleteUserGoal()
+        {
+            int id = HttpContext.GetUserId();
+            await _usersService.DeleteGoalTextAndDays(id);
+            return Ok();
+        }
+
+        /// <summary>
         /// Check user's password
         /// </summary>
         /// <param name="password">Password to check</param>
@@ -301,12 +375,6 @@ namespace UserService.WebApi.Controllers
                 throw new BadRequestException("Bad request body");
             int id = HttpContext.GetUserId();
             await _authService.ChangePassword(id, request.OldPassword, request.NewPassword);
-            return Ok();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> TestRabbit(UserRegisterRequest request)
-        {
             return Ok();
         }
     }

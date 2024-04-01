@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using UserService.WebApi.Extensions;
+using UserService.Infrastructure.Options;
 
 namespace UserService.WebApi.Controllers
 {
@@ -16,12 +17,14 @@ namespace UserService.WebApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        private readonly IOptions<MyCookiesOptions> _cookiesOptions;
+        private readonly MyCookiesOptions _cookiesOptions;
+        private readonly FrontendOptions _frontendOptions;
 
-        public AuthController(IAuthService authService, IOptions<MyCookiesOptions> cookiesOptions)
+        public AuthController(IAuthService authService, IOptions<MyCookiesOptions> cookiesOptions, IOptions<FrontendOptions> frontendOptions)
         {
             _authService = authService;
-            _cookiesOptions = cookiesOptions;
+            _cookiesOptions = cookiesOptions.Value;
+            _frontendOptions = frontendOptions.Value;
         }
 
         /// <summary>
@@ -53,7 +56,7 @@ namespace UserService.WebApi.Controllers
         public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
         {
             var tokens = await _authService.Login(user.Email, user.Password);
-            HttpContext.Response.Cookies.Append(_cookiesOptions.Value.TokenFieldName, tokens.JwtToken);
+            HttpContext.Response.Cookies.Append(_cookiesOptions.TokenFieldName, tokens.JwtToken);
             return Ok(new LoginResponse{ RefreshToken = tokens.RefreshToken });
         }
 
@@ -81,7 +84,7 @@ namespace UserService.WebApi.Controllers
         public async Task<IActionResult> Verify(string token)
         {
             await _authService.Verify(token);
-            return Ok();
+            return Redirect($"{_frontendOptions.BaseUrl}/login");
         }
 
         /// <summary>
@@ -99,6 +102,19 @@ namespace UserService.WebApi.Controllers
         {
             await _authService.ForgotPassword(email);
             return Accepted();
+        }
+
+        /// <summary>
+        /// Reset password redirection(you don't call it). It's called when user follow the link from his inbox. Then he goes to your /reset-password page with token field in URL.
+        /// </summary>
+        /// <param name="token">Reset token</param>
+        /// <response code="302">Redirection</response>
+        [HttpGet("reset-password/redirect")]
+        [ProducesResponseType((int)HttpStatusCode.Redirect)]
+        public IActionResult RedirectToResetPassword(string token)
+        {
+            var frontendUrl = $"{_frontendOptions.BaseUrl}/reset-password?token={token}";
+            return Redirect(frontendUrl);
         }
 
         /// <summary>
@@ -133,7 +149,7 @@ namespace UserService.WebApi.Controllers
         public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
         {
             var newToken = await _authService.GetNewToken(request.AccessToken, request.RefreshToken);
-            HttpContext.Response.Cookies.Append(_cookiesOptions.Value.TokenFieldName, newToken);
+            HttpContext.Response.Cookies.Append(_cookiesOptions.TokenFieldName, newToken);
             return Ok();
         }
 
@@ -152,6 +168,25 @@ namespace UserService.WebApi.Controllers
         {
             var userId = HttpContext.GetUserId();
             await _authService.RevokeRefreshToken(userId);
+            return Ok();
+        }
+
+        /// <summary>
+        /// It's for NGINX
+        /// </summary>
+        /// <response code="200">Success</response>
+        /// <response code="401">Unathorized</response>
+        [HttpGet("verify-request")]
+        [Authorize]
+        public IActionResult VerifyToken()
+        {
+            var userClaims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
+
+            foreach (var claim in userClaims)
+            {
+                Response.Headers.Append($"X-Claim-{claim.Type}", claim.Value);
+            }
+
             return Ok();
         }
     }

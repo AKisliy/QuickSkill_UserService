@@ -1,4 +1,3 @@
-using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using UserService.Core.Exceptions;
@@ -11,13 +10,11 @@ namespace UserService.Application.Services
 {
         
     public class UsersService(
-        IUserRepository repository, 
-        IMapper mapper, 
+        IUserRepository repository,
         IImageProvider imageProvider,
         IMediator mediator) : IUsersService
     {
         private readonly IImageProvider _imageProvider = imageProvider;
-        private readonly IMapper _mapper = mapper;
         private readonly IUserRepository _repository = repository;
         private readonly IMediator _mediator = mediator;
 
@@ -219,6 +216,39 @@ namespace UserService.Application.Services
             user.Photo = newLink;
             await _repository.Update(user);
             await _mediator.Publish(new UserChangedNotification(user));
+        }
+
+        public async Task DeleteUserPhoto(int id)
+        {
+            var user = await _repository.GetUserById(id);
+            // here should probably be real deletion from disk. 
+            user.Photo = _imageProvider.GetRandomSampleImage();
+            await _repository.Update(user);
+            await _mediator.Publish(new UserChangedNotification(user));
+        }
+
+        public async Task SetGoalText(int id, string text)
+        {
+            var user = await _repository.GetUserById(id);
+            user.GoalText = text;
+            await _repository.Update(user);
+        }
+
+        public async Task SetGoalDays(int id, int daysCnt)
+        {
+            if(daysCnt <= 0 || daysCnt > 7)
+                throw new BadRequestException("Goal's days count must be in [1,7]");
+            var user = await _repository.GetUserById(id);
+            user.GoalDays = daysCnt;
+            await _repository.Update(user);
+        }
+
+        public async Task DeleteGoalTextAndDays(int id)
+        {
+            var user = await _repository.GetUserById(id);
+            user.GoalText = null;
+            user.GoalDays = null;
+            await _repository.Update(user);
         }
     }
 }

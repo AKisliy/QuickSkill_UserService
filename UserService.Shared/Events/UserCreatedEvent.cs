@@ -12,6 +12,6 @@ namespace Shared
 
         public string Username { get; set; } = null!;
 
-        public string Photo { get; set; } = null!;
+        public string? Photo { get; set; }
     }
 }

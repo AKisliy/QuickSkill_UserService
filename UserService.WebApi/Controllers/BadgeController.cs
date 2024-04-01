@@ -10,7 +10,7 @@ using UserService.WebApi.Extensions;
 namespace UserService.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/badges")]
+    [Route("api/userservice/badges")]
     public class BadgeController : ControllerBase
     {
         private IBadgeService _service;

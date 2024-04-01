@@ -38,6 +38,13 @@
             <response code="202">Email sent to mailbox</response>
             <response code="404">No user with this email</response>
         </member>
+        <member name="M:UserService.WebApi.Controllers.AuthController.RedirectToResetPassword(System.String)">
+            <summary>
+            Reset password redirection(you don't call it). It's called when user follow the link from his inbox. Then he goes to your /reset-password page with token field in URL.
+            </summary>
+            <param name="token">Reset token</param>
+            <response code="302">Redirection</response>
+        </member>
         <member name="M:UserService.WebApi.Controllers.AuthController.ResetPassword(System.String,System.String)">
             <summary>
             Reset password
@@ -64,6 +71,13 @@
             <response code="200">Success</response>
             <response code="400">Bad JWT</response>
             <response code="500">Server problems :(</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.AuthController.VerifyToken">
+            <summary>
+            It's for NGINX
+            </summary>
+            <response code="200">Success</response>
+            <response code="401">Unathorized</response>
         </member>
         <member name="M:UserService.WebApi.Controllers.BadgeController.GetAllBadgesForUser">
             <summary>
@@ -126,7 +140,7 @@
         </member>
         <member name="M:UserService.WebApi.Controllers.UserController.GetUsers">
             <summary>
-            Get all users
+            Get all users (just for testing purposes)
             </summary>
             <returns>List of UserResponse</returns>
             <response code="200">Success</response>
@@ -142,7 +156,7 @@
         </member>
         <member name="M:UserService.WebApi.Controllers.UserController.GetUserById(System.Int32)">
             <summary>
-            Get user by Id
+            Get user by Id (u may use it, when u need to get information about different user, not current)
             </summary>
             <returns>UserResponse</returns>
             <response code="200">Success</response>
@@ -228,6 +242,41 @@
             Set new photo to the user
             </summary>
             <param name="file">New photo</param>
+            <response code="200">Success</response>
+            <response code="404">User with this id wasn't found</response>
+            <response code="500">Something bad happened :(</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.UserController.DeleteUserPhoto">
+            <summary>
+            Delete user photo. New sample photo will be placed automatically.
+            </summary>
+            <response code="200">Success</response>
+            <response code="404">User with this id wasn't found</response>
+            <response code="500">Something bad happened :(</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.UserController.SetUserGoalText(System.String)">
+            <summary>
+            Set new goal text to the user
+            </summary>
+            <param name="newGoal">Text of new goal</param>
+            <response code="200">Success</response>
+            <response code="404">User with this id wasn't found</response>
+            <response code="500">Something bad happened :(</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.UserController.SetUserGoalDays(System.Int32)">
+            <summary>
+            Set new goal's days amount to the user
+            </summary>
+            <param name="daysCount">Count of days per week (should be in [1,7]) </param>
+            <response code="200">Success</response>
+            <response code="404">User with this id wasn't found</response>
+            <response code="500">Something bad happened :(</response>
+        </member>
+        <member name="M:UserService.WebApi.Controllers.UserController.DeleteUserGoal">
+            <summary>
+            Remove user's goal text and days (pay attention, that if we remove either only text or only days - both fields will be removed, 
+            because days without text make no sense as well as text without days)
+            </summary>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
             <response code="500">Something bad happened :(</response>

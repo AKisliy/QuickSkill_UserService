@@ -18,6 +18,7 @@ namespace UserService.Application.Services
         private readonly IEmailSender _sender;
         private readonly IBadgeRepository _badgeRepository;
         private readonly IMediator _mediator;
+        private readonly IImageProvider _imageProvider;
         private readonly IPasswordHasher _hasher;
 
         public AuthService(
@@ -26,6 +27,7 @@ namespace UserService.Application.Services
             IPasswordHasher hasher, 
             IJwtProvider provider, 
             IEmailSender sender, 
+            IImageProvider imageProvider,
             IMediator mediator)
         {
             _hasher = hasher;
@@ -34,6 +36,7 @@ namespace UserService.Application.Services
             _sender = sender;
             _badgeRepository = badgeRepository;
             _mediator = mediator;
+            _imageProvider = imageProvider;
         }
 
         public async Task<TokensLogin> Login(string email, string password)
@@ -51,11 +54,12 @@ namespace UserService.Application.Services
 
         public async Task Register(string firstName, string lastName, string email, string password)
         {
-            var username = Generator.GenerateUsername(firstName, lastName, email);
-            User user = User.Create(firstName, lastName, username, email, _hasher.Generate(password));
             var find = await _userRepository.HasUserWithEmail(email);
             if(find)
                 throw new ConflictException("User with this email already exists");
+            var username = Generator.GenerateUsername(firstName, lastName, email);
+            User user = User.Create(firstName, lastName, username, email, _hasher.Generate(password));
+            user.Photo = _imageProvider.GetRandomSampleImage();
 
             var token = Generator.GenerateVerificationToken();
             while(!await _userRepository.IsUniqueVerificationToken(token))
@@ -78,7 +82,6 @@ namespace UserService.Application.Services
             var token = Generator.GenerateVerificationToken();
             while(!await _userRepository.IsUniqueResetToken(token))
                 token = Generator.GenerateVerificationToken();
-
             await _sender.SendResetEmail(email, token);
             await _userRepository.SetResetToken(user.Id, token, DateTime.UtcNow.AddDays(1));
         }

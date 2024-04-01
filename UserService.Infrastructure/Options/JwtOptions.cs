@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Localization;
-
 namespace UserService.Infrastructure
 {
     public class JwtOptions
