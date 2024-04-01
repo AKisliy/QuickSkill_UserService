@@ -1,2 +1,5 @@
 /certs
 /Dockerfile
+/UserService.WebApi/*.json
+/UserService.WebApi/*.http
+/.vscode

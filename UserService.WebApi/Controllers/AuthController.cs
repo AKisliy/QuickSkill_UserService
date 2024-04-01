@@ -84,7 +84,7 @@ namespace UserService.WebApi.Controllers
         public async Task<IActionResult> Verify(string token)
         {
             await _authService.Verify(token);
-            return Redirect($"{_frontendOptions.BaseUrl}/login");
+            return Redirect($"{_frontendOptions.BaseUrl}/swagger");
         }
 
         /// <summary>
@@ -186,7 +186,6 @@ namespace UserService.WebApi.Controllers
             {
                 Response.Headers.Append($"X-Claim-{claim.Type}", claim.Value);
             }
-
             return Ok();
         }
     }
