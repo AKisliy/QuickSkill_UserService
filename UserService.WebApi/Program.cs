@@ -1,6 +1,4 @@
 using System.Reflection;
-using EventBus.RabbitMQ.Standard.Configuration;
-using EventBus.RabbitMQ.Standard.Options;
 using Microsoft.EntityFrameworkCore;
 using UserService.Application.Services;
 using UserService.Core.Interfaces;

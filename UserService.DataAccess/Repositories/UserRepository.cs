@@ -195,8 +195,10 @@ namespace UserService.DataAccess.Repositories
                 ActivityType = "Active"
             };
             await _context.UsersActivities.AddAsync(userActivity);
-            await _context.Users.Where(u => u.Id == id).ExecuteUpdateAsync(s =>
-                s.SetProperty(s => s.Streak, s => s.Streak + 1));
+            await _context.Users.Where(u => u.Id == id).ExecuteUpdateAsync(s => s
+                .SetProperty(s => s.Streak, s => s.Streak + 1)
+                .SetProperty(s => s.MaxStreak, s => s.Streak + 1 > s.MaxStreak ? s.Streak + 1 : s.MaxStreak)
+            );
             await _context.SaveChangesAsync();
         }
 
@@ -249,6 +251,41 @@ namespace UserService.DataAccess.Repositories
                 .OrderBy(ua => ua.ActivityDate)
                 .Select(ua => _mapper.Map<UserActivity>(ua))
                 .ToListAsync();
+        }
+
+        public async Task IncreaseUserHearts(int id, int cnt = 1)
+        {
+            // logic without exception handling
+            await _context.Users.Where(u => u.Id == id).ExecuteUpdateAsync(u => u
+                .SetProperty(u => u.Hearts, u => u.Hearts + cnt >= 5 ? 5 : u.Hearts + cnt));
+        }
+
+        public async Task DecreaseUserHearts(int id, int cnt = 1)
+        {
+            // logic without exception handling
+            await _context.Users.Where(u => u.Id == id).ExecuteUpdateAsync(u => u
+                .SetProperty(u => u.Hearts, u => u.Hearts <= cnt ? 0 : u.Hearts - cnt));
+        }
+
+        public async Task IncreaseUserFreezers(int id, int cnt = 1)
+        {
+            // logic without exception handling
+            await _context.Users.Where(u => u.Id == id).ExecuteUpdateAsync(u => u
+                .SetProperty(u => u.Freezer, u => u.Freezer + cnt));
+        }
+
+        public async Task IncreaseUserCrystalls(int id, int cnt = 1)
+        {
+            // logic without exception handling
+            await _context.Users.Where(u => u.Id == id).ExecuteUpdateAsync(u => u
+                .SetProperty(u => u.Crystall, u => u.Crystall + cnt));
+        }
+
+        public async Task DecreaseUserCrystall(int id, int cnt = 1)
+        {
+            // logic without exceptions handling
+            await _context.Users.Where(u => u.Id == id).ExecuteUpdateAsync(u => u
+                .SetProperty(u => u.Crystall, u => u.Crystall - cnt > 0 ? u.Crystall - cnt : 0));
         }
 
         public async Task<bool> HasUserWithId(int id)

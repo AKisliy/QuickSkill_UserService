@@ -44,7 +44,6 @@ namespace UserService.Application.Services
             var result = _hasher.Verify(password, user.Password);
             if(!result)
                 throw new CredentialsException("Password is incorrect");
-            await _mediator.Publish(new UserCreatedNotification(user));
             var refreshToken = _provider.GenerateRefreshToken();
             await _userRepository.SetRefreshToken(user.Id, refreshToken, DateTime.UtcNow.AddDays(7));
             return new TokensLogin{ JwtToken = _provider.GenerateToken(user), RefreshToken = refreshToken };

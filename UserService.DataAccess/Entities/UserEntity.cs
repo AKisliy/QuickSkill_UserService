@@ -44,7 +44,13 @@ namespace UserService.DataAccess.Entities
 
         public int Streak { get; set; }
 
+        public int MaxStreak { get; set; }
+
+        public int Crystall { get; set; }
+
         public bool IsBot { get; set; }
+
+        public short Hearts { get; set; }
 
         public string? RefreshToken { get; set; }
 
@@ -53,5 +59,5 @@ namespace UserService.DataAccess.Entities
         public virtual ICollection<UserBadgeEntity> UserBadges { get; set; } = new List<UserBadgeEntity>();
 
         public virtual ICollection<UserActivityEntity> UserActivities { get; set; } = new List<UserActivityEntity>();
-    }   
+    }
 }

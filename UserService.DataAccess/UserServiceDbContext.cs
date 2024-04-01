@@ -114,6 +114,18 @@ namespace UserService.DataAccess
                 entity.Property(e => e.Streak)
                     .HasColumnName("streak")
                     .HasDefaultValue(0);
+
+                entity.Property(e => e.Hearts)
+                    .HasColumnName("hearts")
+                    .HasDefaultValue(5);
+
+                entity.Property(e => e.MaxStreak)
+                    .HasColumnName("maxstreak")
+                    .HasDefaultValue(0);
+
+                entity.Property(e => e.Crystall)
+                    .HasColumnName("crystall")
+                    .HasDefaultValue(0);
             });
 
             modelBuilder.Entity<UserBadgeEntity>(entity =>

@@ -53,5 +53,15 @@ namespace UserService.Core.Interfaces
         public Task AddBots(List<User> bots);
 
         public Task AddBot(User bot);
+
+        public Task IncreaseUserHearts(int id, int cnt = 1);
+
+        public Task DecreaseUserHearts(int id, int cnt = 1);
+
+        public Task IncreaseUserFreezers(int id, int cnt = 1);
+
+        public Task IncreaseUserCrystalls(int id, int cnt = 1);
+
+        public Task DecreaseUserCrystall(int id, int cnt = 1);
     }
 }

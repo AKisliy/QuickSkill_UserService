@@ -40,6 +40,14 @@ namespace UserService.Core.Models
 
         public int Streak { get; set; }
 
+        public int MaxStreak { get; set; }
+
+        public int Freezer { get; set; }
+
+        public short Hearts { get; set; }
+
+        public int Crystall { get; set; }
+
         public DateTime? VerifiedAt { get; set; }
 
         public string? RefreshToken { get; set; }

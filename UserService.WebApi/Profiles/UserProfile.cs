@@ -11,8 +11,7 @@ namespace UserService.WebApi.Profiles
     {
         public UserProfile()
         {
-            CreateMap<User, UserResponse>()
-                .ForMember(x => x.Id, o => o.MapFrom(src => src.Id));
+            CreateMap<User, UserResponse>();
             CreateMap<UserRegisterRequest, User>()
                 .ForMember(x => x.Username, o => o.MapFrom(src => Generator.GenerateUsername(src.Firstname, src.Lastname, src.Email)));
             CreateMap<UserEntity, User>();
