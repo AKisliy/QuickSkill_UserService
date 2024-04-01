@@ -17,11 +17,19 @@ namespace UserService.WebApi.Profiles
             CreateMap<UserEntity, User>();
             CreateMap<User, UserEntity>()
                 .ForMember(x => x.UserBadges, o => o.Ignore())
-                .ForMember(x => x.UserActivities, o => o.Ignore());
+                .ForMember(x => x.UserActivities, o => o.Ignore())
+                .ForMember(x => x.VerifiedAt, o => o.MapFrom(src => src.VerifiedAt.HasValue
+                                              ? DateTime.SpecifyKind(src.VerifiedAt.Value, DateTimeKind.Utc)
+                                              : (DateTime?)null))
+                .ForMember(x => x.RefreshTokenExpires, o => o.MapFrom(src => src.RefreshTokenExpires.HasValue
+                                              ? DateTime.SpecifyKind(src.RefreshTokenExpires.Value, DateTimeKind.Utc)
+                                              : (DateTime?)null));
+
             CreateMap<User, OtherUserResponse>();
             CreateMap<User, UserCreatedEvent>()
                 .ForMember(x => x.UserId, o => o.MapFrom(src => src.Id));
             CreateMap<Bot, User>();
+            CreateMap<User, UserChangedEvent>();
         }
     }
 }

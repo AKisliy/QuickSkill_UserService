@@ -78,3 +78,6 @@
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/MediatR.Contracts.dll
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.Shared.dll
 /Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/UserService.Shared.pdb
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/System.Net.Http.Formatting.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll
+/Users/alexeykiselev/UserService/UserService.WebApi/bin/Debug/net8.0/YandexDisk.Client.dll

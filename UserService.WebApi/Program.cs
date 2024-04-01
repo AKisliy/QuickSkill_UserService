@@ -31,6 +31,7 @@ builder.Services.AddControllers();
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
 builder.Services.Configure<MyCookiesOptions>(builder.Configuration.GetSection(nameof(MyCookiesOptions)));
 builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(nameof(EmailOptions)));
+builder.Services.Configure<YandexDiskOptions>(builder.Configuration.GetSection(nameof(YandexDiskOptions)));
 
 builder.Services.AddApiAuthentication(builder.Configuration);
 
@@ -43,6 +44,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IImageProvider, ImageProvider>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

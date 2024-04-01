@@ -242,7 +242,7 @@ namespace UserService.WebApi.Controllers
         /// <summary>
         /// Set new photo to the user
         /// </summary>
-        /// <param name="photoUrl">New photo url</param>
+        /// <param name="file">New photo</param>
         /// <response code="200">Success</response>
         /// <response code="404">User with this id wasn't found</response>
         /// <response code="500">Something bad happened :(</response>
@@ -251,10 +251,10 @@ namespace UserService.WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
-        public async Task<IActionResult> SetUserPhoto([Required]string photoUrl)
+        public async Task<IActionResult> SetUserPhoto([Required]IFormFile file)
         {
             int id = HttpContext.GetUserId();
-            await _usersService.SetUserPhoto(id, photoUrl);
+            await _usersService.SetUserPhoto(id, file);
             return Ok();
         }
 

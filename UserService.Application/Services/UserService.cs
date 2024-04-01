@@ -1,14 +1,25 @@
 using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using UserService.Core.Exceptions;
 using UserService.Core.Interfaces;
+using UserService.Core.Interfaces.Infrastructure;
 using UserService.Core.Models;
+using UserService.Core.Notifications;
 
 namespace UserService.Application.Services
 {
-    public class UsersService(IUserRepository repository, IMapper mapper) : IUsersService
+        
+    public class UsersService(
+        IUserRepository repository, 
+        IMapper mapper, 
+        IImageProvider imageProvider,
+        IMediator mediator) : IUsersService
     {
+        private readonly IImageProvider _imageProvider = imageProvider;
         private readonly IMapper _mapper = mapper;
         private readonly IUserRepository _repository = repository;
+        private readonly IMediator _mediator = mediator;
 
         public async Task<IEnumerable<User>> GetAllUsers()
         {
@@ -164,22 +175,31 @@ namespace UserService.Application.Services
         public async Task SetUserFirstName(int id, string newName)
         {
             var user = await _repository.GetUserById(id);
+            if(user.FirstName == newName)
+                return;
             user.FirstName = newName;
             await _repository.Update(user);
+            await _mediator.Publish(new UserChangedNotification(user));
         }
 
         public async Task SetUserLastName(int id, string newLastName)
         {
             var user = await _repository.GetUserById(id);
+            if(user.LastName == newLastName)
+                return;
             user.LastName = newLastName;
             await _repository.Update(user);
+            await _mediator.Publish(new UserChangedNotification(user));
         }
 
         public async Task SetUserUsername(int id, string newUserName)
         {
             var user = await _repository.GetUserById(id);
+            if(user.Username == newUserName)
+                return;
             user.Username = newUserName;
             await _repository.Update(user);
+            await _mediator.Publish(new UserChangedNotification(user));
         }
 
         public async Task SetUserDescription(int id, string descritption)
@@ -189,11 +209,13 @@ namespace UserService.Application.Services
             await _repository.Update(user);
         }
 
-        public async Task SetUserPhoto(int id, string photoUrl)
+        public async Task SetUserPhoto(int id, IFormFile file)
         {
             var user = await _repository.GetUserById(id);
-            user.Photo = photoUrl;
+            var newLink = await _imageProvider.UploadFileAsync(file, user.Id);
+            user.Photo = newLink;
             await _repository.Update(user);
+            await _mediator.Publish(new UserChangedNotification(user));
         }
     }
 }

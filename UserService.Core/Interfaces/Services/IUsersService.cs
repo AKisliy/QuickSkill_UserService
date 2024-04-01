@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserService.Core.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace UserService.Core.Interfaces
 {
@@ -35,6 +36,6 @@ namespace UserService.Core.Interfaces
 
         public Task SetUserDescription(int id, string descritption);
 
-        public Task SetUserPhoto(int id, string photoUrl);
+        public Task SetUserPhoto(int id, IFormFile file);
     }
 }

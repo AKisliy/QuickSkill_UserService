@@ -106,7 +106,6 @@ namespace UserService.DataAccess.Repositories
         public async Task<int> Update(User user)
         {
             var entity = _mapper.Map<UserEntity>(user);
-            entity.RefreshTokenExpires = user.RefreshTokenExpires;
             _context.Users.Update(entity);
             await _context.SaveChangesAsync();
             return user.Id;

@@ -223,11 +223,11 @@
             <response code="404">User with this id wasn't found</response>
             <response code="500">Something bad happened :(</response>
         </member>
-        <member name="M:UserService.WebApi.Controllers.UserController.SetUserPhoto(System.String)">
+        <member name="M:UserService.WebApi.Controllers.UserController.SetUserPhoto(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             Set new photo to the user
             </summary>
-            <param name="photoUrl">New photo url</param>
+            <param name="file">New photo</param>
             <response code="200">Success</response>
             <response code="404">User with this id wasn't found</response>
             <response code="500">Something bad happened :(</response>
