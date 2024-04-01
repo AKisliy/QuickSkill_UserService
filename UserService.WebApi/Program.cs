@@ -32,6 +32,7 @@ builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(J
 builder.Services.Configure<MyCookiesOptions>(builder.Configuration.GetSection(nameof(MyCookiesOptions)));
 builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(nameof(EmailOptions)));
 builder.Services.Configure<YandexDiskOptions>(builder.Configuration.GetSection(nameof(YandexDiskOptions)));
+builder.Services.Configure<RabbitMQOptions>(builder.Configuration.GetSection(nameof(RabbitMQOptions)));
 
 builder.Services.AddApiAuthentication(builder.Configuration);
 
@@ -54,7 +55,19 @@ builder.Services.AddProblemDetails();
 
 // builder.Services.AddRabbitMqConnection(rabbitMqOptins);
 // builder.Services.AddRabbitMqRegistration(rabbitMqOptins);
-builder.Services.AddMassTransitWithRabbitMQ();
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowSpecificOrigin",
+            builder =>
+            {
+                builder.WithOrigins("http://localhost:3000") // Specify the origin of your client application
+                       .AllowAnyHeader()
+                       .AllowAnyMethod();
+            });
+    }
+);
+
+builder.Services.AddMassTransitWithRabbitMQ(builder.Configuration);
 
 var app = builder.Build();
 
@@ -64,6 +77,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("InDocker")
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowSpecificOrigin");
 app.UseExceptionHandler();
 app.UseRouting();
 app.UseHttpsRedirection();

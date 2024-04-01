@@ -43,7 +43,10 @@ namespace UserService.Application.Services
 
         public async Task<bool> DeleteUser(int id)
         {
-            return await _repository.Delete(id);
+            bool res = await _repository.Delete(id);
+            if(res)
+                await _mediator.Publish(new UserDeletedNotification(id));
+            return res;
         }
 
         public async Task<bool> UpdateUserXp(int id, int xp)

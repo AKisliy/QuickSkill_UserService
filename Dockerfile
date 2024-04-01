@@ -8,6 +8,7 @@ COPY UserService.Infrastructure/*.csproj ./UserService.Infrastructure/
 COPY UserService.Core/*.csproj ./UserService.Core/
 COPY UserService.Application/*.csproj ./UserService.Application/
 COPY UserService.DataAccess/*.csproj ./UserService.DataAccess/
+COPY UserService.Shared/*.csproj ./UserService.Shared/
 RUN dotnet restore
 
 
