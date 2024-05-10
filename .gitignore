@@ -1,0 +1,5 @@
+/certs
+/Dockerfile
+/UserService.WebApi/appsettings.json
+/UserService.WebApi/appsettings.Development.json
+/UserService.WebApi/appsettings.InDocker.json

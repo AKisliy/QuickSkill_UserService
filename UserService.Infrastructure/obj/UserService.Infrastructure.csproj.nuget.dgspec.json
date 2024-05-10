@@ -4,6 +4,69 @@
     "/Users/alexeykiselev/UserService/UserService.Infrastructure/UserService.Infrastructure.csproj": {}
   },
   "projects": {
+    "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj",
+        "projectName": "UserService.Core",
+        "projectPath": "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj",
+        "packagesPath": "/Users/alexeykiselev/.nuget/packages/",
+        "outputPath": "/Users/alexeykiselev/UserService/UserService.Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/alexeykiselev/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.2.0, )"
+            },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/8.0.1/libexec/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Users/alexeykiselev/UserService/UserService.Infrastructure/UserService.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -12,6 +75,100 @@
         "projectPath": "/Users/alexeykiselev/UserService/UserService.Infrastructure/UserService.Infrastructure.csproj",
         "packagesPath": "/Users/alexeykiselev/.nuget/packages/",
         "outputPath": "/Users/alexeykiselev/UserService/UserService.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/alexeykiselev/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj": {
+                "projectPath": "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj"
+              },
+              "/Users/alexeykiselev/UserService/UserService.Shared/UserService.Shared.csproj": {
+                "projectPath": "/Users/alexeykiselev/UserService/UserService.Shared/UserService.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "EventBus.RabbitMQ.Standard": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.4.0, )"
+            },
+            "MassTransit": {
+              "target": "Package",
+              "version": "[8.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "YandexDisk.Client": {
+              "target": "Package",
+              "version": "[1.3.27, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/8.0.1/libexec/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/alexeykiselev/UserService/UserService.Shared/UserService.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/alexeykiselev/UserService/UserService.Shared/UserService.Shared.csproj",
+        "projectName": "UserService.Shared",
+        "projectPath": "/Users/alexeykiselev/UserService/UserService.Shared/UserService.Shared.csproj",
+        "packagesPath": "/Users/alexeykiselev/.nuget/packages/",
+        "outputPath": "/Users/alexeykiselev/UserService/UserService.Shared/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/alexeykiselev/.nuget/NuGet/NuGet.Config"

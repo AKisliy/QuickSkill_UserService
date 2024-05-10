@@ -1,0 +1,13 @@
+/Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/UserService.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/UserService.Core.AssemblyInfoInputs.cache
+/Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/UserService.Core.AssemblyInfo.cs
+/Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/UserService.Core.csproj.CoreCompileInputs.cache
+/Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/UserService.Core.sourcelink.json
+/Users/alexeykiselev/UserService/UserService.Core/bin/Debug/net8.0/UserService.Core.deps.json
+/Users/alexeykiselev/UserService/UserService.Core/bin/Debug/net8.0/UserService.Core.dll
+/Users/alexeykiselev/UserService/UserService.Core/bin/Debug/net8.0/UserService.Core.pdb
+/Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/UserService.Core.dll
+/Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/refint/UserService.Core.dll
+/Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/UserService.Core.pdb
+/Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/ref/UserService.Core.dll
+/Users/alexeykiselev/UserService/UserService.Core/obj/Debug/net8.0/UserService.Core.csproj.AssemblyReference.cache

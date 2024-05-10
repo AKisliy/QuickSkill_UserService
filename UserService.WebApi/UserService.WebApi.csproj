@@ -5,15 +5,28 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="8.0.0" />
+    <PackageReference Include="EventBus.RabbitMQ.Standard" Version="3.1.0" />
+    <PackageReference Include="MassTransit" Version="8.2.0" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
+    <PackageReference Include="Masstransit.RabbitMq" Version="8.2.0" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UserService.Application\UserService.Application.csproj" />
+    <ProjectReference Include="..\UserService.Core\UserService.Core.csproj" />
+    <ProjectReference Include="..\UserService.DataAccess\UserService.DataAccess.csproj" />
+    <ProjectReference Include="..\UserService.Infrastructure\UserService.Infrastructure.csproj" />
+    <ProjectReference Include="..\UserService.Shared\UserService.Shared.csproj" />
   </ItemGroup>
 
 </Project>

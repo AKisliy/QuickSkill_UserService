@@ -1,8 +1,25 @@
 {
   "version": 2,
-  "dgSpecHash": "reocZdG9BWTaBi9OgNWCO0VfJjHo3/As/JQhjvH9wX9PvwHBahZl8XUKExeYaXaNNzuSUZLnrGSl6eiKHDDrqw==",
+  "dgSpecHash": "vV14w3twXg4/w+S9MIGQWw5esgphOXLIWMyaJt9qDBnwM1mw2q/W0jP/aCSr3JZ4dvzs5leHBHKKAhMVdpF4eQ==",
   "success": true,
   "projectFilePath": "/Users/alexeykiselev/UserService/UserService.Core/UserService.Core.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/alexeykiselev/.nuget/packages/mediatr/12.2.0/mediatr.12.2.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.aspnetcore.http/2.2.2/microsoft.aspnetcore.http.2.2.2.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.aspnetcore.http.abstractions/2.2.0/microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.aspnetcore.http.features/2.2.0/microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.aspnetcore.webutilities/2.2.0/microsoft.aspnetcore.webutilities.2.2.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.objectpool/2.2.0/microsoft.extensions.objectpool.2.2.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.options/2.2.0/microsoft.extensions.options.2.2.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.extensions.primitives/2.2.0/microsoft.extensions.primitives.2.2.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/microsoft.net.http.headers/2.2.0/microsoft.net.http.headers.2.2.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/system.buffers/4.5.0/system.buffers.4.5.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/system.componentmodel.annotations/4.5.0/system.componentmodel.annotations.4.5.0.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/system.memory/4.5.1/system.memory.4.5.1.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/system.runtime.compilerservices.unsafe/4.5.1/system.runtime.compilerservices.unsafe.4.5.1.nupkg.sha512",
+    "/Users/alexeykiselev/.nuget/packages/system.text.encodings.web/4.5.0/system.text.encodings.web.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }
